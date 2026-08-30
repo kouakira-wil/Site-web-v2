@@ -20,60 +20,9 @@
                                     <li>
                                         <a href="{{ route('about') }}">L’école</a>
                                     </li>
-                                    <li class="has-dropdown">
-                                        <a href="#">Formations</a>
-                                        <div class="at-submenu submenu at-megamenu">
-                                            <div class="flex flex-wrap -mx-3 [&>*]:px-3">
-                                                <div class="w-full xl:w-1/3 col-xl-4">
-                                                    <div class="at-megamenu-box">
-                                                        <div class="at-megamenu-title-wrap">
-                                                            <span class="at-megamenu-title">Nos cycles</span>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
-                                                                <path d="M10.0208 3.41421L1.41421 12.0208L0 10.6066L8.60659 2H1.02082V0H12.0208V11H10.0208V3.41421Z" fill="currentColor" />
-                                                            </svg>
-                                                        </div>
-                                                        <ul>
-                                                            <li><a href="{{ route('projects.index') }}">CAP</a></li>
-                                                            <li><a href="{{ route('projects.index') }}">Cycle BTS (BAC +2)</a></li>
-                                                            <li><a href="{{ route('projects.index') }}">Cycle Licence (BAC +3)</a></li>
-                                                            <li><a href="{{ route('projects.index') }}">Cycle Master (BAC +5)</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="w-full xl:w-1/3 col-xl-4">
-                                                    <div class="at-megamenu-box">
-                                                        <div class="at-megamenu-title-wrap">
-                                                            <span class="at-megamenu-title">Nos pôles</span>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
-                                                                <path d="M10.0208 3.41421L1.41421 12.0208L0 10.6066L8.60659 2H1.02082V0H12.0208V11H10.0208V3.41421Z" fill="currentColor" />
-                                                            </svg>
-                                                        </div>
-                                                        <ul>
-                                                            <li><a href="{{ route('projects.index') }}">Pôle Technologie</a></li>
-                                                            <li><a href="{{ route('projects.index') }}">Pôle Gestion</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="w-full xl:w-1/3 col-xl-4">
-                                                    <div class="at-megamenu-box">
-                                                        <div class="at-megamenu-title-wrap">
-                                                            <span class="at-megamenu-title">L’école</span>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
-                                                                <path d="M10.0208 3.41421L1.41421 12.0208L0 10.6066L8.60659 2H1.02082V0H12.0208V11H10.0208V3.41421Z" fill="currentColor" />
-                                                            </svg>
-                                                        </div>
-                                                        <ul>
-                                                            <li><a href="{{ route('about') }}">Présentation</a></li>
-                                                            <li><a href="{{ route('team') }}">Équipe pédagogique</a></li>
-                                                            <li><a href="{{ route('posts.index') }}">Vie étudiante</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
+                                    <x-site.filieres-menu />
                                     <li>
-                                        <a href="{{ route('projects.index') }}">Filières</a>
+                                        <a href="{{ route('team') }}">Équipe</a>
                                     </li>
                                     <li>
                                         <a href="{{ route('posts.index') }}">Actualités</a>

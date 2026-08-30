@@ -9,6 +9,8 @@ use App\Models\Cycle;
 use App\Models\Project;
 use App\Models\ProjectImage;
 use Illuminate\Contracts\View\View;
+use App\View\Components\Site\FilieresMenu;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -149,6 +151,10 @@ class ProjectForm extends Component
 
         $project->save();
         $project->cycles()->sync($data['selectedCycles']);
+
+        // sync() ne déclenche pas d'événement de modèle : on vide le cache du
+        // méga-menu explicitement, sinon un changement de cycle n'y paraîtrait pas.
+        Cache::forget(FilieresMenu::CACHE_KEY);
 
         $this->storeGalleryUploads($project);
 

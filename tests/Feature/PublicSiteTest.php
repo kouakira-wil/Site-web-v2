@@ -73,6 +73,44 @@ class PublicSiteTest extends TestCase
         $response->assertDontSee('Filière confidentielle');
     }
 
+
+    public function test_the_header_lists_filieres_by_cycle_in_a_mega_menu(): void
+    {
+        $bts = Cycle::query()->create(['name' => 'Cycle BTS', 'short_label' => 'BAC +2', 'position' => 1]);
+        $filiere = Project::factory()->create(['title' => 'Genie Informatique']);
+        $filiere->cycles()->attach($bts);
+
+        $response = $this->get(route('home'));
+
+        $response->assertOk();
+        // « Filières » est le seul menu déroulant du site.
+        $this->assertSame(1, substr_count($response->getContent(), 'class="has-dropdown"'));
+        $response->assertSee('Genie Informatique');
+    }
+
+    public function test_the_filieres_menu_stays_a_plain_link_without_content(): void
+    {
+        $response = $this->get(route('home'));
+
+        $response->assertOk();
+        // Sans cycle pourvu, pas de panneau vide : aucun déroulant.
+        $this->assertSame(0, substr_count($response->getContent(), 'class="has-dropdown"'));
+    }
+
+    public function test_publishing_a_filiere_refreshes_the_menu(): void
+    {
+        $bts = Cycle::query()->create(['name' => 'Cycle BTS', 'short_label' => 'BAC +2', 'position' => 1]);
+        $filiere = Project::factory()->create(['title' => 'Filiere Initiale']);
+        $filiere->cycles()->attach($bts);
+
+        $this->get(route('home'))->assertSee('Filiere Initiale');
+
+        // Le menu est mis en cache : renommer la filière doit l'invalider.
+        $filiere->update(['title' => 'Filiere Renommee']);
+
+        $this->get(route('home'))->assertSee('Filiere Renommee');
+    }
+
     public function test_draft_project_is_not_reachable(): void
     {
         $draft = Project::factory()->draft()->create();

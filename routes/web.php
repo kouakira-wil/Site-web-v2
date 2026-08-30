@@ -28,8 +28,8 @@ Route::get('/', HomeController::class)->name('home');
 
 Route::get('/l-ecole', AboutController::class)->name('about');
 
-Route::get('/realisations', [ProjectController::class, 'index'])->name('projects.index');
-Route::get('/realisations/{project:slug}', [ProjectController::class, 'show'])->name('projects.show');
+Route::get('/filieres', [ProjectController::class, 'index'])->name('projects.index');
+Route::get('/filiere/{project:slug}', [ProjectController::class, 'show'])->name('projects.show');
 
 Route::get('/journal', [PostController::class, 'index'])->name('posts.index');
 Route::get('/journal/{post:slug}', [PostController::class, 'show'])->name('posts.show');

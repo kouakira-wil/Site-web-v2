@@ -28,7 +28,7 @@ class ProjectController extends Controller
             ->paginate(9)
             ->withQueryString();
 
-        return view('site.projects.index', [
+        return view('site.filieres.index', [
             'projects' => $projects,
             // Filières regroupées par cycle, pour le bloc « tracks ».
             'cycles' => Cycle::query()
@@ -44,10 +44,15 @@ class ProjectController extends Controller
     {
         abort_unless($project->isPublished(), 404);
 
-        $project->load(['category', 'images']);
+        $project->load(['category', 'images', 'cycles']);
 
-        return view('site.projects.show', [
+        return view('site.filieres.show', [
             'project' => $project,
+            // Nombre de filières publiées dans le même pôle, pour la bande de chiffres.
+            'poleCount' => $project->category_id === null ? 0 : Project::query()
+                ->published()
+                ->where('category_id', $project->category_id)
+                ->count(),
             'related' => Project::query()
                 ->published()
                 ->where('category_id', $project->category_id)

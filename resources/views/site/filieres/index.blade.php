@@ -10,7 +10,7 @@
 @endsection
 
 @section('content')
-    @include('site.pages.projects-index')
+    @include('site.filieres.partials.index-content')
 
     <x-site.cycle-tracks
         :cycles="$cycles"
