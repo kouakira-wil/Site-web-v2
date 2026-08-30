@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Back-office stylesheet.
+ *
+ * Mirrors the Orisa template's design language (see tailwind.config.js) so the
+ * dashboard looks like the same product as the public site: DM Sans, the same
+ * neutral ramp, the #F0460E accent and the template's button metrics.
+ */
+
+@layer base {
+    :root {
+        --duration-fast: 150ms;
+        --duration-normal: 320ms;
+        --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html {
+        -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+        @apply bg-paper-warm text-ink antialiased;
+        font-size: 16px;
+        font-feature-settings: 'kern' 1, 'liga' 1;
+    }
+
+    /* The template gives headings weight 700 on the same family. */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-bold leading-tight;
+    }
+
+    /* Visible, branded focus ring rather than the UA default. */
+    :focus-visible {
+        @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-paper;
+    }
+
+    ::selection {
+        @apply bg-accent text-paper;
+    }
+}
+
+@layer components {
+    /*
+     * The template's button: small type, medium weight, wide tracking.
+     * Reproduced here rather than imported, so the dashboard does not have to
+     * load the 1 MB main.css for one rule.
+     */
+    .at-btn-base {
+        @apply inline-flex items-center justify-center gap-2 text-btn font-medium uppercase;
+        @apply px-6 py-3.5 transition-colors duration-200 disabled:opacity-50;
+    }
+
+    /* Underline that draws in from the left on hover. */
+    .link-underline {
+        @apply relative inline-block;
+    }
+
+    .link-underline::after {
+        content: '';
+        @apply absolute -bottom-0.5 left-0 h-px w-full origin-right scale-x-0 bg-current;
+        transition: transform var(--duration-normal) var(--ease-out-expo);
+    }
+
+    .link-underline:hover::after,
+    .link-underline:focus-visible::after {
+        @apply origin-left scale-x-100;
+    }
+}
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+
+    [x-cloak] {
+        display: none !important;
+    }
+}
+
+/* Respect the user's motion preference across every animated surface. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

@@ -1,0 +1,55 @@
+/*
+ * Couleurs de marque ESCAT — surcharges du gabarit.
+ *
+ * Chargée APRÈS assets/css/main.css, qui peint les boutons pleins en #1D1D1D.
+ * On ne touche qu'aux surfaces de boutons : le #1D1D1D sert aussi de couleur
+ * de texte à 133 endroits dans main.css, un remplacement global rendrait le
+ * texte bleu.
+ *
+ * Les surcharges restent à la même spécificité que les règles d'origine
+ * (0,1,0) et gagnent par l'ordre de chargement ; les variantes plus
+ * spécifiques du gabarit (fond blanc, fond orange, pilules de filtre)
+ * continuent donc de l'emporter et gardent leur teinte.
+ */
+
+:root {
+    --escat-brand: #2646D0;
+    --escat-brand-dark: #1c35a0;
+}
+
+/* Bouton plein */
+.at-btn {
+    background-color: var(--escat-brand);
+}
+
+/* Pastilles rondes qui encadrent les boutons */
+.at-btn-group .at-btn-circle {
+    background-color: var(--escat-brand);
+}
+
+/* Au survol, le groupe recolore ses trois éléments */
+.at-btn-group:hover > *:nth-child(1),
+.at-btn-group:hover > *:nth-child(2),
+.at-btn-group:hover > *:nth-child(3) {
+    background: var(--escat-brand);
+}
+
+/* État actif des filtres */
+.at-btn.active {
+    background: var(--escat-brand);
+    border-color: var(--escat-brand);
+}
+
+/* Bouton de retour en haut de page */
+.back-to-top-btn {
+    background-color: var(--escat-brand);
+}
+
+/*
+ * Variante translucide posée sur les visuels sombres : même spécificité que
+ * `.at-btn`, elle serait écrasée par la règle ci-dessus. On la rétablit avec
+ * une spécificité supérieure.
+ */
+.at-btn.at-btn-border-white {
+    background: rgba(255, 255, 255, 0.25);
+}

@@ -1,0 +1,29 @@
+@extends('layouts.site')
+
+@section('title', 'L’école — '.config('app.name'))
+@section('meta_description', 'L’ESCAT, École Supérieure de Commerce, d’Administration et de Technologie : notre histoire, nos pôles et notre équipe, à Brazzaville.')
+@section('smooth_class', 'z-index-3')
+@section('main_class', 'bg-neutral-0')
+
+@section('header')
+    @include('site.partials.header-inner')
+@endsection
+
+@section('content')
+    @include('site.about.intro')
+    @include('site.about.chiffres')
+    @include('site.about.parcours')
+    {{--
+        La section « distinctions » du gabarit attend des prix et des dates que
+        l'ESCAT ne publie pas. Le partial reste disponible dans site/about/ :
+        il suffit de le renseigner puis de l'inclure ici.
+    --}}
+    @include('site.about.equipe')
+    @include('site.about.contact')
+    @include('site.about.actualites')
+    @include('site.about.partenaires')
+@endsection
+
+@section('footer')
+    @include('site.partials.footer-inner')
+@endsection

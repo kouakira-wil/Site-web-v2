@@ -1,0 +1,64 @@
+@config "../../tailwind.site.config.js";
+
+/*
+ * Public site stylesheet.
+ *
+ * Loaded AFTER assets/css/main.css so Tailwind utilities win ties against the
+ * template's component classes. Preflight is off (see tailwind.site.config.js),
+ * so the only base rule we restore is the border-box model that Bootstrap's
+ * reboot used to provide.
+ */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/*
+ * Heading classes.
+ *
+ * The template applies `.h1`–`.h6` to non-heading elements and relies on
+ * Bootstrap for their weight and rhythm; main.css only supplies the font
+ * sizes. Without this, main.css's `h1…h6 { font-weight: 700 }` element rule
+ * takes over and headings render bolder than designed.
+ */
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Accordion, replacing Bootstrap's collapse plugin (the only Bootstrap JS
+ * component this template used). Panels are closed by default; site.js
+ * animates an explicit pixel height, then releases it to `auto` so the panel
+ * keeps reflowing if its content or the viewport changes.
+ *
+ * These classes are toggled at runtime and never appear in the Blade sources
+ * Tailwind scans, so they must live outside @layer components.
+ */
+.at-collapse {
+    overflow: hidden;
+    height: 0;
+    transition: height 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.at-collapse.is-open {
+    height: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .at-collapse {
+        transition: none;
+    }
+}
