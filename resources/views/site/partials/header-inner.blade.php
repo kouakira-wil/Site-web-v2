@@ -1,5 +1,6 @@
 <!-- header 2 area start -->
-        <div class="at-header-area at-header-spacing header-transparent">
+        {{-- Bandeau opaque : il précède le contenu au lieu de le survoler. --}}
+        <div class="at-header-area at-header-spacing header-solid">
             <div class="container">
                 <div class="!items-center flex flex-wrap -mx-3 [&>*]:px-3">
                     <div class="xl:w-1/6 w-1/2">

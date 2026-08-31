@@ -40,7 +40,7 @@
                             <div class="w-full lg:w-1/3">
                                 <div class="alt-portfolio-item mb-30 at-hover-item">
                                     <a href="{{ route('projects.index') }}" class="alt-portfolio-thumb mb-15 p-relative fix !block">
-                                        <img class="!w-full scale-img-from-to" data-value-1="1.5" data-value-2="1" src="{{ asset('assets/imgs/pages/img-121.webp') }}" alt="ESCAT">
+                                        <img class="!w-full scale-img-from-to" data-value-1="1.5" data-value-2="1" src="{{ asset('assets/imgs/pages/img-3.jpeg') }}" alt="ESCAT">
                                         <div class="alt-portfolio-btn">
                                             <div class="content">
                                                 <span class="!bg-transparent !uppercase !border !px-4 !py-1 !rounded-full !text-white fz-font-label">Deux pôles</span>
@@ -49,14 +49,6 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <div class="alt-portfolio-content !flex !justify-between !items-center bg-neutral-700">
-                                        <h3 class="h5 alt-portfolio-title !mb-0"><a href="{{ route('about') }}" class="common-underline !text-white">ESCAT</a></h3>
-                                        <span class="alt-portfolio-plus !text-white">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="11" viewBox="0 0 12 11" fill="none">
-                                                <path d="M4.512 10.8V0H6.984V10.8H4.512ZM0 6.6V4.2H11.52V6.6H0Z" fill="currentColor" />
-                                            </svg>
-                                        </span>
-                                    </div>
                                 </div>
                             </div>
                             <div class="w-full lg:w-7/12 !ml-auto pt-80">

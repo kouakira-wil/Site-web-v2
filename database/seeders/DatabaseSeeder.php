@@ -43,6 +43,8 @@ class DatabaseSeeder extends Seeder
         $this->seedEquipe();
         $this->call(PageHeaderSeeder::class);
         $this->call(HomeSectionSeeder::class);
+        $this->call(TestimonialSeeder::class);
+        $this->call(SchoolIdentitySeeder::class);
 
         ContactMessage::factory()->count(7)->create();
         ContactMessage::factory()->count(3)->create([
@@ -143,11 +145,8 @@ Respecter les règles de sécurité sur site",
 Électricité industrielle
 Automatismes
 Hygiène et sécurité",
-                    'outcomes' => "Technicien de maintenance
-Électromécanicien
-Agent de production",
-                    'audience' => "Titulaires du BEPC pour le CAP
-Titulaires du BAC pour les cycles supérieurs",
+                    'outcomes' => "Technicien de maintenance Électromécanicien Agent de production",
+                    'audience' => "Titulaires du BEPC pour le CAP Titulaires du BAC pour les cycles supérieurs",
                     'learning_blocks' => [
                         ['title' => 'Enseignements fondamentaux', 'description' => 'Les bases théoriques du domaine, revues avec les entreprises du secteur.', 'points' => ['Cours magistraux', 'Travaux dirigés', 'Évaluations continues']],
                         ['title' => 'Ateliers pratiques', 'description' => 'Des travaux pratiques sur équipements réels, encadrés par des professionnels en exercice.', 'points' => ['Équipements réels', 'Encadrement métier', 'Projets notés']],

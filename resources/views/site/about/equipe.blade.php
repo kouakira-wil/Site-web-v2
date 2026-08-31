@@ -64,29 +64,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="pt-80 flex flex-wrap -mx-3 [&>*]:px-3 gap-y-6">
-                                <!-- beautify ignore:start -->
-                <div class="w-full lg:w-1/4 md:w-1/2 md:!pt-12 changeless">
-    @forelse ($members as $membre)
-        <x-site.team-card :member="$membre"
-            :fallback="asset('assets/imgs/pages/img-'.(17 + ($loop->index % 4)).'.webp')" />
-    @empty
-        <p>L’équipe sera présentée ici prochainement.</p>
-    @endforelse
-            <!-- beautify ignore:end -->
-                            </div>
-                            <div class="flex flex-wrap -mx-3 [&>*]:px-3">
-                                <div class="w-full !order-5">
-                                    <div class="!flex !flex-wrap !items-center lg:!justify-between !justify-center pb-50 pt-50 md:!gap-6 !gap-2 at_fade_anim" data-fade-from="bottom" data-duration="2">
-                                        <p class="neutral-900 !mb-0">[ Pédagogie par projet ]</p>
-                                        <p class="neutral-900 !mb-0">[ Ateliers pratiques ]</p>
-                                        <p class="neutral-900 !mb-0">[ Suivi individuel ]</p>
-                                        <p class="neutral-900 !mb-0">[ Stages encadrés ]</p>
-                                        <p class="neutral-900 !mb-0">[ Insertion professionnelle ]</p>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
+                        
                     </div>
-
                 </div>

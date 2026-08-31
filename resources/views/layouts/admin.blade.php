@@ -14,10 +14,12 @@
             ['route' => 'admin.projects.index', 'label' => 'Filières', 'match' => 'admin.projects.*', 'icon' => 'layers'],
             ['route' => 'admin.posts.index', 'label' => 'Actualités', 'match' => 'admin.posts.*', 'icon' => 'news'],
             ['route' => 'admin.team.index', 'label' => 'Équipe', 'match' => 'admin.team.*', 'icon' => 'users'],
+            ['route' => 'admin.testimonials.index', 'label' => 'Témoignages', 'match' => 'admin.testimonials.*', 'icon' => 'quote'],
             ['route' => 'admin.pages.index', 'label' => 'En-têtes', 'match' => 'admin.pages.*', 'icon' => 'heading'],
         ],
         'Échanges' => [
             ['route' => 'admin.messages.index', 'label' => 'Messages', 'match' => 'admin.messages.*', 'icon' => 'mail', 'badge' => $unread],
+            ['route' => 'admin.newsletter.index', 'label' => 'Lettre d’information', 'match' => 'admin.newsletter.*', 'icon' => 'bell'],
         ],
     ];
 

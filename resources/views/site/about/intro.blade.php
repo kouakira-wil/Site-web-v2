@@ -33,12 +33,12 @@
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide">
                                     <div class="about-me-slider-thumb at-item-anime marque">
-                                        <img class="!w-full !rounded-2xl" src="{{ asset('assets/imgs/pages/img-117.webp') }}" alt="ESCAT">
+                                        <img class="!w-full !rounded-2xl" src="{{ asset('assets/imgs/pages/img-3.jpeg') }}" alt="ESCAT">
                                     </div>
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="about-me-slider-thumb at-item-anime marque">
-                                        <img class="!w-full !rounded-2xl" src="{{ asset('assets/imgs/pages/img-118.webp') }}" alt="ESCAT">
+                                        <img class="!w-full !rounded-2xl" src="{{ asset('assets/imgs/pages/img-136.webp') }}" alt="ESCAT">
                                     </div>
                                 </div>
                                 <div class="swiper-slide">

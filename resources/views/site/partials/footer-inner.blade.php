@@ -10,7 +10,7 @@
                             <div class="!flex !flex-wrap !items-start !gap-12">
                                 <div class="at-header-logo">
                                     <a href="{{ route('home') }}">
-                                        <img data-width="30" src="{{ asset('assets/imgs/template/logo/favicon-dark.svg') }}" alt="ESCAT">
+                                        <img data-width="30" src="{{ asset('assets/imgs/template/logo/favicon-dark.png') }}" alt="ESCAT">
                                         <p class="h6 fw-700 !text-white !mb-0 fz-24">ESCAT</p>
                                     </a>
                                 </div>

@@ -70,11 +70,11 @@
                             <div class="2xl:w-5/12 2xl:ml-1/6 xl:w-1/2 col-xl-6 w-full !ml-auto xl:!order-1 md:!order-2">
                                 <div class="at-hero-content mb-30">
                                     <span class="at-hero-subtitle !text-white mb-10 !inline-block at_fade_anim">{{ $s?->eyebrow }}</span>
-                                    <h1 class="at-hero-title !text-white">
+                                    <h3 class="at-hero-title !text-white">
                                         <span class="at_fade_anim" data-delay="0.5" data-fade-from="top">
                                             {{ $s?->title }} <br> {{ $s?->title_accent }}
                                         </span>
-                                    </h1>
+                                    </h3>
                                     <div class="at-hero-btn !flex !flex-wrap !gap-2 pt-20 at_fade_anim" data-delay="0.5" data-fade-from="bottom">
                                         <a class="at-btn !bg-white !rounded-none text-dark" href="{{ route('projects.index') }}">
                                             <span>

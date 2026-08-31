@@ -366,3 +366,188 @@
         padding-left: 0;
     }
 }
+
+/*
+ * Voile sombre du bandeau d'accueil.
+ *
+ * `.at-hero-area` n'avait aucune règle : le texte, entièrement blanc, était
+ * posé directement sur la photo. Selon la zone de l'image, le contraste
+ * tombait sous le seuil lisible.
+ *
+ * Le fond est appliqué en JS (`data-background` -> background-image), on ne
+ * peut donc pas ajouter un dégradé comme calque de fond : il serait écrasé.
+ * D'où un `::before`. Il se place après `.at-hero-bg` (vide) et avant
+ * `.container`, qui est déjà positionné et passe donc au-dessus sans qu'on
+ * ait à toucher à son empilement.
+ *
+ * Le dégradé reprend celui de `.sd3-hero__veil` : les bandeaux du site
+ * s'assombrissent de la même façon.
+ */
+.at-hero-area {
+    /*
+     * La classe `bg-primary-1` peint un fond orange, invisible tant que la
+     * photo se charge correctement. On le remplace par un gris sombre : si
+     * l'image manque, le bandeau reste lisible au lieu de virer à l'orange.
+     */
+    background-color: #0C0D10;
+}
+
+.at-hero-area::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(180deg, rgba(12, 13, 16, 0.35) 0%, rgba(12, 13, 16, 0.55) 42%, rgba(12, 13, 16, 0.92) 100%),
+        linear-gradient(90deg, rgba(12, 13, 16, 0.55) 0%, transparent 55%);
+}
+
+/*
+ * Bandeau de navigation opaque.
+ *
+ * Le gabarit posait l'en-tête en `position: absolute` par-dessus le contenu
+ * (`.header-transparent`), avec des liens blancs pensés pour un fond sombre.
+ * Il devient une barre blanche qui précède la page. Seul l'arrière-plan
+ * change : la disposition des éléments reste celle du gabarit.
+ */
+.header-solid {
+    position: relative;
+    z-index: 9;
+    width: 100%;
+    background: var(--at-neutral-0, #FEFEFE);
+    border-bottom: 1px solid var(--at-neutral-100, #DFDFDF);
+}
+
+/* Sur fond clair, l'encre remplace le blanc. */
+.header-solid .at-main-menu nav ul li > a,
+.header-solid .at-header-search-btn,
+.header-solid .at-menu-bar,
+.header-solid .dark-light-mode {
+    color: var(--at-neutral-900, #1D1D1D);
+}
+
+.header-solid .at-main-menu nav ul li > a:hover,
+.header-solid .at-main-menu nav ul li:hover > a {
+    color: var(--escat-brand);
+}
+
+/* Accroche des blocs vision / mission / objectif / valeurs. */
+.programme-col__lead {
+    margin: 0 0 16px;
+    max-width: 52ch;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--at-neutral-700, #303030);
+}
+
+/*
+ * Lettre d'information.
+ * Mêmes jetons que le reste du gabarit : filets `--sd3-line`, encre Orisa,
+ * bleu ESCAT pour le focus. Le bouton reste le `.at-btn` du gabarit.
+ */
+.newsletter-box {
+    display: grid;
+    gap: 32px;
+    padding: 48px 0;
+    border-top: 1px solid var(--sd3-line, #DFDFDF);
+    border-bottom: 1px solid var(--sd3-line, #DFDFDF);
+}
+
+@media (min-width: 992px) {
+    .newsletter-box {
+        grid-template-columns: 1fr 1fr;
+        gap: 64px;
+        align-items: center;
+    }
+}
+
+.newsletter-box__title {
+    margin: 0 0 12px;
+    font-family: var(--at-ff-heading, inherit);
+    font-size: clamp(26px, 2.4vw, 38px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--sd3-ink, #1D1D1D);
+}
+
+.newsletter-box__lead {
+    margin: 0;
+    max-width: 46ch;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--at-neutral-500, #585959);
+}
+
+.newsletter-box__label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--at-neutral-500, #585959);
+}
+
+.newsletter-box__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: stretch;
+}
+
+.newsletter-box__input {
+    flex: 1 1 240px;
+    min-width: 0;
+    padding: 15px 18px;
+    font-size: 16px;
+    color: var(--at-neutral-900, #1D1D1D);
+    background: var(--at-neutral-50, #F2F2F2);
+    border: 1px solid transparent;
+}
+
+.newsletter-box__input:focus {
+    outline: none;
+    background: #fff;
+    border-color: var(--escat-brand);
+}
+
+.newsletter-box__input.is-invalid {
+    border-color: #C0330A;
+    background: #fff;
+}
+
+.newsletter-box__status {
+    margin: 0 0 16px;
+    padding: 12px 16px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #0A6C5E;
+    background: #DAF4F0;
+}
+
+.newsletter-box__error {
+    margin: 12px 0 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #C0330A;
+}
+
+.newsletter-box__hint {
+    margin: 12px 0 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--at-neutral-500, #585959);
+}
+
+/*
+ * Pot de miel : retiré du flux sans `display: none`, que certains robots
+ * détectent, et sorti du parcours clavier.
+ */
+.newsletter-box__trap {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}

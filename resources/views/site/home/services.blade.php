@@ -62,7 +62,7 @@
                                             </div>
 
                                             <div class="content">
-                                                <h3 class="title">CAP</h3>
+                                                <h4 class="title">CAP</h4>
 
                                                 <p class="text">
                                                     Une formation courte et pratique pour <br> accéder rapidement au marché du travail. </p>
@@ -80,7 +80,7 @@
                                             </div>
 
                                             <div class="content">
-                                                <h3 class="title">Cycle BTS (BAC +2)</h3>
+                                                <h4 class="title">Cycle BTS (BAC +2)</h4>
 
                                                 <p class="text">
                                                     Deux ans pour acquérir des compétences <br> techniques mobilisables en entreprise. </p>
@@ -98,7 +98,7 @@
                                             </div>
 
                                             <div class="content">
-                                                <h3 class="title">Cycle Licence (BAC +3)</h3>
+                                                <h4 class="title">Cycle Licence (BAC +3)</h4>
 
                                                 <p class="text">
                                                     Trois ans pour approfondir un domaine <br> et consolider un projet professionnel. </p>
@@ -116,7 +116,7 @@
                                             </div>
 
                                             <div class="content">
-                                                <h3 class="title">Cycle Master (BAC +5)</h3>
+                                                <h4 class="title">Cycle Master (BAC +5)</h4>
 
                                                 <p class="text">
                                                     Cinq ans pour devenir expert de son <br> domaine et encadrer des équipes. </p>
@@ -124,42 +124,6 @@
 
                                             <div class="thumb anim-zoomin">
                                                 <img src="{{ asset('assets/imgs/pages/img-8-sm.webp') }}" alt="ESCAT">
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a href="{{ route('projects.index') }}">
-                                        <div class="at-service-item service-item">
-                                            <div class="count">
-                                                <span class="number">[05]</span>
-                                            </div>
-
-                                            <div class="content">
-                                                <h3 class="title">Pôle Technologie</h3>
-
-                                                <p class="text">
-                                                    Réseaux, télécommunications et informatique : <br> les métiers qui font tourner les systèmes. </p>
-                                            </div>
-
-                                            <div class="thumb anim-zoomin">
-                                                <img src="{{ asset('assets/imgs/pages/img-9-sm.webp') }}" alt="ESCAT">
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a href="{{ route('projects.index') }}">
-                                        <div class="at-service-item service-item">
-                                            <div class="count">
-                                                <span class="number">[06]</span>
-                                            </div>
-
-                                            <div class="content">
-                                                <h3 class="title">Pôle Gestion</h3>
-
-                                                <p class="text">
-                                                    Comptabilité, banque et finance : piloter <br> les décisions au cœur de l’entreprise. </p>
-                                            </div>
-
-                                            <div class="thumb anim-zoomin">
-                                                <img src="{{ asset('assets/imgs/pages/img-10-sm.webp') }}" alt="ESCAT">
                                             </div>
                                         </div>
                                     </a>

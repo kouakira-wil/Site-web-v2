@@ -20,6 +20,7 @@
         'logout' => '<path d="M9 20H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3"/><path d="m15 16 4-4-4-4"/><path d="M19 12H9"/>',
         'plus' => '<path d="M12 5v14M5 12h14"/>',
         'download' => '<path d="M12 3v12"/><path d="m8 11 4 4 4-4"/><path d="M4 19h16"/>',
+        'quote' => '<path d="M9.5 6C6.5 7 5 9.4 5 13v5h5v-5H7.6c0-2.6.9-4.2 2.8-5Z"/><path d="M18.5 6c-3 1-4.5 3.4-4.5 7v5h5v-5h-2.4c0-2.6.9-4.2 2.8-5Z"/>',
         'calendar' => '<rect x="3.5" y="5" width="17" height="16" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/>',
     ];
 
