@@ -2,33 +2,17 @@
                 <!-- Team 02 / Hero — editorial roster intro -->
                 <section class="team2-hero pt-150 pb-60 !overflow-hidden" data-team2-hero>
                     <div class="container">
-                        <div class="team2-hero__top">
-                            <nav class="team2-crumb at_fade_anim" data-fade-from="bottom" aria-label="Breadcrumb">
-                                <a href="{{ route('home') }}">Accueil</a>
-                                <span>/</span>
-                                <span>Équipe</span>
-                            </nav>
-                            <span class="team2-hero__count at_fade_anim" data-fade-from="bottom" data-delay=".08">
-                                <strong data-team2-count data-to="24">0</strong> people across craft &amp; ops
-                            </span>
-                        </div>
-
+                        {{-- Fil d’Ariane, titre et intro : voir <x-site.page-header>. --}}
                         <div class="team2-hero__main">
-                            <h1 class="section-title fw-500 fz-ds-1 !leading-none reveal-text">
-                                Celles et ceux qui vous accompagnent
-                            </h1>
                             <div class="team2-hero__aside">
-                                <p class="fz-font-xl !mb-6 at_fade_anim" data-fade-from="bottom" data-delay=".18">
-                                    Enseignants, encadrants d’atelier et personnel administratif : une équipe disponible, du premier entretien d’orientation jusqu’à l’insertion.
-                                </p>
                                 <div class="at-btn-group at_fade_anim" data-delay=".26" data-fade-from="bottom" data-ease="bounce">
-                                    <a class="at-btn-circle" href="#team2-roster" aria-label="View team roster">
+                                    <a class="at-btn-circle" href="#team2-roster" aria-label="Voir la liste de l’équipe">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none">
                                             <path d="M0.0001297 8.99993L0 3.00407e-05L2 0L2.0001 6.99993L12.1719 7.00003L8.22224 3.05027L9.63644 1.63606L16.0003 8.00003L9.63644 14.364L8.22224 12.9497L12.1719 9.00003L0.0001297 8.99993Z" fill="currentColor" />
                                         </svg>
                                     </a>
                                     <a class="at-btn z-index-1" href="#team2-roster">Voir l’équipe</a>
-                                    <a class="at-btn-circle" href="#team2-roster" aria-label="View team roster">
+                                    <a class="at-btn-circle" href="#team2-roster" aria-label="Voir la liste de l’équipe">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none">
                                             <path d="M0.0001297 8.99993L0 3.00407e-05L2 0L2.0001 6.99993L12.1719 7.00003L8.22224 3.05027L9.63644 1.63606L16.0003 8.00003L9.63644 14.364L8.22224 12.9497L12.1719 9.00003L0.0001297 8.99993Z" fill="currentColor" />
                                         </svg>
@@ -55,13 +39,13 @@
                                             <img src="{{ asset('assets/imgs/pages/img-17.webp') }}" alt="Direction pédagogique" class="img-cover" data-team2-preview-img loading="eager" width="640" height="800">
                                         </div>
                                     </div>
-                                    <a href="#" class="team-card-icon" aria-label="View profile">
+                                    <a href="{{ $members->first() ? route('team.show', $members->first()) : route('team') }}" class="team-card-icon" aria-label="Voir la fiche">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
                                             <path d="M7.85986 2.43872L1.7123 8.58629L0.702148 7.57614L6.84971 1.42857H1.43131V0H9.28843V7.85714H7.85986V2.43872Z" fill="currentColor" />
                                         </svg>
                                     </a>
                                     <div class="team-card-content">
-                                        <a href="#" class="team-card-name">
+                                        <a href="{{ $members->first() ? route('team.show', $members->first()) : route('team') }}" class="team-card-name">
                                             <h2 class="h6 fz-font-2xl" data-team2-preview-name>Direction pédagogique</h2>
                                         </a>
                                         <p class="team-card-position fz-font-sm !m-0 common-white" data-team2-preview-role>Coordination des cycles</p>
@@ -76,54 +60,22 @@
                                 </div>
 
                                 <ul class="team2-roster__list" data-team2-list>
-                                    <li class="team2-person is-active" data-team2-person data-img="assets/imgs/pages/img-17.webp" data-name="Direction pédagogique" data-role="Coordination des cycles">
-                                        <a class="team2-person__link" href="#">
-                                            <span class="team2-person__index">01</span>
-                                            <span class="team2-person__name">Direction pédagogique</span>
-                                            <span class="team2-person__role">Coordination des cycles</span>
-                                            <span class="team2-person__arrow" aria-hidden="true">
-                                                <svg width="14" height="14" viewBox="0 0 10 10" fill="none">
-                                                    <path d="M7.86 2.44L1.71 8.59L0.7 7.58l6.15-6.15H1.43V0h7.86v7.86H7.86V2.44z" fill="currentColor" />
-                                                </svg>
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="team2-person" data-team2-person data-img="assets/imgs/pages/img-18.webp" data-name="Pôle Technologie" data-role="Project Manager">
-                                        <a class="team2-person__link" href="#">
-                                            <span class="team2-person__index">02</span>
-                                            <span class="team2-person__name">Pôle Technologie</span>
-                                            <span class="team2-person__role">Réseaux et informatique</span>
-                                            <span class="team2-person__arrow" aria-hidden="true">
-                                                <svg width="14" height="14" viewBox="0 0 10 10" fill="none">
-                                                    <path d="M7.86 2.44L1.71 8.59L0.7 7.58l6.15-6.15H1.43V0h7.86v7.86H7.86V2.44z" fill="currentColor" />
-                                                </svg>
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="team2-person" data-team2-person data-img="assets/imgs/pages/img-19.webp" data-name="Pôle Gestion" data-role="Comptabilité et finance">
-                                        <a class="team2-person__link" href="#">
-                                            <span class="team2-person__index">03</span>
-                                            <span class="team2-person__name">Pôle Gestion</span>
-                                            <span class="team2-person__role">Comptabilité et finance</span>
-                                            <span class="team2-person__arrow" aria-hidden="true">
-                                                <svg width="14" height="14" viewBox="0 0 10 10" fill="none">
-                                                    <path d="M7.86 2.44L1.71 8.59L0.7 7.58l6.15-6.15H1.43V0h7.86v7.86H7.86V2.44z" fill="currentColor" />
-                                                </svg>
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="team2-person" data-team2-person data-img="assets/imgs/pages/img-20.webp" data-name="Service des admissions" data-role="Orientation et inscriptions">
-                                        <a class="team2-person__link" href="#">
-                                            <span class="team2-person__index">04</span>
-                                            <span class="team2-person__name">Service des admissions</span>
-                                            <span class="team2-person__role">Orientation et inscriptions</span>
-                                            <span class="team2-person__arrow" aria-hidden="true">
-                                                <svg width="14" height="14" viewBox="0 0 10 10" fill="none">
-                                                    <path d="M7.86 2.44L1.71 8.59L0.7 7.58l6.15-6.15H1.43V0h7.86v7.86H7.86V2.44z" fill="currentColor" />
-                                                </svg>
-                                            </span>
-                                        </a>
-                                    </li>
+                                    @foreach ($members as $membre)
+                                        <li class="team2-person{{ $loop->first ? ' is-active' : '' }}" data-team2-person
+                                            data-img="{{ $membre->photoUrl() ?? asset('assets/imgs/pages/img-17.webp') }}"
+                                            data-name="{{ $membre->name }}" data-role="{{ $membre->role }}">
+                                            <a class="team2-person__link" href="{{ route('team.show', $membre) }}">
+                                                <span class="team2-person__index">{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
+                                                <span class="team2-person__name">{{ $membre->name }}</span>
+                                                <span class="team2-person__role">{{ $membre->role }}</span>
+                                                <span class="team2-person__arrow" aria-hidden="true">
+                                                    <svg width="14" height="14" viewBox="0 0 10 10" fill="none">
+                                                        <path d="M7.86 2.44L1.71 8.59L0.7 7.58l6.15-6.15H1.43V0h7.86v7.86H7.86V2.44z" fill="currentColor" />
+                                                    </svg>
+                                                </span>
+                                            </a>
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
@@ -173,7 +125,7 @@
                             </div>
                             <div class="team2-cta__actions">
                                 <a class="at-btn" href="{{ route('contact') }}">
-                                    <span><span class="text-1">Send a note</span><span class="text-2">Send a note</span></span>
+                                    <span><span class="text-1">Nous écrire</span><span class="text-2">Nous écrire</span></span>
                                     <i>
                                         <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
                                             <path d="M0.21967 9.40717C-0.0732232 9.70006 -0.0732232 10.1749 0.21967 10.4678C0.512563 10.7607 0.987437 10.7607 1.28033 10.4678L0.21967 9.40717ZM10.6875 0.75C10.6875 0.335786 10.3517 2.97145e-09 9.9375 1.50485e-07L3.1875 -2.70983e-07C2.77329 -2.70983e-07 2.4375 0.335786 2.4375 0.75C2.4375 1.16421 2.77329 1.5 3.1875 1.5H9.1875V7.5C9.1875 7.91421 9.52329 8.25 9.9375 8.25C10.3517 8.25 10.6875 7.91421 10.6875 7.5L10.6875 0.75ZM0.75 9.9375L1.28033 10.4678L10.4678 1.28033L9.9375 0.75L9.40717 0.21967L0.21967 9.40717L0.75 9.9375Z" fill="currentColor" />
@@ -187,9 +139,9 @@
                             </div>
                         </div>
                         <div class="team2-next">
-                            <a href="#">Équipe</a>
-                            <a href="#">Détails</a>
-                            <a href="#">L’école</a>
+                            <a href=\"{{ route('team') }}\">Équipe</a>
+                            <a href=\"{{ route('team') }}\">Détails</a>
+                            <a href=\"{{ route('about') }}\">L’école</a>
                         </div>
                     </div>
                 </section>

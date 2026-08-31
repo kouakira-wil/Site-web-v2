@@ -1,3 +1,7 @@
+@php
+    $s = \App\Models\PageHeader::forKey('home.journal');
+@endphp
+
 <!-- at-sec13-area-start -->
                 <div class="at-sec13-thumb fix !w-full scale-up-img p-relative pt-120 pb-120">
                     <div class="container">
@@ -5,8 +9,8 @@
                             <div class="w-full lg:w-2/3 2xl:w-1/2">
                                 <span class="at-btn common-black !bg-transparent mb-10 !rounded-none !p-0">
                                     <span class="!uppercase">
-                                        <span class="text-1">VIE DE L’ÉCOLE</span>
-                                        <span class="text-2">VIE DE L’ÉCOLE</span>
+                                        <span class="text-1">{{ $s?->eyebrow }}</span>
+                                        <span class="text-2">{{ $s?->eyebrow }}</span>
                                     </span>
                                     <i>
                                         <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -17,14 +21,14 @@
                                         </svg>
                                     </i>
                                 </span>
-                                <h3 class="alt-section-title !leading-none neutral-900 fw-700 mb-30 reveal-text !mb-0">Actualités et <br> événements de l’ESCAT</h3>
+                                <h3 class="alt-section-title !leading-none neutral-900 fw-700 mb-30 reveal-text !mb-0">{{ $s?->title }}</h3>
                             </div>
                             <div class="w-full 2xl:w-1/6 lg:w-1/4 !ml-auto 2xl:!text-right lg:!text-right">
                                 <div class="at-service-btn pt-30">
                                     <a class="at-btn" href="{{ route('posts.index') }}">
                                         <span>
-                                            <span class="text-1">TOUTES LES ACTUALITÉS</span>
-                                            <span class="text-2">TOUTES LES ACTUALITÉS</span>
+                                            <span class="text-1">{{ $s?->cta_label }}</span>
+                                            <span class="text-2">{{ $s?->cta_label }}</span>
                                         </span>
                                         <i>
                                             <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -40,73 +44,12 @@
                         </div>
                         <div class="flex flex-wrap -mx-3 [&>*]:px-3">
                             <!-- beautify ignore:start -->
-         <div class="blog-card lg:w-1/4 md:w-1/2 w-full mb-30" data-category="@@category">
-    <div class="blog-card__thumb hover-effect-1">
-        <a href="#" class="blog-card__img-link">
-            <img src="{{ asset('assets/imgs/pages/img-23.webp') }}" class="blog-card__img22" alt="ESCAT">
-        </a>
-    </div>
-    <div class="blog-card__content">
-        <h2 class="h6 blog-card__title">
-            <a href="#" class="blog-card__title-link">Soutenance publique des étudiants finalistes à l’ESCAT</a>
-        </h2>
-        <p class="blog-card__meta">
-            <span class="blog-card__meta-text">By </span>
-            <a href="#" class="blog-card__author">ESCAT</a>
-            <span class="blog-card__meta-text"> – 21 décembre 2024</span>
-        </p>
-    </div>
-</div><div class="blog-card lg:w-1/4 md:w-1/2 w-full mb-30" data-category="@@category">
-    <div class="blog-card__thumb hover-effect-1">
-        <a href="#" class="blog-card__img-link">
-            <img src="{{ asset('assets/imgs/pages/img-24.webp') }}" class="blog-card__img22" alt="ESCAT">
-        </a>
-    </div>
-    <div class="blog-card__content">
-        <h2 class="h6 blog-card__title">
-            <a href="#" class="blog-card__title-link">TP : installation de liaisons FH avec des antennes Ubiquiti</a>
-        </h2>
-        <p class="blog-card__meta">
-            <span class="blog-card__meta-text">By </span>
-            <a href="#" class="blog-card__author">ESCAT</a>
-            <span class="blog-card__meta-text"> – 10 mai 2024</span>
-        </p>
-    </div>
-</div><div class="blog-card lg:w-1/4 md:w-1/2 w-full mb-30" data-category="@@category">
-    <div class="blog-card__thumb hover-effect-1">
-        <a href="#" class="blog-card__img-link">
-            <img src="{{ asset('assets/imgs/pages/img-25.webp') }}" class="blog-card__img22" alt="ESCAT">
-        </a>
-    </div>
-    <div class="blog-card__content">
-        <h2 class="h6 blog-card__title">
-            <a href="#" class="blog-card__title-link">L’ESCAT célèbre la Journée internationale des jeunes filles dans les TIC</a>
-        </h2>
-        <p class="blog-card__meta">
-            <span class="blog-card__meta-text">By </span>
-            <a href="#" class="blog-card__author">ESCAT</a>
-            <span class="blog-card__meta-text"> – 25 avril 2024</span>
-        </p>
-    </div>
-</div><div class="blog-card lg:w-1/4 md:w-1/2 w-full mb-30" data-category="@@category">
-    <div class="blog-card__thumb hover-effect-1">
-        <a href="#" class="blog-card__img-link">
-            <img src="{{ asset('assets/imgs/pages/img-26.webp') }}" class="blog-card__img22" alt="ESCAT">
-        </a>
-    </div>
-    <div class="blog-card__content">
-        <h2 class="h6 blog-card__title">
-            <a href="#" class="blog-card__title-link">Bal de fin d’année organisé par les étudiants de l’ESCAT</a>
-        </h2>
-        <p class="blog-card__meta">
-            <span class="blog-card__meta-text">By </span>
-            <a href="#" class="blog-card__author">ESCAT</a>
-            <span class="blog-card__meta-text"> – 17 août 2024</span>
-        </p>
-    </div>
-</div>
-         <!-- beautify ignore:end -->
-                        </div>
-                    </div>
-                </div>
+         @forelse ($recentPosts as $post)
+                                    <x-site.blog-card
+                                        :post="$post"
+                                        :fallback="asset('assets/imgs/pages/img-'.(23 + ($loop->index % 4)).'.webp')"
+                                    />
+                                @empty
+                                    <p class="w-full">Aucune actualité publiée pour le moment.</p>
+                                @endforelse
                 <!-- at-sec13-area-end -->

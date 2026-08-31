@@ -1,5 +1,5 @@
 <div>
-    <x-admin.heading title="Équipe" subtitle="Les membres masqués restent enregistrés mais disparaissent du site.">
+    <x-admin.heading title="Équipe" :breadcrumb="['Administration' => route('admin.dashboard'), 'Équipe' => null]" subtitle="Les membres masqués restent enregistrés mais disparaissent du site.">
         <x-slot:actions>
             <x-admin.button :href="route('admin.team.create')">Ajouter un membre</x-admin.button>
         </x-slot:actions>

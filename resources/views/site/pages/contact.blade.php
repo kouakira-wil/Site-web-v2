@@ -5,24 +5,6 @@
                         <div class="!items-end flex flex-wrap -mx-3 [&>*]:px-3">
                             <div class="w-full 2xl:w-1/2 lg:w-7/12">
                                 <div class="at-about-title-wrap mb-30">
-                                    <span class="at-btn common-black !bg-transparent mb-10 !rounded-none !p-0">
-                                        <span class="!uppercase">
-                                            <span class="text-1">nOUS CONTACTER</span>
-                                            <span class="text-2">nOUS CONTACTER</span>
-                                        </span>
-                                        <i>
-                                            <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M0.21967 9.40717C-0.0732232 9.70006 -0.0732232 10.1749 0.21967 10.4678C0.512563 10.7607 0.987437 10.7607 1.28033 10.4678L0.21967 9.40717ZM10.6875 0.75C10.6875 0.335786 10.3517 2.97145e-09 9.9375 1.50485e-07L3.1875 -2.70983e-07C2.77329 -2.70983e-07 2.4375 0.335786 2.4375 0.75C2.4375 1.16421 2.77329 1.5 3.1875 1.5H9.1875V7.5C9.1875 7.91421 9.52329 8.25 9.9375 8.25C10.3517 8.25 10.6875 7.91421 10.6875 7.5L10.6875 0.75ZM0.75 9.9375L1.28033 10.4678L10.4678 1.28033L9.9375 0.75L9.40717 0.21967L0.21967 9.40717L0.75 9.9375Z" fill="currentColor" />
-                                            </svg>
-                                            <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M0.21967 9.40717C-0.0732232 9.70006 -0.0732232 10.1749 0.21967 10.4678C0.512563 10.7607 0.987437 10.7607 1.28033 10.4678L0.21967 9.40717ZM10.6875 0.75C10.6875 0.335786 10.3517 2.97145e-09 9.9375 1.50485e-07L3.1875 -2.70983e-07C2.77329 -2.70983e-07 2.4375 0.335786 2.4375 0.75C2.4375 1.16421 2.77329 1.5 3.1875 1.5H9.1875V7.5C9.1875 7.91421 9.52329 8.25 9.9375 8.25C10.3517 8.25 10.6875 7.91421 10.6875 7.5L10.6875 0.75ZM0.75 9.9375L1.28033 10.4678L10.4678 1.28033L9.9375 0.75L9.40717 0.21967L0.21967 9.40717L0.75 9.9375Z" fill="currentColor" />
-                                            </svg>
-                                        </i>
-                                    </span>
-                                    <h2 class="at-section-title reveal-text lg:!mb-0 !mb-6">
-                                        Parlons de votre
-                                        projet de formation
-                                    </h2>
                                     <div class="at-about-content !flex md:!flex-row !flex-col !justify-between !gap-6 pt-40">
                                         <div class="!flex !gap-6 w-lg-50">
                                             <div class="icon">
@@ -38,7 +20,7 @@
                                                     <br class="!block">
                                                     Brazzaville, République du Congo
                                                     <br class="!block">
-                                                    Phone: <span class="neutral-900"><a href="tel:+1234567890">+1234567890</a></span>
+                                                    Téléphone : <span class="neutral-900"><a href="tel:+242068848344">+242 06 884 83 44</a></span>
                                                     <br class="!block">
                                                     E-mail : <span class="neutral-900"><a href="mailto:infos@escat.org">infos@escat.org</a></span>
                                                 </span>
@@ -59,7 +41,7 @@
                                                     <br class="!block">
                                                     Brazzaville, République du Congo
                                                     <br class="!block">
-                                                    Phone: <span class="neutral-900"><a href="tel:+2125557398">+2125557398</a></span>
+                                                    Téléphone : <span class="neutral-900"><a href="tel:+242068848344">+242 06 884 83 44</a></span>
                                                     <br class="!block">
                                                     E-mail : <span class="neutral-900"><a href="mailto:infos@escat.org">infos@escat.org</a></span>
                                                 </span>
@@ -141,7 +123,7 @@
                                 <div class="alt-footer-social-item white-mode !w-1/2 w-50">
                                     <ul>
                                         <li>
-                                            <a href="#">
+                                            <a href="{{ config('social.twitter') ?: route('contact') }}" target="_blank" rel="noopener noreferrer">
                                                 <div class="!flex !items-center !gap-2">
                                                     <div class="icon-social">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none">
@@ -158,7 +140,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a href="{{ config('social.facebook') ?: route('contact') }}" target="_blank" rel="noopener noreferrer">
                                                 <div class="!flex !items-center !gap-2">
                                                     <div class="icon-social">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
@@ -175,7 +157,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a href="{{ config('social.linkedin') ?: route('contact') }}" target="_blank" rel="noopener noreferrer">
                                                 <div class="!flex !items-center !gap-2">
                                                     <div class="icon-social">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
@@ -192,7 +174,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a href="{{ config('social.instagram') ?: route('contact') }}" target="_blank" rel="noopener noreferrer">
                                                 <div class="!flex !items-center !gap-2">
                                                     <div class="icon-social">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
@@ -209,7 +191,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a href="{{ config('social.youtube') ?: route('contact') }}" target="_blank" rel="noopener noreferrer">
                                                 <div class="!flex !items-center !gap-2">
                                                     <div class="icon-social">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="13" viewBox="0 0 18 13" fill="none">

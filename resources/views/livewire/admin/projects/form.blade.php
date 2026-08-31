@@ -1,5 +1,5 @@
 <div>
-    <x-admin.heading :title="$pageTitle" subtitle="Les champs laissés vides ne s’affichent pas sur le site.">
+    <x-admin.heading :title="$pageTitle" :breadcrumb="['Administration' => route('admin.dashboard'), 'Filières' => route('admin.projects.index'), $pageTitle => null]" subtitle="Les champs laissés vides ne s’affichent pas sur le site.">
         <x-slot:actions>
             <x-admin.button variant="ghost" :href="route('admin.projects.index')">Retour à la liste</x-admin.button>
             @if ($project?->exists && $project->isPublished())
@@ -42,6 +42,101 @@
                     <textarea id="description" rows="14" wire:model.blur="description"
                               class="w-full rounded-card border-ink/20 bg-transparent px-4 py-3 font-mono text-sm leading-relaxed focus:border-accent focus:ring-0"></textarea>
                 </x-admin.field>
+            </div>
+
+
+            <div class="space-y-8 rounded-card border border-ink/10 p-8">
+                <h2 class="font-display text-2xl">Programme</h2>
+                <p class="text-xs text-ink/50">Une entrée par ligne : chaque ligne devient une puce sur la fiche publique.</p>
+
+                <x-admin.field label="Objectifs de la formation" for="objectifs" :error="$errors->first('objectives')">
+                    <textarea id="objectifs" rows="5" wire:model.blur="objectives"
+                              class="w-full rounded-card border-ink/20 bg-transparent px-4 py-3 text-sm leading-relaxed focus:border-accent focus:ring-0"></textarea>
+                </x-admin.field>
+
+                <x-admin.field label="Compétences clés" for="competences" :error="$errors->first('skills')">
+                    <textarea id="competences" rows="5" wire:model.blur="skills"
+                              class="w-full rounded-card border-ink/20 bg-transparent px-4 py-3 text-sm leading-relaxed focus:border-accent focus:ring-0"></textarea>
+                </x-admin.field>
+
+                <x-admin.field label="Débouchés professionnels" for="debouches" :error="$errors->first('outcomes')">
+                    <textarea id="debouches" rows="5" wire:model.blur="outcomes"
+                              class="w-full rounded-card border-ink/20 bg-transparent px-4 py-3 text-sm leading-relaxed focus:border-accent focus:ring-0"></textarea>
+                </x-admin.field>
+
+                <x-admin.field label="Public visé" for="public-vise" :error="$errors->first('audience')">
+                    <textarea id="public-vise" rows="3" wire:model.blur="audience"
+                              class="w-full rounded-card border-ink/20 bg-transparent px-4 py-3 text-sm leading-relaxed focus:border-accent focus:ring-0"></textarea>
+                </x-admin.field>
+            </div>
+
+            <div class="space-y-6 rounded-card border border-ink/10 p-8">
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                    <div>
+                        <h2 class="font-display text-2xl">Ce que vous y apprenez</h2>
+                        <p class="mt-1 text-xs text-ink/50">Les blocs affichés dans la section « Contenu » de la fiche.</p>
+                    </div>
+                    <x-admin.button variant="secondary" wire:click="addLearningBlock">Ajouter un bloc</x-admin.button>
+                </div>
+
+                @forelse ($learningBlocks as $index => $bloc)
+                    <fieldset wire:key="bloc-{{ $index }}" class="space-y-4 rounded-card border border-ink/10 p-6">
+                        <div class="flex items-center justify-between gap-4">
+                            <legend class="text-xs font-medium uppercase tracking-[0.14em] text-ink/50">
+                                Bloc {{ $index + 1 }}
+                            </legend>
+                            <button type="button" wire:click="removeLearningBlock({{ $index }})"
+                                    class="link-underline text-sm text-red-600">Retirer</button>
+                        </div>
+
+                        <x-admin.field label="Titre" :for="'bloc-titre-'.$index" :error="$errors->first('learningBlocks.'.$index.'.title')">
+                            <input id="bloc-titre-{{ $index }}" type="text" wire:model.blur="learningBlocks.{{ $index }}.title"
+                                   class="w-full rounded-card border-ink/20 bg-transparent px-4 py-2.5 text-sm focus:border-accent focus:ring-0">
+                        </x-admin.field>
+
+                        <x-admin.field label="Description" :for="'bloc-desc-'.$index" :error="$errors->first('learningBlocks.'.$index.'.description')">
+                            <textarea id="bloc-desc-{{ $index }}" rows="3" wire:model.blur="learningBlocks.{{ $index }}.description"
+                                      class="w-full rounded-card border-ink/20 bg-transparent px-4 py-3 text-sm focus:border-accent focus:ring-0"></textarea>
+                        </x-admin.field>
+
+                        <x-admin.field label="Puces" :for="'bloc-points-'.$index"
+                                       hint="Une par ligne."
+                                       :error="$errors->first('learningBlocks.'.$index.'.points')">
+                            <textarea id="bloc-points-{{ $index }}" rows="3" wire:model.blur="learningBlocks.{{ $index }}.points"
+                                      class="w-full rounded-card border-ink/20 bg-transparent px-4 py-3 text-sm focus:border-accent focus:ring-0"></textarea>
+                        </x-admin.field>
+
+                        {{-- Visuel affiché à droite du bloc sur la fiche filière. --}}
+                        <div class="space-y-3 border-t border-ink/10 pt-4">
+                            @php
+                                $apercuBloc = ($blockImages[$index] ?? null)?->isPreviewable()
+                                    ? $blockImages[$index]->temporaryUrl()
+                                    : (filled($bloc['image'] ?? null) ? Storage::url($bloc['image']) : null);
+                            @endphp
+
+                            @if ($apercuBloc)
+                                <div class="flex items-start gap-4">
+                                    <img src="{{ $apercuBloc }}" alt="Visuel du bloc {{ $index + 1 }}"
+                                         class="aspect-[4/3] w-32 shrink-0 rounded-card object-cover">
+                                    <button type="button" wire:click="removeBlockImage({{ $index }})"
+                                            class="link-underline text-sm text-red-600">Retirer le visuel</button>
+                                </div>
+                            @endif
+
+                            <x-admin.field label="Visuel du bloc" :for="'bloc-image-'.$index"
+                                           hint="Affiché à droite du bloc. À défaut, la couverture de la filière est reprise."
+                                           :error="$errors->first('blockImages.'.$index)">
+                                <input id="bloc-image-{{ $index }}" type="file" accept="image/*"
+                                       wire:model="blockImages.{{ $index }}"
+                                       class="block w-full text-sm file:mr-4 file:rounded-full file:border-0 file:bg-ink file:px-5 file:py-2.5 file:text-sm file:text-paper hover:file:bg-accent">
+                            </x-admin.field>
+
+                            <div wire:loading wire:target="blockImages.{{ $index }}" class="text-sm text-ink/50">Téléversement en cours…</div>
+                        </div>
+                    </fieldset>
+                @empty
+                    <p class="text-sm text-ink/50">Aucun bloc pour le moment.</p>
+                @endforelse
             </div>
 
             <div class="space-y-6 rounded-card border border-ink/10 p-8">

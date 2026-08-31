@@ -1,3 +1,7 @@
+@php
+    $s = \App\Models\PageHeader::forKey('home.faq');
+@endphp
+
 <!-- alt-faq-area-start -->
                 <div class="alt-faq-area pt-145 pb-80 ">
                     <div class="container">
@@ -5,18 +9,18 @@
                             <div class="w-full lg:w-5/12">
                                 <div class="alt-faq-title-wrap mb-40">
                                     <div class="!rounded-2xl !overflow-hidden anim-zoomin">
-                                        <img src="{{ asset('assets/imgs/pages/img-21.webp') }}" data-speed=".8" class="!w-full" alt="ESCAT">
+                                        <img src="{{ asset('assets/imgs/pages/img-21.jpeg') }}" data-speed=".8" class="!w-full" alt="ESCAT">
                                     </div>
                                     <h3 class="h6 fw-600 mb-15 pt-50">Une question sans réponse ? Écrivez-nous.</h3>
                                     <p class="at-faq-dec mb-35">Le service des admissions vous répond</p>
                                     <div class="at-btn-group at_fade_anim" data-delay=".4" data-fade-from="bottom" data-ease="bounce">
-                                        <a class="at-btn-circle" href="#">
+                                        <a class="at-btn-circle" href="{{ route('contact') }}">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none">
                                                 <path d="M0.0001297 8.99993L0 3.00407e-05L2 0L2.0001 6.99993L12.1719 7.00003L8.22224 3.05027L9.63644 1.63606L16.0003 8.00003L9.63644 14.364L8.22224 12.9497L12.1719 9.00003L0.0001297 8.99993Z" fill="currentColor" />
                                             </svg>
                                         </a>
-                                        <a class="at-btn z-index-1" href="#">Service des admissions</a>
-                                        <a class="at-btn-circle" href="#">
+                                        <a class="at-btn z-index-1" href="{{ route('contact') }}">Service des admissions</a>
+                                        <a class="at-btn-circle" href="{{ route('contact') }}">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none">
                                                 <path d="M0.0001297 8.99993L0 3.00407e-05L2 0L2.0001 6.99993L12.1719 7.00003L8.22224 3.05027L9.63644 1.63606L16.0003 8.00003L9.63644 14.364L8.22224 12.9497L12.1719 9.00003L0.0001297 8.99993Z" fill="currentColor" />
                                             </svg>
@@ -28,8 +32,8 @@
                                 <div class="at-faq ml-115">
                                     <span class="at-btn common-black !bg-transparent mb-10 !rounded-none !p-0">
                                         <span class="!uppercase">
-                                            <span class="text-1">FAQ</span>
-                                            <span class="text-2">FAQ</span>
+                                            <span class="text-1">{{ $s?->eyebrow }}</span>
+                                            <span class="text-2">{{ $s?->eyebrow }}</span>
                                         </span>
                                         <i>
                                             <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -41,7 +45,7 @@
                                         </i>
                                     </span>
                                     <h3 class="at-section-title fw-600 reveal-text">
-                                        Les questions que l’on nous pose le plus souvent sur l’admission.
+                                        {{ $s?->title }}
                                     </h3>
                                     <div class="pt-80" id="accordionExample">
                                         <div class="at-faq-item scroll-move-up !rounded-2xl">

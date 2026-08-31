@@ -57,7 +57,7 @@
                             </div>
                             <div class="w-full lg:w-5/12 lg:!pt-0 pt-100 !hidden lg:!block">
                                 <div class="card_case__studies-avatar fix anim-zoomin">
-                                    <img data-speed=".8" class="img-cover" src="{{ asset('assets/imgs/pages/img-168.webp') }}" alt="Amelia Courtney">
+                                    <img data-speed=".8" class="img-cover" src="{{ asset('assets/imgs/pages/img-168.png') }}" alt="Amelia Courtney">
                                 </div>
                             </div>
                         </div>
@@ -70,72 +70,72 @@
                             <div class="client-capsule-wrapper">
                                 <p data-t-throwable-el="">
                                     <span class="client-box bg-neutral-500">
-                                        <img class="invert-1" src="{{ asset('assets/imgs/template/logo/logo-brand-01.webp') }}" alt="image">
+                                        <img class="invert-1" src="{{ asset('assets/imgs/template/logo/logo-brand-01.png') }}" alt="image">
                                     </span>
                                 </p>
                                 <p data-t-throwable-el="">
                                     <span class="client-box">
-                                        <img class="invert-1" src="{{ asset('assets/imgs/template/logo/logo-brand-02.webp') }}" alt="image">
+                                        <img class="invert-1" src="{{ asset('assets/imgs/template/logo/logo-brand-02.png') }}" alt="image">
                                     </span>
                                 </p>
                                 <p data-t-throwable-el="">
                                     <span class="client-box">
-                                        <img class="invert-1" src="{{ asset('assets/imgs/template/logo/logo-brand-03.webp') }}" alt="image">
+                                        <img class="invert-1" src="{{ asset('assets/imgs/template/logo/logo-brand-03.png') }}" alt="image">
                                     </span>
                                 </p>
                                 <p data-t-throwable-el="">
                                     <span class="client-box">
-                                        <img class="invert-1" src="{{ asset('assets/imgs/template/logo/logo-brand-04.webp') }}" alt="image">
+                                        <img class="invert-1" src="{{ asset('assets/imgs/template/logo/logo-brand-04.png') }}" alt="image">
                                     </span>
                                 </p>
                                 <p data-t-throwable-el="">
                                     <span class="client-box bg-neutral-500">
-                                        <img class="invert-1" src="{{ asset('assets/imgs/template/logo/logo-brand-05.webp') }}" alt="image">
+                                        <img class="invert-1" src="{{ asset('assets/imgs/template/logo/logo-brand-05.png') }}" alt="image">
                                     </span>
                                 </p>
                                 <p data-t-throwable-el="">
                                     <span class="client-box">
-                                        <img class="invert-1" src="{{ asset('assets/imgs/template/logo/logo-brand-06.webp') }}" alt="image">
+                                        <img class="invert-1" src="{{ asset('assets/imgs/template/logo/logo-brand-06.png') }}" alt="image">
                                     </span>
                                 </p>
                                 <p data-t-throwable-el="">
                                     <span class="client-box">
-                                        <img class="invert-1" src="{{ asset('assets/imgs/template/logo/logo-brand-07.webp') }}" alt="image">
+                                        <img class="invert-1" src="{{ asset('assets/imgs/template/logo/logo-brand-07.png') }}" alt="image">
                                     </span>
                                 </p>
                                 <p data-t-throwable-el="">
                                     <span class="client-box">
-                                        <img class="invert-1" src="{{ asset('assets/imgs/template/logo/logo-brand-08.webp') }}" alt="image">
+                                        <img class="invert-1" src="{{ asset('assets/imgs/template/logo/logo-brand-08.png') }}" alt="image">
                                     </span>
                                 </p>
                                 <p data-t-throwable-el="">
                                     <span class="client-box">
-                                        <img class="invert-1" src="{{ asset('assets/imgs/template/logo/logo-brand-09.webp') }}" alt="image">
+                                        <img class="invert-1" src="{{ asset('assets/imgs/template/logo/logo-brand-09.png') }}" alt="image">
                                     </span>
                                 </p>
                                 <p data-t-throwable-el="">
                                     <span class="client-box">
-                                        <img class="invert-1" src="{{ asset('assets/imgs/template/logo/logo-brand-10.webp') }}" alt="image">
+                                        <img class="invert-1" src="{{ asset('assets/imgs/template/logo/logo-brand-10.png') }}" alt="image">
                                     </span>
                                 </p>
                                 <p data-t-throwable-el="">
                                     <span class="client-box bg-neutral-500">
-                                        <img class="invert-1" src="{{ asset('assets/imgs/template/logo/logo-brand-02.webp') }}" alt="image">
+                                        <img class="invert-1" src="{{ asset('assets/imgs/template/logo/logo-brand-02.png') }}" alt="image">
                                     </span>
                                 </p>
                                 <p data-t-throwable-el="">
                                     <span class="client-box">
-                                        <img class="invert-1" src="{{ asset('assets/imgs/template/logo/logo-brand-05.webp') }}" alt="image">
+                                        <img class="invert-1" src="{{ asset('assets/imgs/template/logo/logo-brand-05.png') }}" alt="image">
                                     </span>
                                 </p>
                                 <p data-t-throwable-el="">
                                     <span class="client-box">
-                                        <img class="invert-1" src="{{ asset('assets/imgs/template/logo/logo-brand-07.webp') }}" alt="image">
+                                        <img class="invert-1" src="{{ asset('assets/imgs/template/logo/logo-brand-07.png') }}" alt="image">
                                     </span>
                                 </p>
                                 <p data-t-throwable-el="">
                                     <span class="client-box">
-                                        <img class="invert-1" src="{{ asset('assets/imgs/template/logo/logo-brand-03.webp') }}" alt="image">
+                                        <img class="invert-1" src="{{ asset('assets/imgs/template/logo/logo-brand-03.png') }}" alt="image">
                                     </span>
                                 </p>
                             </div>

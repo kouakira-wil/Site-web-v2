@@ -5,8 +5,8 @@
                     <div class="xl:w-1/6 w-1/2">
                         <div class="at-header-logo">
                             <a href="{{ route('home') }}">
-                                <img data-width="30" src="{{ asset('assets/imgs/template/logo/favicon.svg') }}" alt="ESCAT">
-                                <p class="h6 fw-700 fz-24 !mb-0">ESCAT</p>
+                                <img width="150" src="{{ asset('assets/imgs/template/logo/favicon.png') }}" alt="ESCAT">
+                                {{-- <p class="h6 fw-700 fz-24 !mb-0">ESCAT</p> --}}
                             </a>
                         </div>
                     </div>

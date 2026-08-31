@@ -15,7 +15,7 @@
         <div class="at-submenu submenu at-megamenu">
             <div class="flex flex-wrap -mx-3 [&>*]:px-3">
                 @foreach ($cycles as $cycle)
-                    <div class="w-full xl:w-1/2 col-xl-6">
+                    <div class="w-full xl:w-1/2 col-lg-3">
                         <div class="at-megamenu-box">
                             <div class="at-megamenu-title-wrap">
                                 <span class="at-megamenu-title">{{ $cycle->name }}</span>

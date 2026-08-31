@@ -44,19 +44,19 @@
                                     </span>
                                 </div>
                                 <div class="w-full lg:w-5/12 !h-full">
-                                    <h1 class="section-title fw-500 fz-ds-1 !leading-none reveal-text">Celles et ceux qui vous accompagnent</h1>
+                                    <h2 class="section-title fw-500 fz-ds-1 !leading-none reveal-text">Celles et ceux qui vous accompagnent</h2>
                                 </div>
 
                                 <div class="w-full lg:w-5/12 !ml-auto">
                                     <p class="fz-font-3xl !mb-6">Enseignants, encadrants d’atelier et personnel administratif, disponibles de l’orientation jusqu’à l’insertion.</p>
                                     <div class="at-btn-group at_fade_anim" data-delay=".4" data-fade-from="bottom" data-ease="bounce">
-                                        <a class="at-btn-circle" href="#">
+                                        <a class="at-btn-circle" href="{{ route('contact') }}">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none">
                                                 <path d="M0.0001297 8.99993L0 3.00407e-05L2 0L2.0001 6.99993L12.1719 7.00003L8.22224 3.05027L9.63644 1.63606L16.0003 8.00003L9.63644 14.364L8.22224 12.9497L12.1719 9.00003L0.0001297 8.99993Z" fill="currentColor" />
                                             </svg>
                                         </a>
-                                        <a class="at-btn z-index-1" href="#">Rejoindre l’équipe</a>
-                                        <a class="at-btn-circle" href="#">
+                                        <a class="at-btn z-index-1" href="{{ route('contact') }}">Rejoindre l’équipe</a>
+                                        <a class="at-btn-circle" href="{{ route('contact') }}">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none">
                                                 <path d="M0.0001297 8.99993L0 3.00407e-05L2 0L2.0001 6.99993L12.1719 7.00003L8.22224 3.05027L9.63644 1.63606L16.0003 8.00003L9.63644 14.364L8.22224 12.9497L12.1719 9.00003L0.0001297 8.99993Z" fill="currentColor" />
                                             </svg>
@@ -67,82 +67,12 @@
                             <div class="pt-80 flex flex-wrap -mx-3 [&>*]:px-3 gap-y-6">
                                 <!-- beautify ignore:start -->
                 <div class="w-full lg:w-1/4 md:w-1/2 md:!pt-12 changeless">
-    <div class="team-card">
-        <div class="team-card-image">
-            <div class="anim-zoomin">
-                <img src="{{ asset('assets/imgs/pages/img-17.webp') }}" alt="Direction pédagogique" class="img-cover">
-            </div>
-        </div>
-        <a href="#" class="team-card-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-                <path d="M7.85986 2.43872L1.7123 8.58629L0.702148 7.57614L6.84971 1.42857H1.43131V0H9.28843V7.85714H7.85986V2.43872Z" fill="currentColor" />
-            </svg>
-        </a>
-        <div class="team-card-content">
-            <a href="#" class="team-card-name">
-                <h2 class="h6 fz-font-2xl">Direction pédagogique</h2>
-            </a>
-            <p class="team-card-position fz-font-sm !m-0 common-white">Coordination des cycles</p>
-        </div>
-    </div>
-</div><div class="w-full lg:w-1/4 md:w-1/2 changeless">
-    <div class="team-card">
-        <div class="team-card-image">
-            <div class="anim-zoomin">
-                <img src="{{ asset('assets/imgs/pages/img-18.webp') }}" alt="Pôle Technologie" class="img-cover">
-            </div>
-        </div>
-        <a href="#" class="team-card-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-                <path d="M7.85986 2.43872L1.7123 8.58629L0.702148 7.57614L6.84971 1.42857H1.43131V0H9.28843V7.85714H7.85986V2.43872Z" fill="currentColor" />
-            </svg>
-        </a>
-        <div class="team-card-content">
-            <a href="#" class="team-card-name">
-                <h2 class="h6 fz-font-2xl">Pôle Technologie</h2>
-            </a>
-            <p class="team-card-position fz-font-sm !m-0 common-white">Réseaux et informatique</p>
-        </div>
-    </div>
-</div><div class="w-full lg:w-1/4 md:w-1/2 md:!pt-12 changeless">
-    <div class="team-card">
-        <div class="team-card-image">
-            <div class="anim-zoomin">
-                <img src="{{ asset('assets/imgs/pages/img-19.webp') }}" alt="Pôle Gestion" class="img-cover">
-            </div>
-        </div>
-        <a href="#" class="team-card-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-                <path d="M7.85986 2.43872L1.7123 8.58629L0.702148 7.57614L6.84971 1.42857H1.43131V0H9.28843V7.85714H7.85986V2.43872Z" fill="currentColor" />
-            </svg>
-        </a>
-        <div class="team-card-content">
-            <a href="#" class="team-card-name">
-                <h2 class="h6 fz-font-2xl">Pôle Gestion</h2>
-            </a>
-            <p class="team-card-position fz-font-sm !m-0 common-white">Comptabilité et finance</p>
-        </div>
-    </div>
-</div><div class="w-full lg:w-1/4 md:w-1/2 changeless">
-    <div class="team-card">
-        <div class="team-card-image">
-            <div class="anim-zoomin">
-                <img src="{{ asset('assets/imgs/pages/img-20.webp') }}" alt="Service des admissions" class="img-cover">
-            </div>
-        </div>
-        <a href="#" class="team-card-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-                <path d="M7.85986 2.43872L1.7123 8.58629L0.702148 7.57614L6.84971 1.42857H1.43131V0H9.28843V7.85714H7.85986V2.43872Z" fill="currentColor" />
-            </svg>
-        </a>
-        <div class="team-card-content">
-            <a href="#" class="team-card-name">
-                <h2 class="h6 fz-font-2xl">Service des admissions</h2>
-            </a>
-            <p class="team-card-position fz-font-sm !m-0 common-white">Orientation et inscriptions</p>
-        </div>
-    </div>
-</div>
+    @forelse ($members as $membre)
+        <x-site.team-card :member="$membre"
+            :fallback="asset('assets/imgs/pages/img-'.(17 + ($loop->index % 4)).'.webp')" />
+    @empty
+        <p>L’équipe sera présentée ici prochainement.</p>
+    @endforelse
             <!-- beautify ignore:end -->
                             </div>
                             <div class="flex flex-wrap -mx-3 [&>*]:px-3">

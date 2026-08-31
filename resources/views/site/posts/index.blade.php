@@ -3,13 +3,15 @@
 @section('title', 'Actualités — '.config('app.name'))
 @section('meta_description', 'Actualités, événements et vie étudiante de l’ESCAT à Brazzaville.')
 @section('smooth_class', 'z-index-3')
-@section('main_class', 'bg-neutral-0')
+@section('main_class', 'bg-neutral-0 sd3-page')
 
 @section('header')
     @include('site.partials.header-inner')
 @endsection
 
 @section('content')
+    <x-site.page-header page="journal" />
+
     @include('site.pages.posts-index')
 @endsection
 

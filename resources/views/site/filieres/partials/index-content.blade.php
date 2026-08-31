@@ -4,7 +4,6 @@
                     <div class="container pb-60">
                         <div class="!items-end flex flex-wrap -mx-3 [&>*]:px-3">
                             <div class="w-full 2xl:w-2/3 lg:w-7/12">
-                                <h1 class="fz-ds-1 fw-500">Filières et parcours</h1>
                             </div>
                             <div class="w-full 2xl:w-1/4 lg:w-5/12 lg:!ml-auto">
                                 <p class="fz-font-lg neutral-900 lg:!text-right">Des parcours construits avec les entreprises, du CAP au Master.</p>
@@ -15,11 +14,12 @@
                         <div class="!items-center flex flex-wrap -mx-3 [&>*]:px-3">
                             <div class="w-full lg:w-2/3">
                                 <div class="filter-portfolio !flex !flex-wrap !items-center !gap-2">
-                                    <a href="#" class="at-btn filter-btn btn-sm active" data-filter="all">Toutes les filières</a>
-                                    <a href="#" class="at-btn filter-btn btn-sm" data-filter="design">Pôle Technologie</a>
-                                    <a href="#" class="at-btn filter-btn btn-sm" data-filter="photography">Pôle Gestion</a>
-                                    <a href="#" class="at-btn filter-btn btn-sm" data-filter="marketing">Alternance</a>
-                                </div>
+                                    <a href="{{ route('projects.index') }}" class="at-btn filter-btn btn-sm{{ $activeSlug === '' ? ' active' : '' }}">Toutes les filières</a>
+                                    @foreach ($categories as $categorie)
+                                        <a href="{{ route('projects.index', ['categorie' => $categorie->slug]) }}"
+                                           class="at-btn filter-btn btn-sm{{ $activeSlug === $categorie->slug ? ' active' : '' }}">{{ $categorie->name }}</a>
+                                    @endforeach
+                                    </div>
                             </div>
                             <div class="w-full lg:w-1/6 !ml-auto !text-right lg:!mt-0 !mt-4">
                                 <div class="!flex !justify-end">
@@ -35,130 +35,19 @@
                         <h2 class="!absolute !p-0 !m-0 !overflow-hidden" style="width:1px;height:1px;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Filières ouvertes</h2>
                         <div class="!justify-center flex flex-wrap -mx-3 [&>*]:px-3 gap-y-6">
                             <!-- beautify ignore:start -->
-            <div class="w-full mg-portfolio-item anim-zoomin-wrap 2xl:w-1/2 lg:w-7/12" data-category="design">
-    <div class="mg-portfolio-thumb anim-zoomin not-hide-cursor">
-        <a class="cursor-hide" href="#">
-            <img data-speed=".8" class="!w-full" src="{{ asset('assets/imgs/pages/img-11.webp') }}" alt="Noirform" />
-        </a>
-    </div>
-    <div class="mg-portfolio-content cs-portfolio-content !flex !items-center !flex-wrap md:!flex-nowrap !justify-between">
-        <div class="w-md-75">
-            <h3 class="h5 cs-portfolio-title at-title-anim fix mr-20 at-ff-sequel-semi-bold">
-                <a href="#" class="at-title-text">Réseaux et Télécommunications</a>
-            </h3>
-            <p class="fz-font-lg neutral-500">Infrastructures, liaisons et supervision réseau</p>
-        </div>
-        <div class="cs-portfolio-tag">
-            <ul class="!flex md:!justify-end !flex-wrap !whitespace-nowrap">
-                <li><a href="#">BTS</a></li><li><a href="#">Licence</a></li><li><a href="#">Master</a></li><li><a href="#">Alternance</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
-<div class="w-full mg-portfolio-item anim-zoomin-wrap 2xl:w-1/2 lg:w-7/12" data-category="photography">
-    <div class="mg-portfolio-thumb anim-zoomin not-hide-cursor">
-        <a class="cursor-hide" href="#">
-            <img data-speed=".8" class="!w-full" src="{{ asset('assets/imgs/pages/img-12.webp') }}" alt="Nebula" />
-        </a>
-    </div>
-    <div class="mg-portfolio-content cs-portfolio-content !flex !items-center !flex-wrap md:!flex-nowrap !justify-between">
-        <div class="w-md-75">
-            <h3 class="h5 cs-portfolio-title at-title-anim fix mr-20 at-ff-sequel-semi-bold">
-                <a href="#" class="at-title-text">Génie Informatique et Réseaux</a>
-            </h3>
-            <p class="fz-font-lg neutral-500">Développement, systèmes et administration</p>
-        </div>
-        <div class="cs-portfolio-tag">
-            <ul class="!flex md:!justify-end !flex-wrap !whitespace-nowrap">
-                <li><a href="#">BTS</a></li><li><a href="#">Licence</a></li><li><a href="#">Master</a></li><li><a href="#">Master</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
-<div class="w-full mg-portfolio-item anim-zoomin-wrap 2xl:w-1/2 lg:w-7/12" data-category="marketing">
-    <div class="mg-portfolio-thumb anim-zoomin not-hide-cursor">
-        <a class="cursor-hide" href="#">
-            <img data-speed=".8" class="!w-full" src="{{ asset('assets/imgs/pages/img-13.webp') }}" alt="Voidline" />
-        </a>
-    </div>
-    <div class="mg-portfolio-content cs-portfolio-content !flex !items-center !flex-wrap md:!flex-nowrap !justify-between">
-        <div class="w-md-75">
-            <h3 class="h5 cs-portfolio-title at-title-anim fix mr-20 at-ff-sequel-semi-bold">
-                <a href="#" class="at-title-text">Électromécanique et Maintenance</a>
-            </h3>
-            <p class="fz-font-lg neutral-500">Maintenance industrielle et automatismes</p>
-        </div>
-        <div class="cs-portfolio-tag">
-            <ul class="!flex md:!justify-end !flex-wrap !whitespace-nowrap">
-                <li><a href="#">CAP</a></li><li><a href="#">BTS</a></li><li><a href="#"> visual storytelling</a></li><li><a href="#"> cgi</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
-<div class="w-full mg-portfolio-item anim-zoomin-wrap 2xl:w-1/2 lg:w-7/12" data-category="marketing">
-    <div class="mg-portfolio-thumb anim-zoomin not-hide-cursor">
-        <a class="cursor-hide" href="#">
-            <img data-speed=".8" class="!w-full" src="{{ asset('assets/imgs/pages/img-14.webp') }}" alt="Lumen" />
-        </a>
-    </div>
-    <div class="mg-portfolio-content cs-portfolio-content !flex !items-center !flex-wrap md:!flex-nowrap !justify-between">
-        <div class="w-md-75">
-            <h3 class="h5 cs-portfolio-title at-title-anim fix mr-20 at-ff-sequel-semi-bold">
-                <a href="#" class="at-title-text">Comptabilité, Banque et Finance</a>
-            </h3>
-            <p class="fz-font-lg neutral-500">Gestion financière et analyse comptable</p>
-        </div>
-        <div class="cs-portfolio-tag">
-            <ul class="!flex md:!justify-end !flex-wrap !whitespace-nowrap">
-                <li><a href="#">BTS</a></li><li><a href="#"> visual identity</a></li><li><a href="#">Master</a></li><li><a href="#">Alternance</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
-<div class="w-full mg-portfolio-item anim-zoomin-wrap 2xl:w-1/2 lg:w-7/12" data-category="photography">
-    <div class="mg-portfolio-thumb anim-zoomin not-hide-cursor">
-        <a class="cursor-hide" href="#">
-            <img data-speed=".8" class="!w-full" src="{{ asset('assets/imgs/pages/img-170.webp') }}" alt="Globale" />
-        </a>
-    </div>
-    <div class="mg-portfolio-content cs-portfolio-content !flex !items-center !flex-wrap md:!flex-nowrap !justify-between">
-        <div class="w-md-75">
-            <h3 class="h5 cs-portfolio-title at-title-anim fix mr-20 at-ff-sequel-semi-bold">
-                <a href="#" class="at-title-text">Administration des Entreprises</a>
-            </h3>
-            <p class="fz-font-lg neutral-500">Gestion financière et analyse comptable</p>
-        </div>
-        <div class="cs-portfolio-tag">
-            <ul class="!flex md:!justify-end !flex-wrap !whitespace-nowrap">
-                <li><a href="#">BTS</a></li><li><a href="#">Licence</a></li><li><a href="#">Master</a></li><li><a href="#">Alternance</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
-<div class="w-full mg-portfolio-item anim-zoomin-wrap 2xl:w-1/2 lg:w-7/12" data-category="photography">
-    <div class="mg-portfolio-thumb anim-zoomin not-hide-cursor">
-        <a class="cursor-hide" href="#">
-            <img data-speed=".8" class="!w-full" src="{{ asset('assets/imgs/pages/img-171.webp') }}" alt="Finteck" />
-        </a>
-    </div>
-    <div class="mg-portfolio-content cs-portfolio-content !flex !items-center !flex-wrap md:!flex-nowrap !justify-between">
-        <div class="w-md-75">
-            <h3 class="h5 cs-portfolio-title at-title-anim fix mr-20 at-ff-sequel-semi-bold">
-                <a href="#" class="at-title-text">Banque et Assurance</a>
-            </h3>
-            <p class="fz-font-lg neutral-500">Gestion financière et analyse comptable</p>
-        </div>
-        <div class="cs-portfolio-tag">
-            <ul class="!flex md:!justify-end !flex-wrap !whitespace-nowrap">
-                <li><a href="#">BTS</a></li><li><a href="#">Licence</a></li><li><a href="#">Master</a></li><li><a href="#">Alternance</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
+            @forelse ($projects as $filiere)
+                <x-site.filiere-item :filiere="$filiere"
+                    class="w-full 2xl:w-1/2 lg:w-7/12"
+                    :fallback="asset('assets/imgs/pages/img-'.(11 + ($loop->index % 6)).'.webp')" />
+            @empty
+                <p class="py-40">Aucune filière ne correspond à ce filtre.</p>
+            @endforelse
+
+            <div class="w-full pt-40">{{ $projects->links() }}</div>
 
             <!-- beautify ignore:end -->
                             <div class="w-full !text-center">
-                                <a class="at-btn" href="#">
+                                <a class="at-btn" href="{{ route('projects.index') }}">
                                     <span>
                                         <span class="text-1">VOIR PLUS DE FILIÈRES</span>
                                         <span class="text-2">VOIR PLUS DE FILIÈRES</span>

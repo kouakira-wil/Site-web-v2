@@ -1,5 +1,5 @@
 <div>
-    <x-admin.heading :title="$pageTitle" subtitle="Le contenu accepte le Markdown ; le HTML brut est retiré au rendu.">
+    <x-admin.heading :title="$pageTitle" :breadcrumb="['Administration' => route('admin.dashboard'), 'Actualités' => route('admin.posts.index'), $pageTitle => null]" subtitle="Le contenu accepte le Markdown ; le HTML brut est retiré au rendu.">
         <x-slot:actions>
             <x-admin.button variant="ghost" :href="route('admin.posts.index')">Retour à la liste</x-admin.button>
             @if ($post?->exists && $post->isPublished())
@@ -15,7 +15,8 @@
     @endif
 
     <form wire:submit="save" class="grid gap-10 lg:grid-cols-3">
-        <div class="space-y-8 rounded-card border border-ink/10 p-8 lg:col-span-2">
+        <div class="space-y-8 lg:col-span-2">
+            <div class="space-y-8 rounded-card border border-ink/10 p-8">
             <x-admin.field label="Titre" for="titre-article" :error="$errors->first('title')">
                 <input id="titre-article" type="text" wire:model.blur="title"
                        class="w-full border-0 border-b border-ink/20 bg-transparent px-0 py-3 font-display text-3xl focus:border-accent focus:ring-0">
@@ -41,6 +42,42 @@
                 <textarea id="contenu-article" rows="22" wire:model.blur="body"
                           class="w-full rounded-card border-ink/20 bg-transparent px-4 py-3 font-mono text-sm leading-relaxed focus:border-accent focus:ring-0"></textarea>
             </x-admin.field>
+        </div>
+
+
+            <div class="space-y-6 rounded-card border border-ink/10 p-8">
+                <div>
+                    <h2 class="font-display text-2xl">Images complémentaires</h2>
+                    <p class="mt-1 text-xs text-ink/50">Affichées sous l’image principale ; la mise en page s’adapte au nombre d’images.</p>
+                </div>
+
+                @if ($post?->exists && $post->images->isNotEmpty())
+                    <ul class="grid grid-cols-2 gap-4 sm:grid-cols-3">
+                        @foreach ($post->images as $image)
+                            <li wire:key="image-{{ $image->id }}" class="group relative overflow-hidden rounded-card">
+                                <img src="{{ $image->url() }}" alt="{{ $image->caption }}" class="aspect-square w-full object-cover">
+                                <button type="button"
+                                        wire:click="removeImage({{ $image->id }})"
+                                        wire:confirm="Supprimer définitivement cette image ?"
+                                        class="absolute right-2 top-2 rounded-full bg-ink/80 px-3 py-1 text-xs text-paper opacity-0 transition-opacity group-hover:opacity-100 focus:opacity-100">
+                                    Retirer
+                                </button>
+                            </li>
+                        @endforeach
+                    </ul>
+                @else
+                    <p class="text-sm text-ink/50">Aucune image complémentaire.</p>
+                @endif
+
+                <x-admin.field label="Ajouter des images" for="galerie-article"
+                               hint="JPG, PNG, WebP ou AVIF — 4 Mo maximum par fichier."
+                               :error="$errors->first('gallery.*')">
+                    <input id="galerie-article" type="file" multiple wire:model="gallery" accept="image/*"
+                           class="block w-full text-sm file:mr-4 file:rounded-full file:border-0 file:bg-ink file:px-5 file:py-2.5 file:text-sm file:text-paper hover:file:bg-accent">
+                </x-admin.field>
+
+                <div wire:loading wire:target="gallery" class="text-sm text-ink/50">Téléversement en cours…</div>
+            </div>
         </div>
 
         <aside class="space-y-8">

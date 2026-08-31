@@ -1,3 +1,7 @@
+@php
+    $s = \App\Models\PageHeader::forKey('home.testimonials');
+@endphp
+
 <!-- at-sec7-area-start -->
                 <div class="container-2200">
                     <div class="at-sec7-area pt-120 pb-120 bg-neutral-50 !rounded-[2rem] lg:!mx-4 !mx-2 mt-10">
@@ -7,8 +11,8 @@
                                     <div class="at-about-title-wrap mb-30">
                                         <span class="at-btn common-black !bg-transparent mb-10 !rounded-none !p-0">
                                             <span class="!uppercase">
-                                                <span class="text-1">Pourquoi l’ESCAT</span>
-                                                <span class="text-2">Pourquoi l’ESCAT</span>
+                                                <span class="text-1">{{ $s?->eyebrow }}</span>
+                                                <span class="text-2">{{ $s?->eyebrow }}</span>
                                             </span>
                                             <i>
                                                 <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -20,8 +24,7 @@
                                             </i>
                                         </span>
                                         <h3 class="h3 fw-600 at-section-title reveal-text mb-80">
-                                            Un enseignement exigeant, des infrastructures modernes et un accompagnement
-                                            performance.
+                                            {{ $s?->title }}
                                         </h3>
                                     </div>
                                 </div>
@@ -54,7 +57,7 @@
                                             </div>
                                             <img class="p-absolute !bottom-0 !left-0 !m-6" src="{{ asset('assets/imgs/template/logo/logo-w-lg.png') }}" alt="ESCAT">
                                             <div class="content !absolute !top-0 !right-0 !m-6">
-                                                <a class="!bg-transparent !uppercase !border !px-4 !py-1 !rounded-full !text-white fz-font-label" href="#">Accompagnement</a>
+                                                <a class="!bg-transparent !uppercase !border !px-4 !py-1 !rounded-full !text-white fz-font-label" href="{{ route('projects.index') }}">Accompagnement</a>
                                             </div>
                                         </div>
                                         <div class="at-image-hover p-relative !rounded-2xl !overflow-hidden">

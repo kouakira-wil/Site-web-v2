@@ -32,6 +32,15 @@ class ProjectImage extends Model
         return $this->belongsTo(Project::class);
     }
 
+    /**
+     * Alias de `alt`, pour que le composant de galerie traite les images de
+     * filière et d'actualité de la même façon.
+     */
+    public function getCaptionAttribute(): ?string
+    {
+        return $this->alt;
+    }
+
     public function url(): string
     {
         return Storage::url($this->path);

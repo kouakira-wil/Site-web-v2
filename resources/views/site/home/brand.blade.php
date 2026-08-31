@@ -4,112 +4,72 @@
                         <ul class="carouselTicker__list scroll-move-right">
                             <li class="carouselTicker__item">
                                 <div class="brand-item dark-mode-invert">
-                                    <img src="{{ asset('assets/imgs/icons/brand-1.webp') }}" alt="logo-brand">
+                                    <img src="{{ asset('assets/imgs/icons/brand-01.jpg') }}" width="100" height="100" alt="logo-brand">
                                 </div>
                             </li>
                             <li class="carouselTicker__item">
                                 <div class="brand-item dark-mode-invert">
-                                    <img src="{{ asset('assets/imgs/icons/brand-2.webp') }}" alt="logo-brand">
+                                    <img src="{{ asset('assets/imgs/icons/brand-02.jpg') }}" width="100" height="100" alt="logo-brand">
                                 </div>
                             </li>
                             <li class="carouselTicker__item">
                                 <div class="brand-item dark-mode-invert">
-                                    <img src="{{ asset('assets/imgs/icons/brand-3.webp') }}" alt="logo-brand">
+                                    <img src="{{ asset('assets/imgs/icons/brand-03.jpg') }}" width="100" height="100" alt="logo-brand">
                                 </div>
                             </li>
                             <li class="carouselTicker__item">
                                 <div class="brand-item dark-mode-invert">
-                                    <img src="{{ asset('assets/imgs/icons/brand-4.webp') }}" alt="logo-brand">
+                                    <img src="{{ asset('assets/imgs/icons/brand-04.jpg') }}" width="100" height="100" alt="logo-brand">
                                 </div>
                             </li>
                             <li class="carouselTicker__item">
                                 <div class="brand-item dark-mode-invert">
-                                    <img src="{{ asset('assets/imgs/icons/brand-5.webp') }}" alt="logo-brand">
+                                    <img src="{{ asset('assets/imgs/icons/brand-05.png') }}" width="100" height="100" alt="logo-brand">
                                 </div>
                             </li>
                             <li class="carouselTicker__item">
                                 <div class="brand-item dark-mode-invert">
-                                    <img src="{{ asset('assets/imgs/icons/brand-6.webp') }}" alt="logo-brand">
+                                    <img src="{{ asset('assets/imgs/icons/brand-06.png') }}" width="100" height="100" alt="logo-brand">
                                 </div>
                             </li>
                             <li class="carouselTicker__item">
                                 <div class="brand-item dark-mode-invert">
-                                    <img src="{{ asset('assets/imgs/icons/brand-1.webp') }}" alt="logo-brand">
+                                    <img src="{{ asset('assets/imgs/icons/brand-07.jpg') }}" width="100" height="100" alt="logo-brand">
                                 </div>
                             </li>
                             <li class="carouselTicker__item">
                                 <div class="brand-item dark-mode-invert">
-                                    <img src="{{ asset('assets/imgs/icons/brand-2.webp') }}" alt="logo-brand">
+                                    <img src="{{ asset('assets/imgs/icons/brand-01.jpg') }}" width="100" height="100" alt="logo-brand">
                                 </div>
                             </li>
                             <li class="carouselTicker__item">
                                 <div class="brand-item dark-mode-invert">
-                                    <img src="{{ asset('assets/imgs/icons/brand-3.webp') }}" alt="logo-brand">
+                                    <img src="{{ asset('assets/imgs/icons/brand-02.jpg') }}" width="100" height="100" alt="logo-brand">
                                 </div>
                             </li>
                             <li class="carouselTicker__item">
                                 <div class="brand-item dark-mode-invert">
-                                    <img src="{{ asset('assets/imgs/icons/brand-5.webp') }}" alt="logo-brand">
+                                    <img src="{{ asset('assets/imgs/icons/brand-03.jpg') }}" width="100" height="100" alt="logo-brand">
                                 </div>
                             </li>
                             <li class="carouselTicker__item">
                                 <div class="brand-item dark-mode-invert">
-                                    <img src="{{ asset('assets/imgs/icons/brand-6.webp') }}" alt="logo-brand">
+                                    <img src="{{ asset('assets/imgs/icons/brand-04.jpg') }}" width="100" height="100" alt="logo-brand">
                                 </div>
                             </li>
                             <li class="carouselTicker__item">
                                 <div class="brand-item dark-mode-invert">
-                                    <img src="{{ asset('assets/imgs/icons/brand-1.webp') }}" alt="logo-brand">
+                                    <img src="{{ asset('assets/imgs/icons/brand-05.png') }}" width="100" height="100" alt="logo-brand">
                                 </div>
                             </li>
                             <li class="carouselTicker__item">
                                 <div class="brand-item dark-mode-invert">
-                                    <img src="{{ asset('assets/imgs/icons/brand-2.webp') }}" alt="logo-brand">
+                                    <img src="{{ asset('assets/imgs/icons/brand-06.png') }}" width="100" height="100" alt="logo-brand">
                                 </div>
                             </li>
                             <li class="carouselTicker__item">
                                 <div class="brand-item dark-mode-invert">
-                                    <img src="{{ asset('assets/imgs/icons/brand-3.webp') }}" alt="logo-brand">
-                                </div>
-                            </li>
-                            <li class="carouselTicker__item">
-                                <div class="brand-item dark-mode-invert">
-                                    <img src="{{ asset('assets/imgs/icons/brand-4.webp') }}" alt="logo-brand">
-                                </div>
-                            </li>
-                            <li class="carouselTicker__item">
-                                <div class="brand-item dark-mode-invert">
-                                    <img src="{{ asset('assets/imgs/icons/brand-5.webp') }}" alt="logo-brand">
-                                </div>
-                            </li>
-                            <li class="carouselTicker__item">
-                                <div class="brand-item dark-mode-invert">
-                                    <img src="{{ asset('assets/imgs/icons/brand-6.webp') }}" alt="logo-brand">
-                                </div>
-                            </li>
-                            <li class="carouselTicker__item">
-                                <div class="brand-item dark-mode-invert">
-                                    <img src="{{ asset('assets/imgs/icons/brand-1.webp') }}" alt="logo-brand">
-                                </div>
-                            </li>
-                            <li class="carouselTicker__item">
-                                <div class="brand-item dark-mode-invert">
-                                    <img src="{{ asset('assets/imgs/icons/brand-2.webp') }}" alt="logo-brand">
-                                </div>
-                            </li>
-                            <li class="carouselTicker__item">
-                                <div class="brand-item dark-mode-invert">
-                                    <img src="{{ asset('assets/imgs/icons/brand-3.webp') }}" alt="logo-brand">
-                                </div>
-                            </li>
-                            <li class="carouselTicker__item">
-                                <div class="brand-item dark-mode-invert">
-                                    <img src="{{ asset('assets/imgs/icons/brand-4.webp') }}" alt="logo-brand">
-                                </div>
-                            </li>
-                            <li class="carouselTicker__item">
-                                <div class="brand-item dark-mode-invert">
-                                    <img src="{{ asset('assets/imgs/icons/brand-5.webp') }}" alt="logo-brand">
+                                    <img src="{{ asset('assets/imgs/icons/brand-07.jpg') }}" width="100" height="100" alt="logo-brand">
                                 </div>
                             </li>
                         </ul>

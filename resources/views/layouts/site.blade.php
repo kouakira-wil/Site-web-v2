@@ -76,11 +76,16 @@
                 @yield('content')
             </main>
 
-            {{-- The home page and the inner pages use different footer designs. --}}
+            {{--
+                Toutes les pages utilisent le pied de page à révélation
+                (`footer-inner`) ; le repli le reprend pour qu'une page qui
+                oublierait la section reste cohérente. L'ancien pied de page
+                d'accueil reste dans site/partials/footer.blade.php.
+            --}}
             @hasSection('footer')
                 @yield('footer')
             @else
-                @include('site.partials.footer')
+                @include('site.partials.footer-inner')
             @endif
         </div>
     </div>

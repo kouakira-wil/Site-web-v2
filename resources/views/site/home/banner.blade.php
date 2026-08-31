@@ -1,6 +1,12 @@
+@php
+    $s = \App\Models\PageHeader::forKey('home.banner');
+@endphp
+
 <!-- at-banner-area-start -->
                 <div class="at-banner-thumb fix !w-full scale-up-img p-relative changeless !hidden lg:!block">
-                    <img data-speed="0.4" class="img-cover scale-up" src="{{ asset('assets/imgs/pages/img-22.webp') }}" alt="ESCAT">
+                    <video data-speed="0.4" class="img-cover scale-up" src="{{ asset('assets/imgs/video/ntic.mp4') }}" alt="ESCAT" autoplay muted loop>
+                        Your browser does not support the video tag.
+                    </video>
                     <div class="!absolute !top-0 !bottom-0 !left-0 !right-0">
                         <div class="container">
                             <div class="flex flex-wrap -mx-3 [&>*]:px-3">
@@ -8,22 +14,22 @@
                                     <div class="!flex !justify-between pt-100">
                                         <div class="at-header-logo">
                                             <a href="{{ route('home') }}">
-                                                <img data-width="30" src="{{ asset('assets/imgs/template/logo/favicon-dark.svg') }}" alt="ESCAT">
+                                                <img data-width="30" src="{{ asset('assets/imgs/template/logo/favicon-dark.png') }}" alt="ESCAT">
                                                 <h4 class="h6 fw-700 fz-24 !text-white !mb-0">ESCAT</h4>
                                             </a>
                                         </div>
-                                        <a class="!bg-transparent !border !px-4 !py-1 !rounded-full common-white fz-font-lg" href="#">Brazzaville</a>
+                                        <a class="!bg-transparent !border !px-4 !py-1 !rounded-full common-white fz-font-lg" href="{{ route('about') }}">Brazzaville</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="pt-250 !items-end flex flex-wrap -mx-3 [&>*]:px-3">
                                 <div class="w-full lg:w-5/12 md:w-1/2">
-                                    <h2 class="common-white">Let’s Create <br> Meaning Together</h2>
+                                    <h2 class="common-white">{{ $s?->title }} <br> {{ $s?->title_accent }}</h2>
                                     <div class="!flex !gap-6 !items-center pt-30">
                                         <a class="at-btn at-btn-border-white common-white !rounded-none" href="{{ route('contact') }}">
                                             <span>
-                                                <span class="text-1">Prendre une préinscription</span>
-                                                <span class="text-2">Prendre une préinscription</span>
+                                                <span class="text-1">{{ $s?->cta_label }}</span>
+                                                <span class="text-2">{{ $s?->cta_label }}</span>
                                             </span>
                                             <i>
                                                 <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -6,10 +6,13 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TeamController;
+use App\Livewire\Admin\AdminSearch;
 use App\Livewire\Admin\Dashboard;
 use App\Livewire\Admin\Messages\MessageIndex;
+use App\Livewire\Admin\Pages\PageHeaderManager;
 use App\Livewire\Admin\Posts\PostForm;
 use App\Livewire\Admin\Posts\PostIndex;
 use App\Livewire\Admin\Projects\ProjectForm;
@@ -34,9 +37,12 @@ Route::get('/filiere/{project:slug}', [ProjectController::class, 'show'])->name(
 Route::get('/journal', [PostController::class, 'index'])->name('posts.index');
 Route::get('/journal/{post:slug}', [PostController::class, 'show'])->name('posts.show');
 
-Route::get('/equipe', TeamController::class)->name('team');
+Route::get('/equipe', [TeamController::class, 'index'])->name('team');
+Route::get('/equipe/{member:slug}', [TeamController::class, 'show'])->name('team.show');
 
 Route::get('/contact', [ContactController::class, 'show'])->name('contact');
+
+Route::get('/recherche', SearchController::class)->name('search');
 Route::post('/contact', [ContactController::class, 'store'])
     ->middleware('throttle:6,1')
     ->name('contact.store');
@@ -65,6 +71,10 @@ Route::middleware([
     Route::get('/equipe', TeamIndex::class)->name('team.index');
     Route::get('/equipe/nouveau', TeamForm::class)->name('team.create');
     Route::get('/equipe/{member}/edition', TeamForm::class)->name('team.edit');
+
+    Route::get('/en-tetes', PageHeaderManager::class)->name('pages.index');
+
+    Route::get('/recherche', AdminSearch::class)->name('search');
 
     Route::get('/messages', MessageIndex::class)->name('messages.index');
 });

@@ -1,3 +1,7 @@
+@php
+    $s = \App\Models\PageHeader::forKey('home.about');
+@endphp
+
 <!-- at-about-area-start -->
                 <div class="at-about-area pt-100">
                     <div class="container">
@@ -6,8 +10,8 @@
                                 <div class="at-about-title-wrap mb-30">
                                     <span class="at-btn common-black !bg-transparent mb-10 !rounded-none !p-0">
                                         <span class="!uppercase">
-                                            <span class="text-1">L’école</span>
-                                            <span class="text-2">L’école</span>
+                                            <span class="text-1">{{ $s?->eyebrow }}</span>
+                                            <span class="text-2">{{ $s?->eyebrow }}</span>
                                         </span>
                                         <i>
                                             <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -19,12 +23,12 @@
                                         </i>
                                     </span>
                                     <h3 class="at-section-title !mb-0">
-                                        <span> L’ESCAT forme des techniciens et des cadres immédiatement opérationnels, en associant enseignement rigoureux, pédagogie par projet et proximité avec les entreprises.</span>
+                                        <span> {{ $s?->title }}</span>
                                         <span class="at-about-btn-transform ml-20">
                                             <a class="at-btn" href="{{ route('contact') }}">
                                                 <span>
-                                                    <span class="text-1">NOUS CONTACTER</span>
-                                                    <span class="text-2">NOUS CONTACTER</span>
+                                                    <span class="text-1">{{ $s?->cta_label }}</span>
+                                                    <span class="text-2">{{ $s?->cta_label }}</span>
                                                 </span>
                                                 <i>
                                                     <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -55,27 +59,27 @@
                                     <div class="!flex !items-center">
                                         <div class="block-author !flex !items-center !relative">
                                             <div class="avatar !overflow-hidden z-index-2">
-                                                <a href="#">
+                                                <a href="{{ route('team') }}">
                                                     <img src="{{ asset('assets/imgs/template/avatar/avatar-1.webp') }}" alt="ESCAT">
                                                 </a>
                                             </div>
                                             <div class="avatar !overflow-hidden z-index-3">
-                                                <a href="#">
+                                                <a href="{{ route('team') }}">
                                                     <img src="{{ asset('assets/imgs/template/avatar/avatar-2.webp') }}" alt="ESCAT">
                                                 </a>
                                             </div>
                                             <div class="avatar !overflow-hidden z-index-4">
-                                                <a href="#">
+                                                <a href="{{ route('team') }}">
                                                     <img src="{{ asset('assets/imgs/template/avatar/avatar-3.webp') }}" alt="ESCAT">
                                                 </a>
                                             </div>
                                             <div class="avatar !overflow-hidden z-index-5">
-                                                <a href="#">
+                                                <a href="{{ route('team') }}">
                                                     <img src="{{ asset('assets/imgs/template/avatar/avatar-4.webp') }}" alt="ESCAT">
                                                 </a>
                                             </div>
                                             <div class="avatar !overflow-hidden z-index-5">
-                                                <a href="#">
+                                                <a href="{{ route('team') }}">
                                                     <img src="{{ asset('assets/imgs/template/avatar/avatar-5.webp') }}" alt="ESCAT">
                                                 </a>
                                             </div>
@@ -103,7 +107,7 @@
                                                 <div class="at-about-item anim-zoomin-wrap mb-40">
                                                     <div class="mb-35">
                                                         <div class="at-about-thumb fix anim-zoomin">
-                                                            <img data-speed=".8" src="{{ asset('assets/imgs/pages/img-3.webp') }}" alt="ESCAT">
+                                                            <img data-speed=".8" src="{{ asset('assets/imgs/pages/img-3.jpeg') }}" alt="ESCAT">
                                                         </div>
                                                     </div>
                                                     <div class="at-about-content">
@@ -124,7 +128,7 @@
                                                     </div>
                                                     <div class="anim-zoomin-wrap !order-1 md:!order-2">
                                                         <div class="at-about-thumb fix anim-zoomin">
-                                                            <img data-speed=".8" src="{{ asset('assets/imgs/pages/img-4.webp') }}" alt="ESCAT">
+                                                            <img data-speed=".8" src="{{ asset('assets/imgs/pages/img-4.jpeg') }}" alt="ESCAT">
                                                         </div>
                                                     </div>
                                                 </div>

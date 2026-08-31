@@ -18,7 +18,7 @@
                                     </i>
                                 </span>
                                 <h3 class="reveal-text fz-ds-1 mb-30 fw-500 !leading-none">La vie de l’école</h3>
-                                <a class="at-btn" href="#">
+                                <a class="at-btn" href="{{ route('posts.index') }}">
                                     <span>
                                         <span class="text-1">TOUTES LES ACTUALITÉS</span>
                                         <span class="text-2">TOUTES LES ACTUALITÉS</span>
@@ -38,124 +38,12 @@
                                     <div class="wrapper">
                                         <div role="list" class="list">
                                             <div class="item">
-                                                <article class="blog-card-2 bg-neutral-0 !py-12">
-                                                    <div class="blog-card-2__left flex-grow-1">
-                                                        <span class="blog-card-2__category">Vie de l’école</span>
-                                                        <h4 class="h6 blog-card-2__title">
-                                                            <a href="#" class="blog-card-2__title-link">Soutenance publique des étudiants finalistes à l’ESCAT</a>
-                                                        </h4>
-                                                        <p class="blog-card-2__meta">
-                                                            <span class="blog-card-2__meta-text">By </span>
-                                                            <a href="#" class="blog-card-2__author">ESCAT</a>
-                                                            <span class="blog-card-2__meta-text"> – 21 décembre 2024</span>
-                                                        </p>
-                                                    </div>
-                                                    <div class="blog-card-2__thumb hover-effect-1">
-                                                        <a href="#" class="blog-card-2__img-link">
-                                                            <img src="{{ asset('assets/imgs/pages/img-71.webp') }}" class="blog-card-2__img" alt="ESCAT">
-                                                        </a>
-                                                    </div>
-                                                </article>
-                                            </div>
-                                            <div class="item">
-                                                <article class="blog-card-2 bg-neutral-0 !py-12">
-                                                    <div class="blog-card-2__left flex-grow-1">
-                                                        <span class="blog-card-2__category">Événements</span>
-                                                        <h4 class="h6 blog-card-2__title">
-                                                            <a href="#" class="blog-card-2__title-link">TP : installation de liaisons FH avec des antennes Ubiquiti</a>
-                                                        </h4>
-                                                        <p class="blog-card-2__meta">
-                                                            <span class="blog-card-2__meta-text">By </span>
-                                                            <a href="#" class="blog-card-2__author">ESCAT</a>
-                                                            <span class="blog-card-2__meta-text"> – 10 mai 2024</span>
-                                                        </p>
-                                                    </div>
-                                                    <div class="blog-card-2__thumb hover-effect-1">
-                                                        <a href="#" class="blog-card-2__img-link">
-                                                            <img src="{{ asset('assets/imgs/pages/img-72.webp') }}" class="blog-card-2__img" alt="ESCAT">
-                                                        </a>
-                                                    </div>
-                                                </article>
-                                            </div>
-                                            <div class="item">
-                                                <article class="blog-card-2 bg-neutral-0 !py-12">
-                                                    <div class="blog-card-2__left flex-grow-1">
-                                                        <span class="blog-card-2__category">Orientation</span>
-                                                        <h4 class="h6 blog-card-2__title">
-                                                            <a href="#" class="blog-card-2__title-link">L’ESCAT célèbre la Journée internationale des jeunes filles dans les TIC</a>
-                                                        </h4>
-                                                        <p class="blog-card-2__meta">
-                                                            <span class="blog-card-2__meta-text">By </span>
-                                                            <a href="#" class="blog-card-2__author">ESCAT</a>
-                                                            <span class="blog-card-2__meta-text"> – 25 avril 2024</span>
-                                                        </p>
-                                                    </div>
-                                                    <div class="blog-card-2__thumb hover-effect-1">
-                                                        <a href="#" class="blog-card-2__img-link">
-                                                            <img src="{{ asset('assets/imgs/pages/img-73.webp') }}" class="blog-card-2__img" alt="ESCAT">
-                                                        </a>
-                                                    </div>
-                                                </article>
-                                            </div>
-                                            <div class="item">
-                                                <article class="blog-card-2 bg-neutral-0 !py-12">
-                                                    <div class="blog-card-2__left flex-grow-1">
-                                                        <span class="blog-card-2__category">Vie de l’école</span>
-                                                        <h4 class="h6 blog-card-2__title">
-                                                            <a href="#" class="blog-card-2__title-link">Soutenance publique des étudiants finalistes à l’ESCAT</a>
-                                                        </h4>
-                                                        <p class="blog-card-2__meta">
-                                                            <span class="blog-card-2__meta-text">By </span>
-                                                            <a href="#" class="blog-card-2__author">ESCAT</a>
-                                                            <span class="blog-card-2__meta-text"> – 17 août 2024</span>
-                                                        </p>
-                                                    </div>
-                                                    <div class="blog-card-2__thumb hover-effect-1">
-                                                        <a href="#" class="blog-card-2__img-link">
-                                                            <img src="{{ asset('assets/imgs/pages/img-51.webp') }}" class="blog-card-2__img" alt="ESCAT">
-                                                        </a>
-                                                    </div>
-                                                </article>
-                                            </div>
-                                            <div class="item">
-                                                <article class="blog-card-2 bg-neutral-0 !py-12">
-                                                    <div class="blog-card-2__left flex-grow-1">
-                                                        <span class="blog-card-2__category">Événements</span>
-                                                        <h4 class="h6 blog-card-2__title">
-                                                            <a href="#" class="blog-card-2__title-link">TP : installation de liaisons FH avec des antennes Ubiquiti</a>
-                                                        </h4>
-                                                        <p class="blog-card-2__meta">
-                                                            <span class="blog-card-2__meta-text">By </span>
-                                                            <a href="#" class="blog-card-2__author">ESCAT</a>
-                                                            <span class="blog-card-2__meta-text"> – 2 septembre 2024</span>
-                                                        </p>
-                                                    </div>
-                                                    <div class="blog-card-2__thumb hover-effect-1">
-                                                        <a href="#" class="blog-card-2__img-link">
-                                                            <img src="{{ asset('assets/imgs/pages/img-52.webp') }}" class="blog-card-2__img" alt="ESCAT">
-                                                        </a>
-                                                    </div>
-                                                </article>
-                                            </div>
-                                            <div class="item">
-                                                <article class="blog-card-2 bg-neutral-0 !py-12">
-                                                    <div class="blog-card-2__left flex-grow-1">
-                                                        <span class="blog-card-2__category">Orientation</span>
-                                                        <h4 class="h6 blog-card-2__title">
-                                                            <a href="#" class="blog-card-2__title-link">L’ESCAT célèbre la Journée internationale des jeunes filles dans les TIC</a>
-                                                        </h4>
-                                                        <p class="blog-card-2__meta">
-                                                            <span class="blog-card-2__meta-text">By </span>
-                                                            <a href="#" class="blog-card-2__author">ESCAT</a>
-                                                            <span class="blog-card-2__meta-text"> – 25 avril 2024</span>
-                                                        </p>
-                                                    </div>
-                                                    <div class="blog-card-2__thumb hover-effect-1">
-                                                        <a href="#" class="blog-card-2__img-link">
-                                                            <img src="{{ asset('assets/imgs/pages/img-53.webp') }}" class="blog-card-2__img" alt="ESCAT">
-                                                        </a>
-                                                    </div>
-                                                </article>
+                                                @forelse ($recentPosts as $post)
+                                                    <x-site.blog-row :post="$post"
+                                                        :fallback="asset('assets/imgs/pages/img-'.(71 + ($loop->index % 3)).'.webp')" />
+                                                @empty
+                                                    <p>Aucune actualité publiée pour le moment.</p>
+                                                @endforelse
                                             </div>
                                         </div>
                                     </div>

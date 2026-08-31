@@ -20,9 +20,9 @@
             <div class="!justify-center flex flex-wrap -mx-3 [&>*]:px-3">
                 <div class="w-full lg:w-full">
                     <div class="at-search-form">
-                        <form action="#">
+                        <form action="{{ route('search') }}" method="GET" role="search">
                             <div class="at-search-form-input">
-                                <input type="text" placeholder="Rechercher une filière, un cycle…" required>
+                                <input type="search" name="q" placeholder="Rechercher une filière, un cycle…" aria-label="Rechercher sur le site" autocomplete="off" required>
                                 <span class="at-search-focus-border"></span>
                                 <button class="at-search-form-btn at-btn" type="submit">
                                     <span>
@@ -46,18 +46,18 @@
                     <div class="at-categories">
                         <h3 class="at-categories-title">Recherches fréquentes</h3>
                         <ul class="at-categories-list">
-                            <li><a href="#" class="at-categories-item">BTS</a></li>
-                            <li><a href="#" class="at-categories-item">Licence</a></li>
-                            <li><a href="#" class="at-categories-item">Master</a></li>
-                            <li><a href="#" class="at-categories-item">Réseaux</a></li>
-                            <li><a href="#" class="at-categories-item">Informatique</a></li>
-                            <li><a href="#" class="at-categories-item">Comptabilité</a></li>
-                            <li><a href="#" class="at-categories-item">Finance</a></li>
-                            <li><a href="#" class="at-categories-item">Électromécanique</a></li>
-                            <li><a href="#" class="at-categories-item">Admission</a></li>
-                            <li><a href="#" class="at-categories-item">Préinscription</a></li>
-                            <li><a href="#" class="at-categories-item">Bourses</a></li>
-                            <li><a href="#" class="at-categories-item">Stages</a></li>
+                            <li><a href="{{ route('search', ['q' => 'BTS']) }}" class="at-categories-item">BTS</a></li>
+                            <li><a href="{{ route('search', ['q' => 'Licence']) }}" class="at-categories-item">Licence</a></li>
+                            <li><a href="{{ route('search', ['q' => 'Master']) }}" class="at-categories-item">Master</a></li>
+                            <li><a href="{{ route('search', ['q' => 'Réseaux']) }}" class="at-categories-item">Réseaux</a></li>
+                            <li><a href="{{ route('search', ['q' => 'Informatique']) }}" class="at-categories-item">Informatique</a></li>
+                            <li><a href="{{ route('search', ['q' => 'Comptabilité']) }}" class="at-categories-item">Comptabilité</a></li>
+                            <li><a href="{{ route('search', ['q' => 'Finance']) }}" class="at-categories-item">Finance</a></li>
+                            <li><a href="{{ route('search', ['q' => 'Électromécanique']) }}" class="at-categories-item">Électromécanique</a></li>
+                            <li><a href="{{ route('search', ['q' => 'Admission']) }}" class="at-categories-item">Admission</a></li>
+                            <li><a href="{{ route('search', ['q' => 'Préinscription']) }}" class="at-categories-item">Préinscription</a></li>
+                            <li><a href="{{ route('search', ['q' => 'Bourses']) }}" class="at-categories-item">Bourses</a></li>
+                            <li><a href="{{ route('search', ['q' => 'Stages']) }}" class="at-categories-item">Stages</a></li>
                         </ul>
                     </div>
                 </div>

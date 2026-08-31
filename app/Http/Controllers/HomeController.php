@@ -17,7 +17,7 @@ class HomeController extends Controller
             'featured' => Project::query()
                 ->published()
                 ->featured()
-                ->with('category')
+                ->with(['category', 'cycles'])
                 ->ordered()
                 ->take(4)
                 ->get(),

@@ -35,6 +35,11 @@ class Project extends Model
         'external_url',
         'excerpt',
         'description',
+        'objectives',
+        'skills',
+        'outcomes',
+        'audience',
+        'learning_blocks',
         'cover_image',
         'status',
         'is_featured',
@@ -49,6 +54,7 @@ class Project extends Model
             'position' => 'integer',
             'year' => 'integer',
             'published_at' => 'datetime',
+            'learning_blocks' => 'array',
         ];
     }
 
@@ -97,6 +103,42 @@ class Project extends Model
     public function coverUrl(): ?string
     {
         return $this->cover_image ? Storage::url($this->cover_image) : null;
+    }
+
+    /**
+     * Splits a textarea field into a list, one entry per non-empty line.
+     *
+     * @return array<int, string>
+     */
+    public function lines(string $attribute): array
+    {
+        return collect(preg_split('/\R/', (string) $this->{$attribute}))
+            ->map(fn (string $line): string => trim($line))
+            ->filter()
+            ->values()
+            ->all();
+    }
+
+    /**
+     * Teaching blocks shown under « Ce que vous y apprenez ».
+     *
+     * @return array<int, array{title: string, description: string, points: array<int, string>}>
+     */
+    public function learningBlocks(): array
+    {
+        return collect($this->learning_blocks ?? [])
+            ->filter(fn ($bloc): bool => filled($bloc['title'] ?? null))
+            ->map(fn (array $bloc): array => [
+                'title' => (string) $bloc['title'],
+                'description' => (string) ($bloc['description'] ?? ''),
+                'points' => array_values(array_filter(array_map('trim', $bloc['points'] ?? []))),
+                // Visuel propre au bloc ; à défaut, la couverture de la filière.
+                'image' => filled($bloc['image'] ?? null)
+                    ? Storage::url((string) $bloc['image'])
+                    : $this->coverUrl(),
+            ])
+            ->values()
+            ->all();
     }
 
     public function descriptionHtml(): HtmlString

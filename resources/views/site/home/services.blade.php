@@ -1,3 +1,7 @@
+@php
+    $s = \App\Models\PageHeader::forKey('home.services');
+@endphp
+
 <!-- at-service-area-start -->
                 <div class="at-service-area at-panel-pin-area pt-120 pb-120">
                     <div class="container">
@@ -6,8 +10,8 @@
                                 <div class="at-service-subtitle-wrap at-about-border !flex !justify-between !gap-4 mb-50">
                                     <span class="at-btn common-black !uppercase !bg-transparent mb-10 !rounded-none !p-0">
                                         <span class="!uppercase">
-                                            <span class="text-1">NOS FORMATIONS</span>
-                                            <span class="text-2">NOS FORMATIONS</span>
+                                            <span class="text-1">{{ $s?->eyebrow }}</span>
+                                            <span class="text-2">{{ $s?->eyebrow }}</span>
                                         </span>
                                         <i>
                                             <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -18,7 +22,7 @@
                                             </svg>
                                         </i>
                                     </span>
-                                    <span class="fs-font-md fw-500 !underline">Brazzaville, Congo</span>
+                                    <span class="fs-font-md fw-500 !underline">{{ $s?->intro }}</span>
                                 </div>
                             </div>
                             <div class="w-full 2xl:w-1/3 lg:w-1/3 xl:w-1/3 col-xl-4 mb-40">
@@ -51,14 +55,14 @@
                             </div>
                             <div class="w-full 2xl:w-7/12 !ml-auto lg:w-2/3 xl:w-2/3 mb-40">
                                 <div class="at-service-list-wrap">
-                                    <a href="#">
+                                    <a href="{{ route('projects.index') }}">
                                         <div class="at-service-item service-item">
                                             <div class="count">
                                                 <span class="number">[01]</span>
                                             </div>
 
                                             <div class="content">
-                                                <h1 class="title">CAP</h1>
+                                                <h3 class="title">CAP</h3>
 
                                                 <p class="text">
                                                     Une formation courte et pratique pour <br> accéder rapidement au marché du travail. </p>
@@ -69,14 +73,14 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <a href="#">
+                                    <a href="{{ route('projects.index') }}">
                                         <div class="at-service-item service-item">
                                             <div class="count">
                                                 <span class="number">[02]</span>
                                             </div>
 
                                             <div class="content">
-                                                <h1 class="title">Cycle BTS (BAC +2)</h1>
+                                                <h3 class="title">Cycle BTS (BAC +2)</h3>
 
                                                 <p class="text">
                                                     Deux ans pour acquérir des compétences <br> techniques mobilisables en entreprise. </p>
@@ -87,14 +91,14 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <a href="#">
+                                    <a href="{{ route('projects.index') }}">
                                         <div class="at-service-item service-item">
                                             <div class="count">
                                                 <span class="number">[03]</span>
                                             </div>
 
                                             <div class="content">
-                                                <h1 class="title">Cycle Licence (BAC +3)</h1>
+                                                <h3 class="title">Cycle Licence (BAC +3)</h3>
 
                                                 <p class="text">
                                                     Trois ans pour approfondir un domaine <br> et consolider un projet professionnel. </p>
@@ -105,14 +109,14 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <a href="#">
+                                    <a href="{{ route('projects.index') }}">
                                         <div class="at-service-item service-item">
                                             <div class="count">
                                                 <span class="number">[04]</span>
                                             </div>
 
                                             <div class="content">
-                                                <h1 class="title">Cycle Master (BAC +5)</h1>
+                                                <h3 class="title">Cycle Master (BAC +5)</h3>
 
                                                 <p class="text">
                                                     Cinq ans pour devenir expert de son <br> domaine et encadrer des équipes. </p>
@@ -123,14 +127,14 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <a href="#">
+                                    <a href="{{ route('projects.index') }}">
                                         <div class="at-service-item service-item">
                                             <div class="count">
                                                 <span class="number">[05]</span>
                                             </div>
 
                                             <div class="content">
-                                                <h1 class="title">Pôle Technologie</h1>
+                                                <h3 class="title">Pôle Technologie</h3>
 
                                                 <p class="text">
                                                     Réseaux, télécommunications et informatique : <br> les métiers qui font tourner les systèmes. </p>
@@ -141,14 +145,14 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <a href="#">
+                                    <a href="{{ route('projects.index') }}">
                                         <div class="at-service-item service-item">
                                             <div class="count">
                                                 <span class="number">[06]</span>
                                             </div>
 
                                             <div class="content">
-                                                <h1 class="title">Pôle Gestion</h1>
+                                                <h3 class="title">Pôle Gestion</h3>
 
                                                 <p class="text">
                                                     Comptabilité, banque et finance : piloter <br> les décisions au cœur de l’entreprise. </p>

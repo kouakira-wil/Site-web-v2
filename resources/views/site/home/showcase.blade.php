@@ -1,3 +1,7 @@
+@php
+    $s = \App\Models\PageHeader::forKey('home.showcase');
+@endphp
+
 <!--Home 1 Section 6-->
                 <div class="container-2200">
                     <div class="sec-6-home-1 lg:!mx-4 !mx-2 !bg-black pt-100 pb-100 !rounded-[2rem] changeless !overflow-hidden">
@@ -12,8 +16,8 @@
                                         <path d="M4 21H12L8 14L12 7H4L0 14L4 21Z" fill="#F0460E" />
                                         <path d="M4 21L0 28L4 35H12L16 28H8L4 21Z" fill="#F0460E" />
                                     </svg>
-                                    <h2 class="alt-section-title !leading-none mb-10 reveal-text !text-white">Ils témoignent</h2>
-                                    <p class="mg-portfolio-dec mb-50 !text-white !mb-0">Ce que nos étudiants et diplômés <br> retiennent de leur passage à l’ESCAT.
+                                    <h2 class="alt-section-title !leading-none mb-10 reveal-text !text-white">{{ $s?->eyebrow }}</h2>
+                                    <p class="mg-portfolio-dec mb-50 !text-white !mb-0">{{ $s?->title }}
                                     </p>
                                 </div>
                                 <div class="w-full lg:w-1/6 !ml-auto">
@@ -46,7 +50,7 @@
                 <img src="{{ asset('assets/imgs/template/avatar/avatar-6.webp') }}" alt="ESCAT">
             </div>
             <div class="testimonial-top-right-logo">
-                <img src="{{ asset('assets/imgs/icons/brand-7.webp') }}" alt="ESCAT">
+                <img src="{{ asset('assets/imgs/icons/brand-7.jpg') }}" alt="ESCAT">
             </div>
         </div>
         <div class="testimonial-bottom-wrap">

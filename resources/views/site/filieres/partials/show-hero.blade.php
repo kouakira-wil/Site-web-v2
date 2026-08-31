@@ -1,7 +1,7 @@
 <section class="sd3-hero !overflow-hidden" data-sd3-hero>
                     <div class="sd3-hero__stage">
                         <div class="sd3-hero__media" data-sd3-hero-media>
-                            <img src="{{ $project->coverUrl() ?? asset('assets/imgs/pages/img-107.webp') }}"
+                            <img src="{{ $project->coverUrl() ?? asset('https://escat.org/assets/img/blog/licence/emi-banner.jpg') }}"
                                  alt="{{ $project->coverUrl() ? 'Filière '.$project->title : '' }}"
                                  width="1600" height="1000" loading="eager">
                             <div class="sd3-hero__veil" aria-hidden="true"></div>
@@ -9,15 +9,11 @@
 
                         <div class="container p-relative !z-10">
                             <div class="sd3-hero__chrome">
-                                <nav class="sd3-crumb at_fade_anim" data-fade-from="bottom" aria-label="Breadcrumb">
+                                <nav class="sd3-crumb at_fade_anim" data-fade-from="bottom" aria-label="Fil d’Ariane">
                                     <a href="{{ route('projects.index') }}">Filières</a>
                                     <span>/</span>
                                     <span>{{ $project->title }}</span>
                                 </nav>
-                                <div class="sd3-hero__clock at_fade_anim" data-fade-from="bottom" data-delay=".08">
-                                    <span class="sd3-hero__clock-label">Pôle</span>
-                                    <strong>{{ $project->category?->name ?? '—' }}</strong>
-                                </div>
                             </div>
 
                             <div class="sd3-hero__core">
@@ -42,7 +38,6 @@
                                                 </svg>
                                             </i>
                                         </a>
-                                        <a class="sd3-hero__scroll" href="#sd3-runway">Le parcours</a>
                                     </div>
                                 </div>
                             </div>

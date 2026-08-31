@@ -6,8 +6,10 @@ namespace Tests\Feature;
 
 use App\Models\Cycle;
 use App\Models\Post;
+use App\Models\PostImage;
 use App\Models\Project;
 use App\Models\TeamMember;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -109,6 +111,107 @@ class PublicSiteTest extends TestCase
         $filiere->update(['title' => 'Filiere Renommee']);
 
         $this->get(route('home'))->assertSee('Filiere Renommee');
+    }
+
+
+    public function test_the_filiere_page_shows_its_programme(): void
+    {
+        $filiere = Project::factory()->create([
+            'title' => 'Filiere Detaillee',
+            'objectives' => "Diagnostiquer une panne
+Realiser la maintenance",
+            'skills' => "Mecanique industrielle",
+            'outcomes' => "Technicien de maintenance",
+            'audience' => "Titulaires du BEPC",
+            'learning_blocks' => [
+                ['title' => 'Ateliers pratiques', 'description' => 'Sur equipements reels.', 'points' => ['Projets notes']],
+            ],
+        ]);
+
+        $response = $this->get(route('projects.show', $filiere));
+
+        $response->assertOk();
+        $response->assertSee('Objectifs de la formation');
+        $response->assertSee('Diagnostiquer une panne');
+        $response->assertSee('Compétences clés');
+        $response->assertSee('Mecanique industrielle');
+        $response->assertSee('Technicien de maintenance');
+        $response->assertSee('Titulaires du BEPC');
+        $response->assertSee('Ce que vous y apprenez');
+        $response->assertSee('Ateliers pratiques');
+        $response->assertSee('Projets notes');
+    }
+
+    public function test_empty_programme_sections_are_not_rendered(): void
+    {
+        $filiere = Project::factory()->create([
+            'title' => 'Filiere Minimale',
+            'objectives' => null,
+            'skills' => null,
+            'outcomes' => null,
+            'audience' => null,
+            'learning_blocks' => null,
+        ]);
+
+        $response = $this->get(route('projects.show', $filiere));
+
+        $response->assertOk();
+        $response->assertDontSee('Le programme en détail');
+        $response->assertDontSee('Ce que vous y apprenez');
+    }
+
+
+    public function test_the_post_page_shows_its_gallery_under_the_main_image(): void
+    {
+        $post = Post::factory()->create(['title' => 'Actualite avec galerie']);
+        PostImage::query()->create(['post_id' => $post->id, 'path' => 'a.webp', 'caption' => 'Premiere vue', 'position' => 1]);
+        PostImage::query()->create(['post_id' => $post->id, 'path' => 'b.webp', 'caption' => 'Deuxieme vue', 'position' => 2]);
+        PostImage::query()->create(['post_id' => $post->id, 'path' => 'c.webp', 'caption' => 'Vue isolee', 'position' => 3]);
+
+        $response = $this->get(route('posts.show', $post));
+
+        $response->assertOk();
+        $response->assertSee('post-gallery');
+
+        // Chaque image legendee rend sa propre legende.
+        $response->assertSee('Premiere vue');
+        $response->assertSee('Deuxieme vue');
+        $response->assertSee('Vue isolee');
+        $this->assertSame(3, substr_count($response->getContent(), '<figcaption'));
+
+        // Trois images : deux colonnes, la premiere en pleine largeur pour
+        // qu'aucune ne reste orpheline sur la derniere ligne.
+        $this->assertSame(1, substr_count($response->getContent(), 'sm:col-span-2'));
+
+        // La visionneuse du gabarit est cablee sur chaque image.
+        $this->assertSame(3, substr_count($response->getContent(), 'popup-image'));
+    }
+
+    public function test_the_author_name_is_never_shown_on_the_public_site(): void
+    {
+        $auteur = User::factory()->create(['name' => 'Prenom Nomdefamille']);
+        $post = Post::factory()->create([
+            'title' => 'Actualite signee',
+            'user_id' => $auteur->id,
+        ]);
+
+        // Ni sur la liste des actualites, ni sur la fiche.
+        $this->get(route('posts.index'))->assertOk()->assertDontSee('Prenom Nomdefamille');
+        $this->get(route('posts.show', $post))->assertOk()->assertDontSee('Prenom Nomdefamille');
+
+        // La date de publication reste affichee.
+        $this->get(route('posts.show', $post))
+            ->assertSee($post->published_at->translatedFormat('d F Y'), false);
+    }
+
+    public function test_a_post_without_gallery_renders_no_gallery_block(): void
+    {
+        $post = Post::factory()->create(['title' => 'Actualite sans galerie']);
+
+        $response = $this->get(route('posts.show', $post));
+
+        $response->assertOk();
+        $response->assertDontSee('post-gallery');
     }
 
     public function test_draft_project_is_not_reachable(): void

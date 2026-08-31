@@ -162,6 +162,77 @@ class ProjectManagementTest extends TestCase
             ->assertHasErrors('selectedCycles.0');
     }
 
+
+    public function test_programme_fields_are_saved(): void
+    {
+        $this->actingAsStaff();
+
+        Livewire::test(ProjectForm::class)
+            ->set('title', 'Filiere Programme')
+            ->set('objectives', "Objectif un
+Objectif deux")
+            ->set('skills', "Competence un")
+            ->set('outcomes', "Debouche un
+Debouche deux")
+            ->set('audience', "Titulaires du BAC")
+            ->call('save')
+            ->assertHasNoErrors();
+
+        $project = Project::query()->where('title', 'Filiere Programme')->firstOrFail();
+
+        $this->assertSame(['Objectif un', 'Objectif deux'], $project->lines('objectives'));
+        $this->assertSame(['Competence un'], $project->lines('skills'));
+        $this->assertSame(['Debouche un', 'Debouche deux'], $project->lines('outcomes'));
+        $this->assertSame(['Titulaires du BAC'], $project->lines('audience'));
+    }
+
+    public function test_learning_blocks_are_saved_with_their_bullet_points(): void
+    {
+        $this->actingAsStaff();
+
+        Livewire::test(ProjectForm::class)
+            ->set('title', 'Filiere Blocs')
+            ->call('addLearningBlock')
+            ->set('learningBlocks.0.title', 'Ateliers pratiques')
+            ->set('learningBlocks.0.description', 'Sur equipements reels.')
+            ->set('learningBlocks.0.points', "Equipements reels
+
+Projets notes")
+            ->call('save')
+            ->assertHasNoErrors();
+
+        $blocs = Project::query()->where('title', 'Filiere Blocs')->firstOrFail()->learningBlocks();
+
+        $this->assertCount(1, $blocs);
+        $this->assertSame('Ateliers pratiques', $blocs[0]['title']);
+        // La ligne vide est ecartee.
+        $this->assertSame(['Equipements reels', 'Projets notes'], $blocs[0]['points']);
+    }
+
+    public function test_a_learning_block_requires_a_title(): void
+    {
+        $this->actingAsStaff();
+
+        Livewire::test(ProjectForm::class)
+            ->set('title', 'Filiere Incomplete')
+            ->call('addLearningBlock')
+            ->set('learningBlocks.0.description', 'Sans titre.')
+            ->call('save')
+            ->assertHasErrors('learningBlocks.0.title');
+    }
+
+    public function test_a_learning_block_can_be_removed(): void
+    {
+        $this->actingAsStaff();
+
+        Livewire::test(ProjectForm::class)
+            ->call('addLearningBlock')
+            ->call('addLearningBlock')
+            ->assertCount('learningBlocks', 2)
+            ->call('removeLearningBlock', 0)
+            ->assertCount('learningBlocks', 1);
+    }
+
     public function test_the_index_filters_by_search_term(): void
     {
         $this->actingAsStaff();

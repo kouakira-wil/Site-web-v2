@@ -18,7 +18,7 @@ class PostController extends Controller
 
         $posts = Post::query()
             ->published()
-            ->with(['category', 'author'])
+            ->with('category')
             ->when($activeSlug !== '', fn (Builder $query) => $query->whereHas(
                 'category',
                 fn (Builder $c) => $c->where('slug', $activeSlug)
@@ -38,10 +38,17 @@ class PostController extends Controller
     {
         abort_unless($post->isPublished(), 404);
 
-        $post->load(['category', 'author', 'tags']);
+        $post->load(['category', 'tags', 'images']);
 
         return view('site.posts.show', [
             'post' => $post,
+            'categories' => Category::query()->ofType(Category::TYPE_POST)->ordered()->get(),
+            'previous' => Post::query()->published()
+                ->where('published_at', '<', $post->published_at)
+                ->latestFirst()->first(),
+            'next' => Post::query()->published()
+                ->where('published_at', '>', $post->published_at)
+                ->orderBy('published_at')->first(),
             'related' => Post::query()
                 ->published()
                 ->where('category_id', $post->category_id)

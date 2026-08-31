@@ -6,6 +6,7 @@ namespace App\Livewire\Admin\Posts;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\PostImage;
 use App\Models\Tag;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
@@ -40,6 +41,13 @@ class PostForm extends Component
 
     public ?TemporaryUploadedFile $cover = null;
 
+    /**
+     * Images ajoutées sous l'image principale.
+     *
+     * @var array<int, TemporaryUploadedFile>
+     */
+    public array $gallery = [];
+
     public function mount(?Post $post = null): void
     {
         if ($post?->exists !== true) {
@@ -72,6 +80,7 @@ class PostForm extends Component
             'selectedTags' => ['array'],
             'selectedTags.*' => ['exists:tags,id'],
             'cover' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp,avif', 'max:4096'],
+            'gallery.*' => ['image', 'mimes:jpg,jpeg,png,webp,avif', 'max:4096'],
         ];
     }
 
@@ -120,13 +129,47 @@ class PostForm extends Component
         $post->save();
         $post->tags()->sync($data['selectedTags']);
 
+        $this->storeGalleryUploads($post);
+
         $this->post = $post->refresh();
         $this->slug = $post->slug;
-        $this->reset('cover');
+        $this->reset('cover', 'gallery');
 
         session()->flash('status', 'Article enregistré.');
 
         $this->redirectRoute('admin.posts.edit', $post, navigate: true);
+    }
+
+    public function removeImage(int $imageId): void
+    {
+        $image = $this->post?->images()->whereKey($imageId)->first();
+
+        if ($image === null) {
+            return;
+        }
+
+        Storage::disk('public')->delete($image->path);
+        $image->delete();
+
+        $this->post->refresh();
+    }
+
+    private function storeGalleryUploads(Post $post): void
+    {
+        if ($this->gallery === []) {
+            return;
+        }
+
+        $nextPosition = (int) $post->images()->max('position') + 1;
+
+        foreach ($this->gallery as $file) {
+            PostImage::query()->create([
+                'post_id' => $post->id,
+                'path' => $file->store('actualites/galerie', 'public'),
+                'caption' => $post->title,
+                'position' => $nextPosition++,
+            ]);
+        }
     }
 
     public function removeCover(): void

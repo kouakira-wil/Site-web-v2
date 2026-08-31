@@ -10,6 +10,8 @@
 @endsection
 
 @section('content')
+    <x-site.page-header page="filieres" />
+
     @include('site.filieres.partials.index-content')
 
     <x-site.cycle-tracks

@@ -25,6 +25,8 @@ class AdminAccessTest extends TestCase
             'nouvel article' => ['admin.posts.create'],
             'equipe' => ['admin.team.index'],
             'nouveau membre' => ['admin.team.create'],
+            'en-tetes' => ['admin.pages.index'],
+            'recherche admin' => ['admin.search'],
             'messages' => ['admin.messages.index'],
         ];
     }

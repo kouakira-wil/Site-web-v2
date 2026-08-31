@@ -1,5 +1,5 @@
 <div>
-    <x-admin.heading title="Messages" subtitle="Les demandes envoyées depuis le formulaire de contact du site.">
+    <x-admin.heading title="Messages" :breadcrumb="['Administration' => route('admin.dashboard'), 'Messages' => null]" subtitle="Les demandes envoyées depuis le formulaire de contact du site.">
         <x-slot:actions>
             <label for="filtre-messages" class="sr-only">Filtrer par statut</label>
             <select id="filtre-messages" wire:model.live="status"

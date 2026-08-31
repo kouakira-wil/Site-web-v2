@@ -1,7 +1,11 @@
+@php
+    $s = \App\Models\PageHeader::forKey('home.hero');
+@endphp
+
 <!-- at-hero-area-start -->
-                <div class="at-hero-area scene p-relative z-index-1 bg-position fix at-hero-spacing bg-primary-1" data-background="assets/imgs/pages/bg-img.webp">
+                <div class="at-hero-area scene p-relative z-index-1 bg-position fix at-hero-spacing bg-primary-1" data-background="assets/imgs/pages/img-1.jpg">
                     <div class="at-hero-bg at_fade_anim" data-speed=".8" data-delay=".4" data-fade-from="bottom" data-ease="bounce">
-                        <img class="layer" data-depth="0.8" src="{{ asset('assets/imgs/pages/img-1.webp') }}" alt="ESCAT">
+                        {{-- <img class="layer" data-depth="0.8" src="{{ asset('assets/imgs/pages/img-1.jpg') }}" alt="ESCAT"> --}}
                     </div>
                     <div class="container p-relative">
                         <div class="p-absolute !bottom-full !left-0 !ml-12 mb-100 !hidden lg:!block">
@@ -30,7 +34,7 @@
                                             <source src="{{ asset('assets/imgs/video/video-1.mp4') }}" type="video/mp4">
                                         </video>
                                     </div>
-                                    <a class="at-btn !text-white !rounded-none !bg-transparent !px-0 !pt-2 !pb-4 !border-0" href="#">
+                                    <a class="at-btn !text-white !rounded-none !bg-transparent !px-0 !pt-2 !pb-4 !border-0" href="{{ route('projects.index') }}">
                                         <span>
                                             <span class="text-1">Nos formations</span>
                                             <span class="text-2">Nos formations</span>
@@ -57,9 +61,7 @@
                                         </li>
                                         <li class="at_fade_anim">
                                             <span class="fz-font-md fw-500 !text-white">
-                                                Des cursus adaptés au marché,
-                                                un encadrement de proximité et
-                                                des ateliers pratiques dès la première année.
+                                                {{ $s?->intro }}
                                             </span>
                                         </li>
                                     </ul>
@@ -67,17 +69,17 @@
                             </div>
                             <div class="2xl:w-5/12 2xl:ml-1/6 xl:w-1/2 col-xl-6 w-full !ml-auto xl:!order-1 md:!order-2">
                                 <div class="at-hero-content mb-30">
-                                    <span class="at-hero-subtitle !text-white mb-10 !inline-block at_fade_anim">Une référence de la formation au Congo</span>
-                                    <h2 class="at-hero-title !text-white">
+                                    <span class="at-hero-subtitle !text-white mb-10 !inline-block at_fade_anim">{{ $s?->eyebrow }}</span>
+                                    <h1 class="at-hero-title !text-white">
                                         <span class="at_fade_anim" data-delay="0.5" data-fade-from="top">
-                                            Formez-vous <br> auprès des meilleurs pour <br> devenir un leader de demain.
+                                            {{ $s?->title }} <br> {{ $s?->title_accent }}
                                         </span>
-                                    </h2>
+                                    </h1>
                                     <div class="at-hero-btn !flex !flex-wrap !gap-2 pt-20 at_fade_anim" data-delay="0.5" data-fade-from="bottom">
                                         <a class="at-btn !bg-white !rounded-none text-dark" href="{{ route('projects.index') }}">
                                             <span>
-                                                <span class="text-1">Découvrir nos formations</span>
-                                                <span class="text-2">Découvrir nos formations</span>
+                                                <span class="text-1">{{ $s?->cta_label }}</span>
+                                                <span class="text-2">{{ $s?->cta_label }}</span>
                                             </span>
                                             <i>
                                                 <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -104,11 +106,6 @@
                                         </a>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="w-1/12 !ml-auto !text-right !self-start rotate-90 xl:!order-2 md:!order-1 !hidden md:!block">
-                                <a href="mailto:infos@escat.org" class="!text-white fw-600">
-                                    <span class="at_fade_anim">infos@escat.org</span>
-                                </a>
                             </div>
                         </div>
                         <div class="pt-60 at_fade_anim flex flex-wrap -mx-3 [&>*]:px-3">

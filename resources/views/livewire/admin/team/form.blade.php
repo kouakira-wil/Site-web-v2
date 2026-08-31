@@ -1,5 +1,5 @@
 <div>
-    <x-admin.heading :title="$pageTitle" subtitle="Ces informations alimentent la page Équipe du site public.">
+    <x-admin.heading :title="$pageTitle" :breadcrumb="['Administration' => route('admin.dashboard'), 'Équipe' => route('admin.team.index'), $pageTitle => null]" subtitle="Ces informations alimentent la page Équipe du site public.">
         <x-slot:actions>
             <x-admin.button variant="ghost" :href="route('admin.team.index')">Retour à la liste</x-admin.button>
         </x-slot:actions>

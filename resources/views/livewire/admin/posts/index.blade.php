@@ -1,5 +1,5 @@
 <div>
-    <x-admin.heading title="Actualités" subtitle="Rédigez et publiez les actualités de l’école.">
+    <x-admin.heading title="Actualités" :breadcrumb="['Administration' => route('admin.dashboard'), 'Actualités' => null]" subtitle="Rédigez et publiez les actualités de l’école.">
         <x-slot:actions>
             <x-admin.button :href="route('admin.posts.create')">Nouvelle actualité</x-admin.button>
         </x-slot:actions>

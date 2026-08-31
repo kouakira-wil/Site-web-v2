@@ -64,6 +64,34 @@ export default {
                     soft: '#FF7A4D',
                     deep: '#C0330A',
                 },
+
+                // Palette du tableau de bord (d'après la maquette Velzon) :
+                // fond d'application gris-bleu, cartes blanches, pastilles
+                // pastel pour les tuiles d'icônes, vert/rouge pour les
+                // variations. Le bleu de marque ESCAT reste la couleur d'action.
+                app: {
+                    bg: '#F3F3F9',
+                    card: '#FFFFFF',
+                    line: '#E9EBEC',
+                    text: '#212529',
+                    muted: '#878A99',
+                },
+                tile: {
+                    blue: '#DFF0FA',
+                    'blue-ink': '#299CDB',
+                    amber: '#FEF4E4',
+                    'amber-ink': '#F7B84B',
+                    cyan: '#DAF4F0',
+                    'cyan-ink': '#0AB39C',
+                    violet: '#EDE7FB',
+                    'violet-ink': '#6559CC',
+                },
+                trend: {
+                    up: '#0AB39C',
+                    'up-bg': '#DAF4F0',
+                    down: '#F06548',
+                    'down-bg': '#FDE8E4',
+                },
             },
 
             fontFamily: {

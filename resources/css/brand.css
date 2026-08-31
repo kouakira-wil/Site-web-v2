@@ -53,3 +53,316 @@
 .at-btn.at-btn-border-white {
     background: rgba(255, 255, 255, 0.25);
 }
+
+/*
+ * Galerie d'images (fiches d'actualité, de filière).
+ *
+ * Le cadre porte un ratio fixe : la place est réservée avant le chargement,
+ * donc aucune secousse de mise en page. Les lignes restent alignées même si
+ * les images ont des proportions différentes.
+ */
+.post-gallery__frame {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background: var(--at-neutral-50, #f2f2f2);
+    cursor: zoom-in;
+}
+
+/* L'image d'ouverture est plus panoramique. */
+.post-gallery__item.sm\:col-span-2 .post-gallery__frame,
+.post-gallery__item:only-child .post-gallery__frame {
+    aspect-ratio: 16 / 9;
+}
+
+.post-gallery__frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.post-gallery__frame:hover img,
+.post-gallery__frame:focus-visible img {
+    transform: scale(1.04);
+}
+
+.post-gallery__frame:focus-visible {
+    outline: 2px solid var(--escat-brand);
+    outline-offset: 3px;
+}
+
+.post-gallery__caption {
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--at-neutral-500, #585959);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .post-gallery__frame img {
+        transition: none;
+    }
+
+    .post-gallery__frame:hover img {
+        transform: none;
+    }
+}
+
+/*
+ * « Le programme en détail ».
+ *
+ * Le gabarit rend `.sd3-track__body ul` sous forme de pastilles de 12 px,
+ * pensées pour des mots-clés isolés. Les objectifs et débouchés sont des
+ * phrases de 20 à 45 signes : écrasées dans une colonne au quart de large,
+ * elles devenaient illisibles. Ce bloc leur donne une vraie liste, dans les
+ * mêmes jetons de couleur et la même police que le reste du gabarit.
+ */
+.programme-grid {
+    display: grid;
+    gap: 0;
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+    .programme-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        -moz-column-gap: 64px;
+             column-gap: 64px;
+    }
+}
+
+.programme-col {
+    padding: 32px 0;
+    border-top: 1px solid var(--sd3-line, #DFDFDF);
+}
+
+.programme-col__index {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--escat-brand);
+    font-variant-numeric: tabular-nums;
+}
+
+.programme-col__title {
+    margin: 0 0 20px;
+    font-family: var(--at-ff-heading, inherit);
+    /* Sous le titre de section, au-dessus des items : la hiérarchie se lit. */
+    font-size: clamp(20px, 1.7vw, 26px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    color: var(--sd3-ink, #1D1D1D);
+}
+
+.programme-col__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.programme-col__item {
+    position: relative;
+    padding-left: 26px;
+    /* 17 px : lisible sans loupe, contre 12 px pour les pastilles d'origine. */
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.6;
+    color: var(--at-neutral-700, #303030);
+    max-width: 46ch;
+}
+
+/* Puce carrée : le gabarit Orisa n'utilise aucun arrondi. */
+.programme-col__item::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 10px;
+    height: 2px;
+    background: var(--escat-brand);
+}
+
+@media (min-width: 1200px) {
+    .programme-col__item {
+        font-size: 18px;
+    }
+}
+
+/*
+ * Respiration latérale sur petits écrans.
+ *
+ * Le portage reprenait le gouttière Bootstrap de 12 px : sur téléphone, texte
+ * et blocs venaient toucher le bord de l'écran. On élargit le rembourrage du
+ * conteneur en dessous de `lg`, là où aucune largeur maximale ne crée déjà de
+ * marge. Au-delà, rien ne bouge.
+ *
+ * Sans danger pour la grille : les rangées compensent avec `-mx-3` (-12 px),
+ * donc le texte des colonnes se cale à la nouvelle valeur du rembourrage.
+ * `box-sizing: border-box` est posé globalement par main.css, la largeur
+ * totale reste inchangée.
+ */
+@media (max-width: 575.98px) {
+    .container,
+    .container-1136,
+    .container-2200 {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 991.98px) {
+    .container,
+    .container-1136,
+    .container-2200 {
+        padding-left: 28px;
+        padding-right: 28px;
+    }
+}
+
+/* Les blocs hors conteneur qui collaient eux aussi au bord. */
+@media (max-width: 767.98px) {
+    .programme-col__item {
+        max-width: none;
+    }
+}
+
+/*
+ * Page de résultats de recherche.
+ * Mêmes jetons que le reste du gabarit ; aucune couleur nouvelle.
+ */
+.search-page__form {
+    margin-bottom: 40px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--sd3-line, #DFDFDF);
+}
+
+.search-page__label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--at-neutral-500, #585959);
+}
+
+.search-page__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: stretch;
+}
+
+.search-page__input {
+    flex: 1 1 260px;
+    min-width: 0;
+    padding: 14px 18px;
+    font-size: 17px;
+    color: var(--at-neutral-900, #1D1D1D);
+    background: var(--at-neutral-50, #F2F2F2);
+    border: 1px solid transparent;
+}
+
+.search-page__input:focus {
+    outline: none;
+    border-color: var(--escat-brand);
+    background: #fff;
+}
+
+.search-page__note {
+    margin: 0 0 40px;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--at-neutral-500, #585959);
+}
+
+.search-page__note a {
+    color: var(--escat-brand);
+}
+
+.search-page__group {
+    margin-bottom: 48px;
+}
+
+.search-page__group-title {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin: 0 0 4px;
+    font-size: clamp(20px, 1.7vw, 26px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--sd3-ink, #1D1D1D);
+}
+
+.search-page__group-title span {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--escat-brand);
+    font-variant-numeric: tabular-nums;
+}
+
+.search-page__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.search-page__item {
+    border-top: 1px solid var(--sd3-line, #DFDFDF);
+}
+
+.search-page__link {
+    display: block;
+    padding: 20px 0;
+    text-decoration: none;
+    transition: padding-left 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.search-page__link:hover,
+.search-page__link:focus-visible {
+    padding-left: 12px;
+}
+
+.search-page__link:focus-visible {
+    outline: 2px solid var(--escat-brand);
+    outline-offset: 2px;
+}
+
+.search-page__item-title {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--at-neutral-900, #1D1D1D);
+}
+
+.search-page__link:hover .search-page__item-title {
+    color: var(--escat-brand);
+}
+
+.search-page__item-text {
+    display: block;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--at-neutral-500, #585959);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .search-page__link {
+        transition: none;
+    }
+
+    .search-page__link:hover {
+        padding-left: 0;
+    }
+}

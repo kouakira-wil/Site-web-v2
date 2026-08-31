@@ -1,5 +1,5 @@
 <div>
-    <x-admin.heading title="Filières" subtitle="Gérez les filières affichées sur le site public.">
+    <x-admin.heading title="Filières" :breadcrumb="['Administration' => route('admin.dashboard'), 'Filières' => null]" subtitle="Gérez les filières affichées sur le site public.">
         <x-slot:actions>
             <x-admin.button :href="route('admin.projects.create')">Nouvelle filière</x-admin.button>
         </x-slot:actions>

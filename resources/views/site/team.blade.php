@@ -3,13 +3,15 @@
 @section('title', 'Équipe pédagogique — '.config('app.name'))
 @section('meta_description', 'Enseignants, encadrants et personnel administratif de l’ESCAT.')
 @section('smooth_class', 'z-index-3')
-@section('main_class', 'bg-neutral-0 team2-page')
+@section('main_class', 'bg-neutral-0 team2-page sd3-page')
 
 @section('header')
     @include('site.partials.header-inner')
 @endsection
 
 @section('content')
+    <x-site.page-header page="equipe" />
+
     @include('site.pages.team')
 @endsection
 
