@@ -34,7 +34,9 @@ class PageHeader extends Model
         'title',
         'title_accent',
         'intro',
+        'body',
         'image',
+        'icon',
         'cta_label',
         'cta_url',
         'tags',
@@ -61,6 +63,29 @@ class PageHeader extends Model
      *
      * @return array<int, string>
      */
+    /**
+     * Texte long découpé en paragraphes.
+     *
+     * Une ligne vide sépare deux paragraphes, comme à la saisie ; un
+     * retour simple reste dans le même paragraphe.
+     *
+     * @return array<int, string>
+     */
+    public function bodyParagraphs(): array
+    {
+        $texte = trim((string) $this->body);
+
+        if ($texte === '') {
+            return [];
+        }
+
+        return collect(preg_split('/(?:\R\s*){2,}/', $texte))
+            ->map(fn (string $bloc): string => trim(preg_replace('/\s+/', ' ', $bloc)))
+            ->filter()
+            ->values()
+            ->all();
+    }
+
     public function tagList(): array
     {
         return array_values(array_filter(array_map('trim', $this->tags ?? [])));

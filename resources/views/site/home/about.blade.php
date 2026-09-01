@@ -56,36 +56,6 @@
                                             Nous formons des profils <span class="fw-700">solides</span>, prêts à prendre leur place <br> dans les entreprises du Congo.
                                         </span>
                                     </div>
-                                    <div class="!flex !items-center">
-                                        <div class="block-author !flex !items-center !relative">
-                                            <div class="avatar !overflow-hidden z-index-2">
-                                                <a href="{{ route('team') }}">
-                                                    <img src="{{ asset('assets/imgs/template/avatar/avatar-1.webp') }}" alt="ESCAT">
-                                                </a>
-                                            </div>
-                                            <div class="avatar !overflow-hidden z-index-3">
-                                                <a href="{{ route('team') }}">
-                                                    <img src="{{ asset('assets/imgs/template/avatar/avatar-2.webp') }}" alt="ESCAT">
-                                                </a>
-                                            </div>
-                                            <div class="avatar !overflow-hidden z-index-4">
-                                                <a href="{{ route('team') }}">
-                                                    <img src="{{ asset('assets/imgs/template/avatar/avatar-3.webp') }}" alt="ESCAT">
-                                                </a>
-                                            </div>
-                                            <div class="avatar !overflow-hidden z-index-5">
-                                                <a href="{{ route('team') }}">
-                                                    <img src="{{ asset('assets/imgs/template/avatar/avatar-4.webp') }}" alt="ESCAT">
-                                                </a>
-                                            </div>
-                                            <div class="avatar !overflow-hidden z-index-5">
-                                                <a href="{{ route('team') }}">
-                                                    <img src="{{ asset('assets/imgs/template/avatar/avatar-5.webp') }}" alt="ESCAT">
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="fz-font-md fw-600 !whitespace-nowrap"><span class="odometer" data-count="15"></span>+</div>
-                                    </div>
                                 </div>
                                 <div class="lg:w-1/12 md:w-1/4 col-md-3 w-5/12 !self-end !ml-auto">
                                     <div class="at-about-svg-wrap move-up">

@@ -92,6 +92,25 @@
                             </x-admin.field>
                         </div>
 
+                        <x-admin.field label="Texte long" :for="'entete-body-'.$index"
+                                       hint="Utilisé par les sections qui en prévoient un, comme le mot du directeur. Laissez une ligne vide entre deux paragraphes."
+                                       :error="$errors->first('headers.'.$index.'.body')">
+                            <textarea id="entete-body-{{ $index }}" rows="6" wire:model.blur="headers.{{ $index }}.body"
+                                      class="w-full rounded-md border-app-line bg-white px-3 py-2 text-sm leading-relaxed focus:border-brand focus:ring-0"></textarea>
+                        </x-admin.field>
+
+                        <x-admin.field label="Pictogramme" :for="'entete-icon-'.$index"
+                                       hint="Affiché sur les cartes qui en prévoient un. Sans objet ailleurs."
+                                       :error="$errors->first('headers.'.$index.'.icon')">
+                            <select id="entete-icon-{{ $index }}" wire:model.blur="headers.{{ $index }}.icon"
+                                    class="w-full rounded-md border-app-line bg-white px-3 py-2 text-sm focus:border-brand focus:ring-0">
+                                <option value="">Aucun</option>
+                                @foreach ($icones as $icone)
+                                    <option value="{{ $icone }}">{{ $icone }}</option>
+                                @endforeach
+                            </select>
+                        </x-admin.field>
+
                         <x-admin.field label="Étiquettes" :for="'entete-tags-'.$index"
                                        hint="Une par ligne. Quand une entrée porte deux informations, séparez-les par une barre verticale : « 4 | Cycles de formation »."
                                        :error="$errors->first('headers.'.$index.'.tags')">

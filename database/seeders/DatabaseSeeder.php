@@ -45,6 +45,8 @@ class DatabaseSeeder extends Seeder
         $this->call(HomeSectionSeeder::class);
         $this->call(TestimonialSeeder::class);
         $this->call(SchoolIdentitySeeder::class);
+        $this->call(TeamApproachSeeder::class);
+        $this->call(DirectorWordSeeder::class);
 
         ContactMessage::factory()->count(7)->create();
         ContactMessage::factory()->count(3)->create([

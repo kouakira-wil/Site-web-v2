@@ -26,6 +26,13 @@ class PageHeaderManager extends Component
     /** Dossier des visuels. Sert de garde-fou : aucune suppression au-dehors. */
     private const IMAGE_DIR = 'entetes';
 
+    /**
+     * Pictogrammes proposés, alignés sur resources/views/components/site/icon.blade.php.
+     *
+     * @var array<int, string>
+     */
+    public const ICONES = ['book', 'briefcase', 'users', 'globe', 'target', 'award', 'sparkle', 'compass'];
+
     /** @var array<int, array<string, mixed>> */
     public array $headers = [];
 
@@ -52,10 +59,12 @@ class PageHeaderManager extends Component
                 'title' => (string) $header->title,
                 'title_accent' => (string) $header->title_accent,
                 'intro' => (string) $header->intro,
+                'body' => (string) $header->body,
                 'cta_label' => (string) $header->cta_label,
                 'cta_url' => (string) $header->cta_url,
                 // Une étiquette par ligne à la saisie.
                 'tags' => implode(PHP_EOL, $header->tagList()),
+                'icon' => (string) $header->icon,
                 'image' => $header->image,
                 'image_url' => $header->imageUrl(),
             ])
@@ -74,9 +83,12 @@ class PageHeaderManager extends Component
             'headers.*.title' => ['required', 'string', 'max:200'],
             'headers.*.title_accent' => ['nullable', 'string', 'max:200'],
             'headers.*.intro' => ['nullable', 'string', 'max:600'],
+            'headers.*.body' => ['nullable', 'string', 'max:6000'],
             'headers.*.cta_label' => ['nullable', 'string', 'max:80'],
             'headers.*.cta_url' => ['nullable', 'string', 'max:255'],
             'headers.*.tags' => ['nullable', 'string', 'max:400'],
+            // Liste fermée : un nom libre ne rendrait aucun pictogramme.
+            'headers.*.icon' => ['nullable', 'string', 'in:'.implode(',', self::ICONES)],
             'images' => ['array'],
             'images.*' => ['image', 'mimes:jpg,jpeg,png,webp,avif', 'max:4096'],
         ];
@@ -93,9 +105,11 @@ class PageHeaderManager extends Component
             'headers.*.title_accent' => 'seconde ligne',
             'headers.*.eyebrow' => 'surtitre',
             'headers.*.intro' => 'accroche',
+            'headers.*.body' => 'texte long',
             'headers.*.cta_label' => 'libellé du bouton',
             'headers.*.cta_url' => 'lien du bouton',
             'headers.*.tags' => 'étiquettes',
+            'headers.*.icon' => 'pictogramme',
         ];
     }
 
@@ -140,6 +154,7 @@ class PageHeaderManager extends Component
                 'title' => trim($ligne['title']),
                 'title_accent' => trim((string) $ligne['title_accent']) ?: null,
                 'intro' => trim((string) $ligne['intro']) ?: null,
+                'body' => trim((string) $ligne['body']) ?: null,
                 'cta_label' => trim((string) $ligne['cta_label']) ?: null,
                 'cta_url' => trim((string) $ligne['cta_url']) ?: null,
                 'tags' => collect(preg_split('/\R/', (string) $ligne['tags']))
@@ -147,6 +162,7 @@ class PageHeaderManager extends Component
                     ->filter()
                     ->values()
                     ->all(),
+                'icon' => trim((string) $ligne['icon']) ?: null,
                 'image' => $visuel,
             ])->save();
 
@@ -165,6 +181,6 @@ class PageHeaderManager extends Component
 
     public function render(): View
     {
-        return view('livewire.admin.pages.page-header-manager');
+        return view('livewire.admin.pages.page-header-manager', ['icones' => self::ICONES]);
     }
 }

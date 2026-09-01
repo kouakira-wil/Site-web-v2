@@ -8139,7 +8139,7 @@ input.footer-15__form-input:focus {
 .at-about-dec {
   line-height: 162%;
   letter-spacing: -0.05em;
-  color: var(--at-common-black);
+  color: #000;
 }
 @media only screen and (min-width: 1400px) and (max-width: 1599px), only screen and (min-width: 1200px) and (max-width: 1399px), only screen and (min-width: 992px) and (max-width: 1199px), only screen and (min-width: 768px) and (max-width: 991px), only screen and (min-width: 576px) and (max-width: 767px), (max-width: 574.98px) {
   .at-about-dec br {
@@ -15347,7 +15347,7 @@ input.footer-15__form-input:focus {
 
 .mg-portfolio-dec {
   letter-spacing: -0.03em;
-  color: var(--at-common-black);
+  color: #000;
 }
 @media only screen and (min-width: 1200px) and (max-width: 1399px), only screen and (min-width: 992px) and (max-width: 1199px), only screen and (min-width: 768px) and (max-width: 991px), only screen and (min-width: 576px) and (max-width: 767px), (max-width: 574.98px) {
   .mg-portfolio-dec br {

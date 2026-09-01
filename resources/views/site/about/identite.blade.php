@@ -1,6 +1,8 @@
 @php
     $blocs = \App\Models\PageHeader::query()
         ->where('group', 'ecole')
+        // Le mot du directeur partage ce groupe mais a sa propre section.
+        ->where('key', '!=', 'ecole.directeur')
         ->orderBy('position')
         ->get()
         // Un bloc sans texte ni liste n'a rien à montrer : on ne rend pas un

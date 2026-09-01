@@ -14,6 +14,7 @@
 
     @include('site.about.intro')
     @include('site.about.chiffres')
+    @include('site.about.directeur')
     @include('site.about.identite')
     @include('site.about.parcours')
     {{--

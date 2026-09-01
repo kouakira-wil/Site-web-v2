@@ -551,3 +551,213 @@
     height: 1px;
     overflow: hidden;
 }
+
+/*
+ * « Notre approche pédagogique » — page Équipe.
+ *
+ * Bandeau bleu de marque, cartes sur fond encre. La grille passe de 1 à 2 puis
+ * 4 colonnes ; les cartes gardent une hauteur commune par rangée grâce à
+ * `align-items: stretch` implicite de la grille.
+ */
+.approche-area {
+    padding: 96px 0;
+    background: var(--escat-brand);
+    color: #fff;
+}
+
+.approche-area__head {
+    max-width: 62ch;
+    margin: 0 auto 56px;
+    text-align: center;
+}
+
+.approche-area__title {
+    margin: 0 0 16px;
+    font-family: var(--at-ff-heading, inherit);
+    font-size: clamp(28px, 3.2vw, 46px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: #fff;
+}
+
+.approche-area__lead {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.6;
+    /* Blanc légèrement adouci : lisible sans écraser le titre. */
+    color: rgba(255, 255, 255, 0.86);
+}
+
+.approche-grid {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: 1fr;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+@media (min-width: 576px) {
+    .approche-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1200px) {
+    .approche-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+.approche-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 36px 28px 40px;
+    text-align: center;
+    background: #0C1B3A;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 10px;
+}
+
+.approche-card__icon {
+    display: grid;
+    place-items: center;
+    margin-bottom: 6px;
+    color: #fff;
+}
+
+.approche-card__title {
+    margin: 0;
+    font-family: var(--at-ff-heading, inherit);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: #fff;
+}
+
+.approche-card__text {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.65;
+    /* Contraste vérifié sur #0C1B3A : au-delà du seuil de 4.5:1. */
+    color: rgba(255, 255, 255, 0.82);
+}
+
+/*
+ * Mot du directeur — page L'école.
+ * Carte blanche sur fond gris très clair, texte centré.
+ */
+.directeur-area {
+    padding: 80px 0;
+    background: #F7F8FC;
+}
+
+.directeur-card {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 48px clamp(24px, 4vw, 64px) 44px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid var(--sd3-line, #DFDFDF);
+    border-radius: 8px;
+}
+
+.directeur-card__title {
+    margin: 0 0 24px;
+    font-family: var(--at-ff-heading, inherit);
+    font-size: clamp(26px, 2.6vw, 34px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--sd3-ink, #1D1D1D);
+}
+
+.directeur-card__lead {
+    margin: 0 auto;
+    max-width: 68ch;
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--at-neutral-700, #303030);
+}
+
+.directeur-card__text {
+    margin: 0 auto 20px;
+    max-width: 72ch;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--at-neutral-500, #585959);
+}
+
+.directeur-card__text:last-child {
+    margin-bottom: 0;
+}
+
+/* Le mécanisme du gabarit anime la hauteur ; on ajoute la respiration. */
+.directeur-card__suite-inner {
+    padding-top: 24px;
+}
+
+.directeur-card__toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 28px;
+    padding: 12px 26px;
+    border: 0;
+    border-radius: 6px;
+    background: var(--escat-brand);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.directeur-card__toggle:hover {
+    background: var(--escat-brand-dark);
+}
+
+.directeur-card__toggle:focus-visible {
+    outline: 2px solid var(--escat-brand);
+    outline-offset: 3px;
+}
+
+/*
+ * Le libellé suit `aria-expanded`, que le mécanisme de repli met à jour :
+ * pas une ligne de JavaScript en plus.
+ */
+.directeur-card__toggle-moins {
+    display: none;
+}
+
+.directeur-card__toggle[aria-expanded="true"] .directeur-card__toggle-plus {
+    display: none;
+}
+
+.directeur-card__toggle[aria-expanded="true"] .directeur-card__toggle-moins {
+    display: inline;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .directeur-card__toggle {
+        transition: none;
+    }
+}
+
+/*
+ * Seconde ligne des titres de bandeau.
+ *
+ * Le gabarit la peint avec `--sd3-accent`, l'orange #F0460E. Elle passe au
+ * bleu de marque. Même spécificité que la règle d'origine (0,1,0) : c'est
+ * l'ordre de chargement qui tranche, brand.css venant après main.css.
+ *
+ * Les autres emplois de `--sd3-accent` (survols du fil d'Ariane, des liens,
+ * chiffres des indicateurs) restent orange : seule la ligne de titre est visée.
+ */
+.sd3-hero__line--accent {
+    color: var(--escat-brand);
+}

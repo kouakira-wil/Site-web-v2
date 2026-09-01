@@ -13,6 +13,7 @@
     <x-site.page-header page="equipe" />
 
     @include('site.pages.team')
+    @include('site.team.approche')
 @endsection
 
 @section('footer')
