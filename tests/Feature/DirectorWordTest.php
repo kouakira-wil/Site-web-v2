@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
-use App\Livewire\Admin\Pages\PageHeaderManager;
+use App\Livewire\Admin\Pages\PageHeaderForm;
 use App\Models\PageHeader;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -79,11 +79,10 @@ class DirectorWordTest extends TestCase
     {
         $this->actingAs(User::factory()->create(['role' => User::ROLE_ADMIN]));
 
-        $index = PageHeader::query()->orderBy('group')->orderBy('position')->orderBy('id')
-            ->pluck('key')->search('ecole.directeur');
+        $bloc = PageHeader::query()->where('key', 'ecole.directeur')->firstOrFail();
 
-        Livewire::test(PageHeaderManager::class)
-            ->set("headers.{$index}.body", "Un tout nouveau paragraphe.\n\nEt un second.")
+        Livewire::test(PageHeaderForm::class, ['header' => $bloc])
+            ->set('body', "Un tout nouveau paragraphe.\n\nEt un second.")
             ->call('save')
             ->assertHasNoErrors();
 

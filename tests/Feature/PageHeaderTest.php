@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
-use App\Livewire\Admin\Pages\PageHeaderManager;
+use App\Livewire\Admin\Pages\PageHeaderForm;
 use App\Models\PageHeader;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -50,12 +50,11 @@ class PageHeaderTest extends TestCase
         $this->seedHeaders();
         $this->actingAs(User::factory()->create(['role' => User::ROLE_ADMIN]));
 
-        $index = collect(PageHeader::query()->orderBy('id')->get())
-            ->search(fn (PageHeader $h): bool => $h->key === 'contact');
+        $bloc = PageHeader::query()->where('key', 'contact')->firstOrFail();
 
-        Livewire::test(PageHeaderManager::class)
-            ->set("headers.{$index}.title", 'Un tout nouveau titre')
-            ->set("headers.{$index}.intro", 'Une introduction ajoutée depuis le back-office.')
+        Livewire::test(PageHeaderForm::class, ['header' => $bloc])
+            ->set('title', 'Un tout nouveau titre')
+            ->set('intro', 'Une introduction ajoutée depuis le back-office.')
             ->call('save')
             ->assertHasNoErrors();
 
@@ -105,22 +104,41 @@ class PageHeaderTest extends TestCase
         $this->assertStringNotContainsString('sd3-hero__line--accent', $contenu);
     }
 
-    public function test_a_tampered_image_path_is_never_adopted(): void
+    public function test_removing_an_image_never_deletes_a_file_outside_its_folder(): void
     {
         \Illuminate\Support\Facades\Storage::fake('public');
         $this->seedHeaders();
         $this->actingAs(User::factory()->create(['role' => User::ROLE_ADMIN]));
 
-        // Fichier d'un tiers, que le formulaire ne doit ni adopter ni supprimer.
+        // Fichier d'un tiers, hors du dossier des visuels d'en-tête.
         \Illuminate\Support\Facades\Storage::disk('public')->put('actualites/photo-d-autrui.webp', 'contenu');
 
-        Livewire::test(PageHeaderManager::class)
-            ->set('headers.0.image', 'actualites/photo-d-autrui.webp')
+        $bloc = PageHeader::query()->orderBy('id')->firstOrFail();
+        $bloc->forceFill(['image' => 'actualites/photo-d-autrui.webp'])->save();
+
+        Livewire::test(PageHeaderForm::class, ['header' => $bloc->fresh()])
+            ->call('removeImage')
             ->call('save')
             ->assertHasNoErrors();
 
-        $this->assertNull(PageHeader::query()->orderBy('id')->first()->image);
+        // La référence est retirée du bloc, mais le fichier reste intact.
+        $this->assertNull($bloc->fresh()->image);
         \Illuminate\Support\Facades\Storage::disk('public')->assertExists('actualites/photo-d-autrui.webp');
+    }
+
+    public function test_the_form_cannot_carry_a_stored_path(): void
+    {
+        $this->seedHeaders();
+        $this->actingAs(User::factory()->create(['role' => User::ROLE_ADMIN]));
+
+        $bloc = PageHeader::query()->orderBy('id')->firstOrFail();
+
+        // `image` est typée : elle n'accepte qu'un fichier téléversé. Un chemin
+        // ne peut donc pas transiter par le formulaire, même altéré côté client.
+        $this->expectException(\TypeError::class);
+
+        Livewire::test(PageHeaderForm::class, ['header' => $bloc])
+            ->set('image', 'actualites/photo-d-autrui.webp');
     }
 
     public function test_a_header_title_is_required(): void
@@ -128,9 +146,11 @@ class PageHeaderTest extends TestCase
         $this->seedHeaders();
         $this->actingAs(User::factory()->create(['role' => User::ROLE_ADMIN]));
 
-        Livewire::test(PageHeaderManager::class)
-            ->set('headers.0.title', '')
+        $bloc = PageHeader::query()->orderBy('id')->firstOrFail();
+
+        Livewire::test(PageHeaderForm::class, ['header' => $bloc])
+            ->set('title', '')
             ->call('save')
-            ->assertHasErrors('headers.0.title');
+            ->assertHasErrors('title');
     }
 }

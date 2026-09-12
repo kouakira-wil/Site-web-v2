@@ -135,3 +135,61 @@ function initCollapse() {
 }
 
 document.addEventListener('DOMContentLoaded', initCollapse);
+
+/**
+ * Défilement de la seconde ligne du titre du bandeau.
+ *
+ * Les variantes sont empilées dans une même cellule de grille : le bloc prend
+ * la hauteur de la plus grande et ne saute pas d'une variante à l'autre.
+ */
+function initHeroRotator() {
+    const rotators = document.querySelectorAll('[data-hero-rotator]');
+
+    if (rotators.length === 0) {
+        return;
+    }
+
+    // Mouvement réduit : on laisse la première variante affichée, sans rotation.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return;
+    }
+
+    const INTERVALLE = 3200;
+
+    rotators.forEach((rotator) => {
+        const items = Array.from(rotator.querySelectorAll('.hero-rotator__item'));
+
+        if (items.length < 2) {
+            return;
+        }
+
+        let index = 0;
+        let timer = null;
+
+        const avancer = () => {
+            items[index].classList.remove('is-active');
+            index = (index + 1) % items.length;
+            items[index].classList.add('is-active');
+        };
+
+        const demarrer = () => {
+            if (timer === null) {
+                timer = window.setInterval(avancer, INTERVALLE);
+            }
+        };
+
+        const arreter = () => {
+            window.clearInterval(timer);
+            timer = null;
+        };
+
+        // Inutile de faire tourner une animation dans un onglet masqué.
+        document.addEventListener('visibilitychange', () => {
+            document.hidden ? arreter() : demarrer();
+        });
+
+        demarrer();
+    });
+}
+
+document.addEventListener('DOMContentLoaded', initHeroRotator);

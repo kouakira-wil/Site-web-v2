@@ -33,6 +33,7 @@ class PageHeader extends Model
         'eyebrow',
         'title',
         'title_accent',
+        'title_variants',
         'intro',
         'body',
         'image',
@@ -46,6 +47,7 @@ class PageHeader extends Model
     {
         return [
             'tags' => 'array',
+            'title_variants' => 'array',
             'position' => 'integer',
         ];
     }
@@ -97,6 +99,45 @@ class PageHeader extends Model
             self::CACHE_PREFIX.$key,
             fn (): ?self => self::query()->where('key', $key)->first()
         );
+    }
+
+    /**
+     * Page publique où ce bloc s'affiche, pour le lien « Voir la page ».
+     */
+    public function publicUrl(): string
+    {
+        $chemin = match (true) {
+            str_starts_with($this->key, 'home.') => '/',
+            str_starts_with($this->key, 'ecole.') => '/l-ecole',
+            str_starts_with($this->key, 'equipe.') => '/equipe',
+            $this->key === 'about' => '/l-ecole',
+            $this->key === 'filieres' => '/filieres',
+            $this->key === 'journal' => '/journal',
+            $this->key === 'equipe' => '/equipe',
+            $this->key === 'recherche' => '/recherche',
+            default => '/contact',
+        };
+
+        return url($chemin);
+    }
+
+    /**
+     * Lignes que le titre fait défiler.
+     *
+     * Sans variante saisie, on retombe sur la seconde ligne fixe : la vue rend
+     * alors un titre immobile plutôt qu'un bloc vide.
+     *
+     * @return array<int, string>
+     */
+    public function titleVariants(): array
+    {
+        $variantes = array_values(array_filter(array_map('trim', $this->title_variants ?? [])));
+
+        if ($variantes !== []) {
+            return $variantes;
+        }
+
+        return filled($this->title_accent) ? [trim($this->title_accent)] : [];
     }
 
     /**

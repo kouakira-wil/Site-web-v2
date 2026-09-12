@@ -27,7 +27,7 @@ class AdminAccessTest extends TestCase
             'nouveau membre' => ['admin.team.create'],
             'temoignages' => ['admin.testimonials.index'],
             'nouveau temoignage' => ['admin.testimonials.create'],
-            'en-tetes' => ['admin.pages.index'],
+            'textes du site' => ['admin.pages.index'],
             'recherche admin' => ['admin.search'],
             'messages' => ['admin.messages.index'],
             'lettre d information' => ['admin.newsletter.index'],

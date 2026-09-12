@@ -106,17 +106,6 @@
 
                                     </div>
                                 </div>
-                                <div class="w-full !text-center pt-50 z-index-1">
-                                    <a href="mailto:infos@escat.org" class="at-btn !bg-transparent p-relative">
-                                        <img class="badge-zoon-in" src="{{ asset('assets/imgs/icons/badge-2.svg') }}" alt="ESCAT">
-                                        <span class="!absolute !top-1/2 !left-1/2 !-translate-x-1/2 !-translate-y-1/2 !flex !flex-col !items-center !justify-center overflow-unset">
-
-                                            <span class="!mt-2 badge-text-zoom-in overflow-unset !whitespace-normal">
-                                                <span class="fw-700 common-white !uppercase overflow-unset">Ils <br>témoignent</span>
-                                            </span>
-                                        </span>
-                                    </a>
-                                </div>
                             </div>
                         </div>
 

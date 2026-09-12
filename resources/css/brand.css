@@ -761,3 +761,83 @@
 .sd3-hero__line--accent {
     color: var(--escat-brand);
 }
+
+/*
+ * Titre du bandeau d'accueil.
+ *
+ * Le gabarit le laissait à la taille d'un h3 (52 px fixes), avec deux sauts
+ * brusques à 767 px et 574 px. Une taille fluide suit la largeur de la
+ * fenêtre sans rupture, dans le même esprit que les autres titres du site
+ * (`.sd3-hero__title`, `.programme-col__title`).
+ */
+.at-hero-title {
+    font-size: clamp(32px, 3.2vw, 56px);
+}
+
+/*
+ * La colonne est déjà poussée à droite par `!ml-auto` ; on borne seulement la
+ * longueur de ligne pour que le titre ferré à droite reste lisible.
+ */
+@media (min-width: 768px) {
+    .at-hero-content {
+        margin-right: auto;
+        /* En px, et non en ch : sur ce conteneur, `ch` se calcule sur la
+           taille du corps de texte, pas sur celle du titre. */
+        max-width: 640px;
+    }
+
+    .at-hero-content .at-hero-subtitle {
+        display: block;
+    }
+}
+
+/*
+ * Seconde ligne du titre du bandeau, qui défile.
+ *
+ * Les variantes occupent la même cellule de grille : le bloc prend la hauteur
+ * de la plus haute, donc rien ne saute quand on passe de l'une à l'autre.
+ */
+.hero-rotator {
+    display: grid;
+    /* `block` plutôt que `inline` : la ligne se place sous la première. */
+    width: 100%;
+}
+
+.hero-rotator__item {
+    grid-area: 1 / 1;
+    opacity: 0;
+    transform: translateY(0.3em);
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Une variante masquée ne doit pas rester cliquable ni sélectionnable. */
+    pointer-events: none;
+    user-select: none;
+}
+
+.hero-rotator__item.is-active {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    user-select: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-rotator__item {
+        transition: none;
+        transform: none;
+    }
+}
+
+/*
+ * Couleur d'accent des bandeaux et des blocs « services-details-3 ».
+ *
+ * Le gabarit la fixait sur l'orange Orisa (`--at-theme-primary`, #F0460E).
+ * Elle colore la seconde ligne des titres — celle qui s'anime à l'entrée —
+ * ainsi que le fil d'Ariane, les survols de liens et les chiffres mis en
+ * avant. On la bascule sur le bleu ESCAT.
+ *
+ * Une seule variable suffit : les treize règles du gabarit qui s'en servent
+ * suivent, sans avoir à les reprendre une par une.
+ */
+.sd3-page {
+    --sd3-accent: var(--escat-brand);
+}

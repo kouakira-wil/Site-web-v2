@@ -8,12 +8,6 @@
                         <div class="flex flex-wrap -mx-3 [&>*]:px-3">
                             <div class="w-full 2xl:w-1/3 lg:w-1/3">
                                 <div class="mg-portfolio-title-wrap mg-portfolio-pin mb-30">
-                                    <svg class="fill-primary mb-10" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
-                                        <path d="M17 18L30 5H43V18L30 31V18H17Z" fill="#F0460E" />
-                                        <path d="M30 31H43V44H30V31Z" fill="#F0460E" />
-                                        <path d="M17 18L4 31V44H17L30 31H17V18Z" fill="#F0460E" />
-                                        <path d="M17 18H4V5H17V18Z" fill="#F0460E" />
-                                    </svg>
                                     <h2 class="alt-section-title !leading-none mb-30 reveal-text">{{ $s?->title }}</h2>
                                     <div class="at_fade_anim" data-delay=".3">
                                         <p class="mg-portfolio-dec mb-50">Quatre parcours construits avec les entreprises du secteur,
@@ -39,7 +33,7 @@
                                     <!-- beautify ignore:start -->
                     @forelse ($featured as $filiere)
     <x-site.filiere-item :filiere="$filiere"
-        :fallback="asset('assets/imgs/pages/img-'.(11 + ($loop->index % 4)).'.webp')" />
+        :fallback="asset('assets/imgs/pages/img-'.(11 + ($loop->index % 4)).'.jpg')" />
 @empty
     <p>Aucune filière mise en avant pour le moment.</p>
 @endforelse

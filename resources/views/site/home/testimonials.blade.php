@@ -14,37 +14,10 @@
                                                 <span class="text-1">{{ $s?->eyebrow }}</span>
                                                 <span class="text-2">{{ $s?->eyebrow }}</span>
                                             </span>
-                                            <i>
-                                                <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M0.21967 9.40717C-0.0732232 9.70006 -0.0732232 10.1749 0.21967 10.4678C0.512563 10.7607 0.987437 10.7607 1.28033 10.4678L0.21967 9.40717ZM10.6875 0.75C10.6875 0.335786 10.3517 2.97145e-09 9.9375 1.50485e-07L3.1875 -2.70983e-07C2.77329 -2.70983e-07 2.4375 0.335786 2.4375 0.75C2.4375 1.16421 2.77329 1.5 3.1875 1.5H9.1875V7.5C9.1875 7.91421 9.52329 8.25 9.9375 8.25C10.3517 8.25 10.6875 7.91421 10.6875 7.5L10.6875 0.75ZM0.75 9.9375L1.28033 10.4678L10.4678 1.28033L9.9375 0.75L9.40717 0.21967L0.21967 9.40717L0.75 9.9375Z" fill="currentColor" />
-                                                </svg>
-                                                <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M0.21967 9.40717C-0.0732232 9.70006 -0.0732232 10.1749 0.21967 10.4678C0.512563 10.7607 0.987437 10.7607 1.28033 10.4678L0.21967 9.40717ZM10.6875 0.75C10.6875 0.335786 10.3517 2.97145e-09 9.9375 1.50485e-07L3.1875 -2.70983e-07C2.77329 -2.70983e-07 2.4375 0.335786 2.4375 0.75C2.4375 1.16421 2.77329 1.5 3.1875 1.5H9.1875V7.5C9.1875 7.91421 9.52329 8.25 9.9375 8.25C10.3517 8.25 10.6875 7.91421 10.6875 7.5L10.6875 0.75ZM0.75 9.9375L1.28033 10.4678L10.4678 1.28033L9.9375 0.75L9.40717 0.21967L0.21967 9.40717L0.75 9.9375Z" fill="currentColor" />
-                                                </svg>
-                                            </i>
                                         </span>
                                         <h3 class="h3 fw-600 at-section-title reveal-text mb-80">
                                             {{ $s?->title }}
                                         </h3>
-                                    </div>
-                                </div>
-                                <div class="w-full lg:w-1/6 md:w-1/4 col-md-3 !self-end !ml-auto !hidden md:!block">
-                                    <div class="at-about-svg-wrap">
-
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="57" height="91" viewBox="0 0 57 91" fill="none">
-                                            <path opacity="0.1" d="M0 0L56.4024 33.572V90.336L0 56.46V0Z" fill="#515151" />
-                                        </svg>
-
-
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="113" height="68" viewBox="0 0 113 68" fill="none">
-                                            <path opacity="0.3" d="M0 33.876L56.4024 0L112.805 33.876V34.1294L56.4024 68.0054L0 34.1294V33.876Z" fill="#515151" />
-                                        </svg>
-
-
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="57" height="91" viewBox="0 0 57 91" fill="none">
-                                            <path opacity="0.2" d="M56.4009 0L8.7738e-05 33.5367V90.2413L56.4009 56.4008V0Z" fill="#515151" />
-                                        </svg>
-
                                     </div>
                                 </div>
                             </div>
@@ -53,7 +26,7 @@
                                     <div class="!flex !flex-col !gap-2">
                                         <div class="at-image-hover p-relative !rounded-2xl !overflow-hidden">
                                             <div class="anim-zoomin">
-                                                <img class="zoom-blur-image img-cover" src="{{ asset('assets/imgs/pages/img-15.webp') }}" alt="ESCAT">
+                                                <img class="zoom-blur-image img-cover" src="{{ asset('assets/imgs/pages/img-11.jpg') }}" alt="ESCAT">
                                             </div>
                                             <img class="p-absolute !bottom-0 !left-0 !m-6" src="{{ asset('assets/imgs/template/logo/logo-w-lg.png') }}" alt="ESCAT">
                                             <div class="content !absolute !top-0 !right-0 !m-6">
@@ -62,7 +35,7 @@
                                         </div>
                                         <div class="at-image-hover p-relative !rounded-2xl !overflow-hidden">
                                             <div class="anim-zoomin">
-                                                <img class="zoom-blur-image img-cover" src="{{ asset('assets/imgs/pages/img-16.webp') }}" alt="ESCAT">
+                                                <img class="zoom-blur-image img-cover" src="{{ asset('assets/imgs/pages/img-132.jpg') }}" alt="ESCAT">
                                             </div>
                                             <div class="content">
                                                 <h4 class="h6 common-white !absolute !bottom-0 !left-0 !m-6">Un projet d’orientation se construit à deux. Parlons-en.</h4>

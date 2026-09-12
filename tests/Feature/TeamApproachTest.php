@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
-use App\Livewire\Admin\Pages\PageHeaderManager;
+use App\Livewire\Admin\Pages\PageHeaderForm;
 use App\Models\PageHeader;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -57,12 +57,11 @@ class TeamApproachTest extends TestCase
     {
         $this->actingAs(User::factory()->create(['role' => User::ROLE_ADMIN]));
 
-        $index = PageHeader::query()->orderBy('group')->orderBy('position')->orderBy('id')
-            ->pluck('key')->search('equipe.approche.1');
+        $carte = PageHeader::query()->where('key', 'equipe.approche.1')->firstOrFail();
 
-        Livewire::test(PageHeaderManager::class)
-            ->set("headers.{$index}.title", 'Un intitule tout neuf')
-            ->set("headers.{$index}.icon", 'target')
+        Livewire::test(PageHeaderForm::class, ['header' => $carte])
+            ->set('title', 'Un intitule tout neuf')
+            ->set('icon', 'target')
             ->call('save')
             ->assertHasNoErrors();
 
@@ -73,13 +72,12 @@ class TeamApproachTest extends TestCase
     {
         $this->actingAs(User::factory()->create(['role' => User::ROLE_ADMIN]));
 
-        $index = PageHeader::query()->orderBy('group')->orderBy('position')->orderBy('id')
-            ->pluck('key')->search('equipe.approche.1');
+        $carte = PageHeader::query()->where('key', 'equipe.approche.1')->firstOrFail();
 
         // Un nom libre ne rendrait aucun pictogramme : la liste est fermée.
-        Livewire::test(PageHeaderManager::class)
-            ->set("headers.{$index}.icon", 'licorne')
+        Livewire::test(PageHeaderForm::class, ['header' => $carte])
+            ->set('icon', 'licorne')
             ->call('save')
-            ->assertHasErrors("headers.{$index}.icon");
+            ->assertHasErrors('icon');
     }
 }

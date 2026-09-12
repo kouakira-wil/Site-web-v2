@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
-use App\Livewire\Admin\Pages\PageHeaderManager;
+use App\Livewire\Admin\Pages\PageHeaderForm;
 use App\Models\PageHeader;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -27,11 +27,12 @@ class HomeSectionTest extends TestCase
         $reponse = $this->get('/');
         $reponse->assertOk();
 
-        // `home.marquee` est absent : sa vignette n'affiche que des chiffres,
-        // son titre ne sert que d'étiquette dans le back-office.
+        // `home.marquee` et `home.services` sont absents de la liste : leur
+        // section n'affiche pas de titre, celui-ci ne sert que d'étiquette
+        // dans le back-office.
         $contenu = $reponse->getContent();
 
-        foreach (['home.hero', 'home.about', 'home.services', 'home.portfolio', 'home.testimonials',
+        foreach (['home.hero', 'home.about', 'home.portfolio', 'home.testimonials',
                   'home.showcase', 'home.process', 'home.faq', 'home.banner', 'home.journal'] as $cle) {
             $section = PageHeader::query()->where('key', $cle)->firstOrFail();
 
@@ -67,11 +68,10 @@ class HomeSectionTest extends TestCase
     {
         $this->actingAs(User::factory()->create(['role' => User::ROLE_ADMIN]));
 
-        $index = PageHeader::query()->orderBy('group')->orderBy('position')->orderBy('id')
-            ->pluck('key')->search('home.banner');
+        $bloc = PageHeader::query()->where('key', 'home.banner')->firstOrFail();
 
-        Livewire::test(PageHeaderManager::class)
-            ->set("headers.{$index}.title", 'Un tout nouvel appel')
+        Livewire::test(PageHeaderForm::class, ['header' => $bloc])
+            ->set('title', 'Un tout nouvel appel')
             ->call('save')
             ->assertHasNoErrors();
 

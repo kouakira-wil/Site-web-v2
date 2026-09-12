@@ -14,7 +14,8 @@ use App\Livewire\Admin\AdminSearch;
 use App\Livewire\Admin\Dashboard;
 use App\Livewire\Admin\Messages\MessageIndex;
 use App\Livewire\Admin\Newsletter\SubscriberIndex;
-use App\Livewire\Admin\Pages\PageHeaderManager;
+use App\Livewire\Admin\Pages\PageHeaderForm;
+use App\Livewire\Admin\Pages\PageHeaderIndex;
 use App\Livewire\Admin\Posts\PostForm;
 use App\Livewire\Admin\Posts\PostIndex;
 use App\Livewire\Admin\Projects\ProjectForm;
@@ -84,7 +85,8 @@ Route::middleware([
     Route::get('/temoignages/nouveau', TestimonialForm::class)->name('testimonials.create');
     Route::get('/temoignages/{testimonial}/edition', TestimonialForm::class)->name('testimonials.edit');
 
-    Route::get('/en-tetes', PageHeaderManager::class)->name('pages.index');
+    Route::get('/textes', PageHeaderIndex::class)->name('pages.index');
+    Route::get('/textes/{header}/edition', PageHeaderForm::class)->name('pages.edit');
 
     Route::get('/recherche', AdminSearch::class)->name('search');
 

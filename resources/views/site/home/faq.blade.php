@@ -9,7 +9,7 @@
                             <div class="w-full lg:w-5/12">
                                 <div class="alt-faq-title-wrap mb-40">
                                     <div class="!rounded-2xl !overflow-hidden anim-zoomin">
-                                        <img src="{{ asset('assets/imgs/pages/img-21.jpeg') }}" data-speed=".8" class="!w-full" alt="ESCAT">
+                                        <img src="{{ asset('assets/imgs/pages/img-21.jpg') }}" data-speed=".8" class="!w-full" alt="ESCAT">
                                     </div>
                                     <h3 class="h6 fw-600 mb-15 pt-50">Une question sans réponse ? Écrivez-nous.</h3>
                                     <p class="at-faq-dec mb-35">Le service des admissions vous répond</p>
