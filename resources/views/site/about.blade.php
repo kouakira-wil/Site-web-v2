@@ -13,9 +13,12 @@
     <x-site.page-header page="about" />
 
     @include('site.about.intro')
-    @include('site.about.chiffres')
-    @include('site.about.directeur')
+    @include('site.about.reperes')
+    @include('site.about.vision')
+    @include('site.about.mission')
+    {{-- @include('site.about.chiffres') --}}
     @include('site.about.identite')
+    @include('site.about.directeur')
     @include('site.about.parcours')
     {{--
         La section « distinctions » du gabarit attend des prix et des dates que
@@ -23,7 +26,7 @@
         il suffit de le renseigner puis de l'inclure ici.
     --}}
     @include('site.about.equipe')
-    @include('site.about.contact')
+    {{-- @include('site.about.contact') --}}
     @include('site.about.partenaires')
     @include('site.about.newsletter')
 @endsection

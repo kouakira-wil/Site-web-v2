@@ -3,6 +3,12 @@
         ->where('group', 'ecole')
         // Le mot du directeur partage ce groupe mais a sa propre section.
         ->where('key', '!=', 'ecole.directeur')
+        // La présentation a sa propre section en tête de page.
+        ->where('key', 'not like', 'ecole.presentation%')
+        ->where('key', '!=', 'ecole.reperes')
+        // La mission a sa propre section, en pleine largeur.
+        ->where('key', '!=', 'ecole.mission')
+        ->where('key', 'not like', 'ecole.vision%')
         ->orderBy('position')
         ->get()
         // Un bloc sans texte ni liste n'a rien à montrer : on ne rend pas un
@@ -22,7 +28,7 @@
     <section class="sd3-tracks pt-100 pb-60" aria-labelledby="titre-identite">
         <div class="container">
             <div class="sd3-tracks__head">
-                <p class="sd3-label mb-15 at_fade_anim" data-fade-from="bottom">[02] Notre identité</p>
+                <p class="sd3-label mb-15 at_fade_anim" data-fade-from="bottom">Notre identité</p>
                 <h2 id="titre-identite" class="sd3-tracks__title reveal-text !mb-0">Ce qui nous guide</h2>
             </div>
 

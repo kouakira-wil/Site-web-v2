@@ -12,7 +12,7 @@
     <section class="sd3-tracks pt-40 pb-20" aria-labelledby="titre-programme">
         <div class="container">
             <div class="sd3-tracks__head">
-                <p class="sd3-label mb-15 at_fade_anim" data-fade-from="bottom">[02b] Programme</p>
+                <p class="sd3-label mb-15 at_fade_anim" data-fade-from="bottom">Programme</p>
                 <h2 id="titre-programme" class="sd3-tracks__title reveal-text !mb-0">Le programme en détail</h2>
             </div>
 

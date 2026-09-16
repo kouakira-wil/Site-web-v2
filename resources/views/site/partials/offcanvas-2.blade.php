@@ -5,8 +5,8 @@
             <div class="at-offcanvas-2-left">
                 <div class="at-header-logo !flex !justify-between !items-center mb-50">
                     <a href="{{ route('home') }}">
-                        <img class="dark-mode-invert" data-width="30" src="{{ asset('assets/imgs/template/logo/favicon.svg') }}" alt="ESCAT">
-                        <p class="h6 fw-700 fz-24 !mb-0">ESCAT</p>
+                        <img class="dark-mode-invert" data-width="80" src="{{ asset('assets/imgs/template/logo/favicon-dark.png') }}" alt="ESCAT">
+                        {{-- <p class="h6 fw-700 fz-24 !mb-0">ESCAT</p> --}}
                     </a>
                     <span class="hamburger-close-btn">
                         <svg width="37" height="38" viewBox="0 0 37 38" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -20,28 +20,13 @@
                 </div>
                 <div class="at-offcanvas-social">
                     <ul class="at-offcanvas-social__grid">
-                        <li>
-                            <a href="{{ config('social.twitter') ?: route('contact') }}" target="_blank" rel="noopener noreferrer" class="at-offcanvas-social__link" aria-label="Twitter">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 16 15" fill="none" aria-hidden="true">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0H5.25L8.98421 5.21053L13.5 0H15.5L9.8895 6.47368L16 15H10.75L7.01579 9.7895L2.5 15H0.5L6.11053 8.52632L0 0ZM11.5204 13.5L2.92043 1.5H4.47957L13.0796 13.5H11.5204Z" fill="currentColor" />
-                                </svg>
-                                <span>Twitter</span>
-                            </a>
-                        </li>
+                        
                         <li>
                             <a href="{{ config('social.facebook') ?: route('contact') }}" target="_blank" rel="noopener noreferrer" class="at-offcanvas-social__link" aria-label="Facebook">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
                                     <path d="M12.4024 18V11.0344H14.7347L15.0838 8.3265H12.4024V6.59765C12.4024 5.81364 12.62 5.27934 13.7443 5.27934L15.1783 5.27867V2.85676C14.9302 2.82382 14.0791 2.75006 13.0888 2.75006C11.0213 2.75006 9.606 4.01198 9.606 6.32952V8.3265H7.2677V11.0344H9.606V18H1C0.44772 18 0 17.5523 0 17V1C0 0.44772 0.44772 0 1 0H17C17.5523 0 18 0.44772 18 1V17C18 17.5523 17.5523 18 17 18H12.4024Z" fill="currentColor" />
                                 </svg>
                                 <span>Facebook</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ config('social.linkedin') ?: route('contact') }}" target="_blank" rel="noopener noreferrer" class="at-offcanvas-social__link" aria-label="LinkedIn">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-                                    <path d="M15.3352 15.339H12.6697V11.1622C12.6697 10.1662 12.6495 8.8845 11.2807 8.8845C9.89102 8.8845 9.67872 9.9683 9.67872 11.0887V15.339H7.01322V6.75H9.57372V7.9207H9.60822C9.96602 7.2457 10.836 6.53325 12.1357 6.53325C14.8365 6.53325 15.336 8.3108 15.336 10.6245L15.3352 15.339ZM4.00275 5.57475C3.14475 5.57475 2.4555 4.88025 2.4555 4.026C2.4555 3.1725 3.1455 2.47875 4.00275 2.47875C4.85775 2.47875 5.55075 3.1725 5.55075 4.026C5.55075 4.88025 4.857 5.57475 4.00275 5.57475ZM5.33925 15.339H2.66625V6.75H5.33925V15.339ZM16.6687 0H1.32825C0.594 0 0 0.5805 0 1.29675V16.7033C0 17.4202 0.594 18 1.32825 18H16.6665C17.4 18 18 17.4202 18 16.7033V1.29675C18 0.5805 17.4 0 16.6665 0H16.6687Z" fill="currentColor" />
-                                </svg>
-                                <span>Linkedin</span>
                             </a>
                         </li>
                         <li>
@@ -53,11 +38,11 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ config('social.youtube') ?: route('contact') }}" target="_blank" rel="noopener noreferrer" class="at-offcanvas-social__link" aria-label="Youtube">
+                            <a href="{{ config('social.tiktok') ?: route('contact') }}" target="_blank" rel="noopener noreferrer" class="at-offcanvas-social__link" aria-label="Youtube">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="13" viewBox="0 0 18 13" fill="none" aria-hidden="true">
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M16.0322 0.388283C16.8071 0.602295 17.4162 1.23059 17.6237 2.03009C17.9985 3.47775 18 6.49997 18 6.49997C18 6.49997 18 9.52214 17.6237 10.9698C17.4162 11.7694 16.8071 12.3977 16.0322 12.6116C14.6291 13 8.99997 13 8.99997 13C8.99997 13 3.37092 13 1.96772 12.6116C1.1928 12.3977 0.583804 11.7694 0.376354 10.9698C-3.83173e-08 9.52214 0 6.49997 0 6.49997C0 6.49997 -3.83173e-08 3.47775 0.376354 2.03009C0.583804 1.23059 1.1928 0.602295 1.96772 0.388283C3.37092 1.18595e-07 8.99997 0 8.99997 0C8.99997 0 14.6291 1.18595e-07 16.0322 0.388283ZM11.8751 6.50027L7.19879 9.2855V3.71499L11.8751 6.50027Z" fill="currentColor" />
                                 </svg>
-                                <span>Youtube</span>
+                                <span>TikTok</span>
                             </a>
                         </li>
                     </ul>

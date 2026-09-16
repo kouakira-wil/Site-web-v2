@@ -45,6 +45,10 @@ class DatabaseSeeder extends Seeder
         $this->call(HomeSectionSeeder::class);
         $this->call(TestimonialSeeder::class);
         $this->call(SchoolIdentitySeeder::class);
+        $this->call(AboutIntroSeeder::class);
+        $this->call(VisionStepsSeeder::class);
+        $this->call(WhyEscatSeeder::class);
+        $this->call(HomeAboutSeeder::class);
         $this->call(TeamApproachSeeder::class);
         $this->call(DirectorWordSeeder::class);
 

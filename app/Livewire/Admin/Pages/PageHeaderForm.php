@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Admin\Pages;
 
 use App\Models\PageHeader;
+use App\Support\PageHeaderSchema;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Layout;
@@ -59,7 +60,14 @@ class PageHeaderForm extends Component
 
     public ?TemporaryUploadedFile $image = null;
 
-    public bool $imageRetiree = false;
+    public ?TemporaryUploadedFile $image_secondary = null;
+
+    /**
+     * Retraits demandés, par nom de champ fichier.
+     *
+     * @var array<string, bool>
+     */
+    public array $retraits = ['image' => false, 'image_secondary' => false];
 
     public function mount(PageHeader $header): void
     {
@@ -80,9 +88,12 @@ class PageHeaderForm extends Component
     }
 
     /**
+     * Règles de tous les champs possibles ; seules celles du schéma du bloc
+     * sont retenues. Un champ absent du formulaire n'est ni validé ni écrit.
+     *
      * @return array<string, array<int, string>>
      */
-    protected function rules(): array
+    private function reglesCompletes(): array
     {
         return [
             'label' => ['required', 'string', 'max:60'],
@@ -98,7 +109,19 @@ class PageHeaderForm extends Component
             // Liste fermée : un nom libre ne rendrait aucun pictogramme.
             'icon' => ['nullable', 'string', 'in:'.implode(',', self::ICONES)],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp,avif', 'max:4096'],
+            'image_secondary' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp,avif', 'max:4096'],
         ];
+    }
+
+    /**
+     * @return array<string, array<int, string>>
+     */
+    protected function rules(): array
+    {
+        return array_intersect_key(
+            $this->reglesCompletes(),
+            array_flip(PageHeaderSchema::fieldsFor($this->header)),
+        );
     }
 
     /**
@@ -119,13 +142,21 @@ class PageHeaderForm extends Component
             'tags' => 'étiquettes',
             'icon' => 'pictogramme',
             'image' => 'visuel',
+            'image_secondary' => 'seconde photo',
         ];
     }
 
-    public function removeImage(): void
+    /**
+     * Retire le visuel d'un champ fichier donné.
+     */
+    public function removeImage(string $champ = 'image'): void
     {
-        $this->reset('image');
-        $this->imageRetiree = true;
+        if (! array_key_exists($champ, $this->retraits)) {
+            return;
+        }
+
+        $this->reset($champ);
+        $this->retraits[$champ] = true;
     }
 
     /**
@@ -145,40 +176,66 @@ class PageHeaderForm extends Component
     public function save(): void
     {
         $data = $this->validate();
+        $champs = PageHeaderSchema::fieldsFor($this->header);
 
-        $ancienVisuel = $this->header->image;
-
-        // Le chemin conservé vient toujours de la base : rien de ce que le
+        // Les champs fichier sont traités ensemble : chaque emplacement garde
+        // son chemin d'origine, sauf retrait explicite ou nouveau téléversement.
+        // Le chemin conservé vient toujours de la base — rien de ce que le
         // formulaire transmet ne peut désigner un fichier arbitraire du disque.
-        $visuel = $this->imageRetiree ? null : $ancienVisuel;
+        $anciens = [];
+        $nouveaux = [];
 
-        if ($this->image !== null) {
-            $visuel = $this->image->store(self::IMAGE_DIR, 'public');
+        foreach (array_keys($this->retraits) as $champFichier) {
+            if (! in_array($champFichier, $champs, true)) {
+                continue;
+            }
+
+            $anciens[$champFichier] = $this->header->{$champFichier};
+            $nouveaux[$champFichier] = $this->retraits[$champFichier] ? null : $anciens[$champFichier];
+
+            if ($this->{$champFichier} !== null) {
+                $nouveaux[$champFichier] = $this->{$champFichier}->store(self::IMAGE_DIR, 'public');
+            }
         }
 
-        $this->header->fill([
-            'label' => trim($data['label']),
-            'eyebrow' => trim((string) $data['eyebrow']) ?: null,
-            'title' => trim($data['title']),
-            'title_accent' => trim((string) $data['title_accent']) ?: null,
-            'title_variants' => $this->lignes((string) $data['title_variants']),
-            'intro' => trim((string) $data['intro']) ?: null,
-            'body' => trim((string) $data['body']) ?: null,
-            'cta_label' => trim((string) $data['cta_label']) ?: null,
-            'cta_url' => trim((string) $data['cta_url']) ?: null,
-            'tags' => $this->lignes((string) $data['tags']),
-            'icon' => trim((string) $data['icon']) ?: null,
-            'image' => $visuel,
-        ])->save();
+        // Seuls les champs du schéma sont réécrits : un bloc qui n'expose pas
+        // `body` ne doit pas voir son texte effacé au premier enregistrement.
+        $valeurs = [
+            'label' => fn (): string => trim((string) $data['label']),
+            'eyebrow' => fn (): ?string => trim((string) $data['eyebrow']) ?: null,
+            'title' => fn (): string => trim((string) $data['title']),
+            'title_accent' => fn (): ?string => trim((string) $data['title_accent']) ?: null,
+            'title_variants' => fn (): array => $this->lignes((string) $data['title_variants']),
+            'intro' => fn (): ?string => trim((string) $data['intro']) ?: null,
+            'body' => fn (): ?string => trim((string) $data['body']) ?: null,
+            'cta_label' => fn (): ?string => trim((string) $data['cta_label']) ?: null,
+            'cta_url' => fn (): ?string => trim((string) $data['cta_url']) ?: null,
+            'tags' => fn (): array => $this->lignes((string) $data['tags']),
+            'icon' => fn (): ?string => trim((string) $data['icon']) ?: null,
+        ];
 
-        // Le fichier remplacé ou retiré n'est plus référencé : on le supprime,
+        $aEcrire = [];
+
+        foreach ($champs as $champ) {
+            if (isset($valeurs[$champ])) {
+                $aEcrire[$champ] = $valeurs[$champ]();
+            }
+        }
+
+        $aEcrire = array_merge($aEcrire, $nouveaux);
+
+        $this->header->fill($aEcrire)->save();
+
+        // Un fichier remplacé ou retiré n'est plus référencé : on le supprime,
         // mais jamais hors du dossier dédié.
-        if (filled($ancienVisuel) && $ancienVisuel !== $visuel && str_starts_with($ancienVisuel, self::IMAGE_DIR.'/')) {
-            Storage::disk('public')->delete($ancienVisuel);
+        foreach ($anciens as $champFichier => $ancien) {
+            if (filled($ancien) && $ancien !== $nouveaux[$champFichier] && str_starts_with($ancien, self::IMAGE_DIR.'/')) {
+                Storage::disk('public')->delete($ancien);
+            }
         }
 
-        $this->reset('image');
-        $this->imageRetiree = false;
+        $this->reset('image', 'image_secondary');
+        $this->retraits = ['image' => false, 'image_secondary' => false];
         $this->header->refresh();
 
         session()->flash('status', 'Bloc enregistré.');
@@ -187,6 +244,7 @@ class PageHeaderForm extends Component
     public function render(): View
     {
         return view('livewire.admin.pages.form', [
+            'champs' => PageHeaderSchema::for($this->header),
             'icones' => self::ICONES,
             'famille' => PageHeaderIndex::FAMILLES[$this->header->group] ?? $this->header->group,
         ]);

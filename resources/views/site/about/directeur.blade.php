@@ -5,15 +5,22 @@
 
 @if ($mot && (filled($mot->intro) || $paragraphes !== []))
     {{--
-        Mot du directeur, dans une carte blanche centrée.
+        Mot du directeur : photo pleine largeur, carte blanche posée par-dessus.
+        La carte reste opaque pour que le texte demeure lisible sur la photo.
 
         Le dépliage réutilise le mécanisme `data-at-collapse` du gabarit (celui
         de la FAQ) : aucun script supplémentaire. Le libellé du bouton alterne
         en CSS selon `aria-expanded`, que ce mécanisme met à jour.
     --}}
     <section class="directeur-area" aria-labelledby="titre-directeur">
-        <div class="container">
-            <div class="directeur-card">
+        <div class="directeur-scene @if ($mot->imageUrl()) directeur-scene--photo @endif">
+            @if ($mot->imageUrl())
+                <img class="directeur-scene__fond" src="{{ $mot->imageUrl() }}" alt=""
+                     width="1800" height="900" loading="lazy" decoding="async">
+            @endif
+
+            <div class="container directeur-scene__contenu">
+                <div class="directeur-card">
                 <h2 id="titre-directeur" class="directeur-card__title">{{ $mot->title }}</h2>
 
                 @if (filled($mot->intro))
@@ -39,6 +46,7 @@
                         <span class="directeur-card__toggle-moins">Voir moins</span>
                     </button>
                 @endif
+                </div>
             </div>
         </div>
     </section>

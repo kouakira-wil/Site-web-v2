@@ -37,6 +37,7 @@ class PageHeader extends Model
         'intro',
         'body',
         'image',
+        'image_secondary',
         'icon',
         'cta_label',
         'cta_url',
@@ -138,6 +139,16 @@ class PageHeader extends Model
         }
 
         return filled($this->title_accent) ? [trim($this->title_accent)] : [];
+    }
+
+    /**
+     * Seconde photo, superposée à la première sur les sections qui en prévoient.
+     */
+    public function secondaryImageUrl(): ?string
+    {
+        return filled($this->image_secondary)
+            ? \Illuminate\Support\Facades\Storage::url($this->image_secondary)
+            : null;
     }
 
     /**

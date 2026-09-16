@@ -15,6 +15,18 @@
 :root {
     --escat-brand: #2646D0;
     --escat-brand-dark: #1c35a0;
+
+    /*
+     * Échelle d'ombres unique. Trois valeurs proches se côtoyaient dans ce
+     * fichier ; les cartes n'avaient donc pas tout à fait le même relief.
+     *
+     * `posee`   : carte au fil du contenu.
+     * `survol`  : la même, au survol.
+     * `flottante` : carte qui chevauche une image ou un fond.
+     */
+    --escat-ombre-posee: 0 2px 4px rgba(12, 13, 16, 0.04), 0 8px 24px rgba(12, 13, 16, 0.06);
+    --escat-ombre-survol: 0 4px 8px rgba(12, 13, 16, 0.06), 0 16px 40px rgba(12, 13, 16, 0.10);
+    --escat-ombre-flottante: 0 20px 48px rgba(12, 13, 16, 0.14);
 }
 
 /* Bouton plein */
@@ -43,6 +55,7 @@
 /* Bouton de retour en haut de page */
 .back-to-top-btn {
     background-color: var(--escat-brand);
+    color: #ffffff;
 }
 
 /*
@@ -840,4 +853,1385 @@
  */
 .sd3-page {
     --sd3-accent: var(--escat-brand);
+}
+
+/*
+ * Présentation de la filière : sa propre section, pleine largeur.
+ *
+ * Elle ne partage plus la rangée avec les chiffres. Les marges viennent du
+ * `.container` du gabarit, donc l'alignement suit celui du reste de la page.
+ */
+.filiere-presentation {
+    padding-top: 80px;
+    padding-bottom: 20px;
+}
+
+.filiere-presentation__eyebrow {
+    margin-bottom: 12px;
+}
+
+.filiere-presentation__title {
+    margin: 0 0 24px;
+    font-family: var(--at-ff-heading, inherit);
+    font-size: clamp(26px, 2.6vw, 42px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--sd3-ink, #1D1D1D);
+}
+
+/*
+ * Le texte occupe toute la largeur. Au-delà d'environ 90 signes par ligne,
+ * l'œil perd le début de la ligne suivante : passé 1200 px, on le répartit
+ * sur deux colonnes plutôt que d'étirer la ligne.
+ */
+.filiere-presentation__body p,
+.filiere-presentation__body li {
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--at-neutral-500, #585959);
+    text-align: justify;
+    /*
+     * La césure accompagne la justification : sans elle, le navigateur étire
+     * les espaces pour aligner les deux bords et creuse des « rivières »
+     * blanches dans le paragraphe. La page déclare `lang="fr"`, les règles de
+     * coupure appliquées sont donc les bonnes.
+     */
+    -webkit-hyphens: auto;
+       -moz-hyphens: auto;
+            hyphens: auto;
+    /* Ne pas isoler une syllabe trop courte en bout de ligne. */
+    -webkit-hyphenate-limit-before: 3;
+    -webkit-hyphenate-limit-after: 3;
+            hyphenate-limit-chars: 6 3 3;
+}
+
+/*
+ * Sur mobile la colonne est étroite : justifier y creuse des trous que la
+ * césure ne comble pas. Le texte repasse au fer à gauche.
+ */
+@media (max-width: 575.98px) {
+    .filiere-presentation__body p,
+    .filiere-presentation__body li {
+        text-align: left;
+    }
+}
+
+.filiere-presentation__body p {
+    margin: 0 0 16px;
+}
+
+.filiere-presentation__body p:last-child {
+    margin-bottom: 0;
+}
+
+.filiere-presentation__body ul,
+.filiere-presentation__body ol {
+    margin: 0 0 16px;
+    padding-left: 22px;
+}
+
+.filiere-presentation__body a {
+    color: var(--escat-brand);
+    text-decoration: underline;
+}
+
+@media (min-width: 1200px) {
+    .filiere-presentation__body {
+        -moz-columns: 2;
+             columns: 2;
+        -moz-column-gap: 64px;
+             column-gap: 64px;
+    }
+
+    /* Un paragraphe ne doit pas être coupé entre deux colonnes. */
+    .filiere-presentation__body p,
+    .filiere-presentation__body ul,
+    .filiere-presentation__body ol {
+        -moz-column-break-inside: avoid;
+             break-inside: avoid;
+    }
+}
+
+/*
+ * Première section de la page L'école : photo à gauche, discours à droite.
+ * Jetons du gabarit uniquement, bleu ESCAT pour les accents.
+ */
+.presentation-grid {
+    display: grid;
+    gap: 40px;
+    align-items: center;
+}
+
+@media (min-width: 992px) {
+    .presentation-grid {
+        grid-template-columns: 5fr 7fr;
+        gap: 64px;
+    }
+}
+
+.presentation-media {
+    position: relative;
+}
+
+.presentation-media__main {
+    width: 100%;
+    height: 100%;
+    max-height: 640px;
+    object-fit: cover;
+    display: block;
+}
+
+/*
+ * Seconde photo superposée. Elle ne déborde du conteneur qu'à partir de `md` :
+ * sur mobile, elle passe sous la première plutôt que de la masquer.
+ */
+.presentation-media__inset {
+    display: block;
+    width: 100%;
+    margin-top: 16px;
+    object-fit: cover;
+}
+
+@media (min-width: 768px) {
+    .presentation-media__inset {
+        position: absolute;
+        right: -24px;
+        bottom: -32px;
+        width: 58%;
+        max-width: 320px;
+        margin-top: 0;
+        aspect-ratio: 4 / 3;
+        border: 8px solid var(--at-neutral-0, #FEFEFE);
+        box-shadow: var(--escat-ombre-flottante);
+    }
+}
+
+.presentation-body__eyebrow {
+    margin-bottom: 14px;
+}
+
+.presentation-body__title {
+    margin: 0 0 20px;
+    font-family: var(--at-ff-heading, inherit);
+    font-size: clamp(28px, 3vw, 46px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.12;
+    color: var(--sd3-ink, #1D1D1D);
+}
+
+.presentation-body__lead {
+    margin: 0 0 32px;
+    max-width: 62ch;
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--at-neutral-500, #585959);
+}
+
+/* Les deux arguments, sur fond clair avec un filet bleu à gauche. */
+.presentation-args {
+    list-style: none;
+    margin: 0 0 32px;
+    padding: 24px;
+    display: grid;
+    gap: 24px;
+    background: var(--at-neutral-50, #F2F2F2);
+    border-left: 3px solid var(--escat-brand);
+}
+
+@media (min-width: 768px) {
+    .presentation-args {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 32px;
+    }
+}
+
+.presentation-args__item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+}
+
+.presentation-args__icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: 44px;
+    height: 44px;
+    background: var(--escat-brand);
+    color: #fff;
+}
+
+.presentation-args__title {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--sd3-ink, #1D1D1D);
+}
+
+.presentation-args__lead {
+    display: block;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--at-neutral-500, #585959);
+}
+
+/* Points clés, avec une puce carrée bleue. */
+.presentation-points {
+    list-style: none;
+    margin: 0 0 32px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.presentation-points__item {
+    position: relative;
+    padding-left: 24px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--at-neutral-700, #303030);
+}
+
+.presentation-points__item::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 9px;
+    height: 9px;
+    background: var(--escat-brand);
+}
+
+.presentation-body__actions {
+    padding-top: 8px;
+    border-top: 1px solid var(--sd3-line, #DFDFDF);
+    margin-top: 32px;
+    padding-top: 32px;
+}
+
+/*
+ * Bande de repères, sous la présentation de L'école.
+ * Chiffres à gauche, photos au centre, pastille d'action à droite.
+ */
+.reperes-grid {
+    display: grid;
+    gap: 40px;
+    align-items: center;
+    padding-top: 40px;
+    border-top: 1px solid var(--sd3-line, #DFDFDF);
+}
+
+@media (min-width: 992px) {
+    .reperes-grid {
+        grid-template-columns: auto 1fr auto;
+        gap: 56px;
+    }
+}
+
+.reperes-chiffres {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 28px;
+}
+
+.reperes-chiffre__valeur {
+    display: block;
+    font-family: var(--at-ff-heading, inherit);
+    font-size: clamp(44px, 4.6vw, 72px);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--sd3-ink, #1D1D1D);
+}
+
+.reperes-chiffre__libelle {
+    display: block;
+    margin-top: 6px;
+    max-width: 14ch;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--at-neutral-700, #303030);
+}
+
+/* Les deux photos : la petite décalée au-dessus de la grande. */
+.reperes-media {
+    display: grid;
+    gap: 16px;
+}
+
+@media (min-width: 768px) {
+    .reperes-media {
+        grid-template-columns: 4fr 6fr;
+        align-items: start;
+        gap: 24px;
+    }
+
+    .reperes-media__petite {
+        margin-top: 0;
+    }
+
+    .reperes-media__grande {
+        margin-top: 40px;
+    }
+}
+
+.reperes-media img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 5 / 4;
+}
+
+/* Pastille d'action, ronde, filet fin. */
+.reperes-pastille {
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 6px;
+    width: 148px;
+    height: 148px;
+    border-radius: 50%;
+    border: 1px solid var(--sd3-line, #DFDFDF);
+    text-align: center;
+    text-decoration: none;
+    color: var(--sd3-ink, #1D1D1D);
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.reperes-pastille__texte {
+    max-width: 10ch;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    line-height: 1.3;
+    text-transform: uppercase;
+}
+
+.reperes-pastille__fleche svg {
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reperes-pastille:hover,
+.reperes-pastille:focus-visible {
+    background: var(--escat-brand);
+    border-color: var(--escat-brand);
+    color: #fff;
+}
+
+.reperes-pastille:hover .reperes-pastille__fleche svg {
+    transform: translate(3px, -3px);
+}
+
+.reperes-pastille:focus-visible {
+    outline: 2px solid var(--escat-brand);
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reperes-pastille,
+    .reperes-pastille__fleche svg {
+        transition: none;
+    }
+
+    .reperes-pastille:hover .reperes-pastille__fleche svg {
+        transform: none;
+    }
+}
+
+/*
+ * Section « Notre mission » : photo à gauche, panneau sombre à droite,
+ * les deux moitiés touchant les bords de la fenêtre.
+ */
+.mission-split {
+    display: grid;
+    margin-top: 40px;
+}
+
+@media (min-width: 992px) {
+    .mission-split {
+        grid-template-columns: 1fr 1fr;
+        align-items: stretch;
+    }
+}
+
+.mission-split__media img {
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
+    object-fit: cover;
+    display: block;
+}
+
+.mission-split__panel {
+    background: var(--at-neutral-950, #0F0F0F);
+    display: flex;
+    align-items: center;
+    padding: 64px 24px;
+}
+
+/*
+ * Le panneau va jusqu'au bord, mais son texte s'aligne sur la grille du site :
+ * la moitié du conteneur, moins la gouttière, puis collé à gauche.
+ */
+@media (min-width: 992px) {
+    .mission-split__panel {
+        padding: 96px 48px;
+    }
+
+    .mission-split__inner {
+        width: 100%;
+        max-width: 620px;
+    }
+}
+
+.mission-split__title {
+    margin: 0 0 20px;
+    font-family: var(--at-ff-heading, inherit);
+    font-size: clamp(28px, 3vw, 46px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: #fff;
+}
+
+.mission-split__lead {
+    margin: 0 0 32px;
+    max-width: 52ch;
+    font-size: 17px;
+    line-height: 1.7;
+    /* Blanc atténué : lisible sur fond sombre sans concurrencer le titre. */
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.mission-split__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.mission-split__item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.mission-split__check {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    margin-top: 2px;
+    /*
+     * Coche en blanc : le bleu de marque sur ce fond presque noir tomberait
+     * sous le seuil de contraste lisible.
+     */
+    color: #fff;
+}
+
+.mission-split__texte {
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #fff;
+}
+
+/*
+ * Section « Notre vision ».
+ *
+ * Composition reprise de la maquette : collage de photos rondes décalées à
+ * gauche, colonne de discours à droite. Fond clair — le bleu de marque tient
+ * lieu d'accent là où la maquette employait l'orange sur noir.
+ */
+.vision-area {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.vision-grid {
+    display: grid;
+    gap: 56px;
+    align-items: center;
+}
+
+@media (min-width: 992px) {
+    .vision-grid {
+        /*
+         * Colonne du collage réduite de moitié : elle passe d'environ 42 %
+         * à 21 % de la largeur. Les photos suivent, les proportions internes
+         * du collage restent les mêmes.
+         */
+        grid-template-columns: 2.5fr 9.5fr;
+        gap: 64px;
+    }
+}
+
+/*
+ * Collage : la seconde photo, plus grande, se décale sous la première et
+ * la chevauche. En dessous de `sm` elles s'empilent simplement.
+ */
+.vision-collage {
+    position: relative;
+    padding-bottom: 32px;
+}
+
+.vision-collage img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.vision-collage__haute {
+    margin-bottom: 20px;
+}
+
+@media (min-width: 576px) {
+    .vision-collage__haute {
+        width: 54%;
+        margin-left: auto;
+        margin-bottom: -18%;
+        position: relative;
+        z-index: 1;
+        border: 8px solid var(--at-neutral-0, #FEFEFE);
+    }
+
+    .vision-collage__basse {
+        width: 76%;
+        margin-right: auto;
+    }
+}
+
+.vision-body__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 14px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--escat-brand);
+}
+
+.vision-body__puce {
+    display: inline-block;
+    width: 18px;
+    height: 3px;
+    background: var(--escat-brand);
+}
+
+.vision-body__title {
+    margin: 0 0 28px;
+    font-family: var(--at-ff-heading, inherit);
+    font-size: clamp(28px, 3vw, 46px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--sd3-ink, #1D1D1D);
+}
+
+/* Carte à pictogramme : le carré plein, puis le texte. */
+.vision-carte {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    margin-bottom: 28px;
+}
+
+.vision-carte__icone {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 72px;
+    height: 72px;
+    background: var(--escat-brand);
+    color: #fff;
+}
+
+.vision-carte__texte {
+    margin: 0;
+    max-width: 52ch;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--at-neutral-500, #585959);
+}
+
+/*
+ * Les trois étapes, dans un encadré — la place qu'occupe le panneau chiffré
+ * de la maquette. Rang à gauche, texte au centre, pictogramme à droite.
+ */
+.vision-etapes {
+    list-style: none;
+    margin: 0 0 28px;
+    padding: 0;
+    border: 1px solid var(--sd3-line, #DFDFDF);
+}
+
+.vision-etape {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    padding: 22px 24px;
+}
+
+.vision-etape:not(:last-child) {
+    border-bottom: 1px solid var(--sd3-line, #DFDFDF);
+}
+
+.vision-etape__rang {
+    flex: 0 0 auto;
+    font-family: var(--at-ff-heading, inherit);
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--escat-brand);
+    font-variant-numeric: tabular-nums;
+}
+
+.vision-etape__corps {
+    display: block;
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+.vision-etape__etiquette {
+    display: inline-block;
+    margin-bottom: 8px;
+    padding: 4px 10px;
+    background: var(--at-neutral-50, #F2F2F2);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--at-neutral-700, #303030);
+}
+
+.vision-etape__titre {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--sd3-ink, #1D1D1D);
+}
+
+.vision-etape__texte {
+    display: block;
+    max-width: 48ch;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--at-neutral-500, #585959);
+}
+
+.vision-etape__icone {
+    flex: 0 0 auto;
+    display: none;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--sd3-line, #DFDFDF);
+    color: var(--escat-brand);
+}
+
+@media (min-width: 768px) {
+    .vision-etape__icone {
+        display: grid;
+    }
+}
+
+/* Points clés éventuels, sous l'encadré. */
+.vision-points {
+    list-style: none;
+    margin: 0 0 28px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.vision-points__item {
+    position: relative;
+    padding-left: 24px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--at-neutral-700, #303030);
+}
+
+.vision-points__item::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 9px;
+    height: 9px;
+    background: var(--escat-brand);
+}
+
+/* Bouton plein, suivi d'une pastille ronde. */
+.vision-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.vision-bouton {
+    display: inline-flex;
+    align-items: center;
+    padding: 16px 28px;
+    background: var(--escat-brand);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.vision-bouton:hover,
+.vision-bouton:focus-visible {
+    background: var(--escat-brand-dark);
+    color: #fff;
+}
+
+.vision-bouton:focus-visible {
+    outline: 2px solid var(--escat-brand);
+    outline-offset: 3px;
+}
+
+.vision-rond {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--sd3-line, #DFDFDF);
+    color: var(--sd3-ink, #1D1D1D);
+}
+
+/* Filet reliant une étape à la suivante. */
+.vision-etape:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 23px;
+    top: 68px;
+    bottom: -4px;
+    width: 1px;
+    background: var(--sd3-line, #DFDFDF);
+}
+
+.vision-etape__icone {
+    position: relative;
+    z-index: 1;
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--sd3-line, #DFDFDF);
+    background: var(--at-neutral-0, #FEFEFE);
+    color: var(--escat-brand);
+}
+
+.vision-etape__corps {
+    display: block;
+    min-width: 0;
+}
+
+.vision-etape__etiquette {
+    display: inline-block;
+    margin-bottom: 8px;
+    padding: 4px 10px;
+    background: var(--at-neutral-50, #F2F2F2);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--at-neutral-700, #303030);
+}
+
+.vision-etape__titre {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--escat-brand);
+}
+
+.vision-etape__texte {
+    display: block;
+    max-width: 48ch;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--at-neutral-500, #585959);
+}
+
+/* Sans collage, la colonne de texte occupe toute la largeur. */
+@media (min-width: 992px) {
+    .vision-grid:not(:has(.vision-collage)) {
+        grid-template-columns: 1fr;
+    }
+}
+
+/*
+ * Section « Pourquoi l'ESCAT » : photo, discours, photo.
+ * Les deux photos encadrent la colonne de texte.
+ */
+.pourquoi-grid {
+    display: grid;
+    gap: 32px;
+    align-items: center;
+}
+
+@media (min-width: 992px) {
+    .pourquoi-grid {
+        grid-template-columns: 3fr 5fr 3fr;
+        gap: 40px;
+    }
+}
+
+.pourquoi-media img {
+    display: block;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+.pourquoi-media--gauche img {
+    aspect-ratio: 4 / 5;
+}
+
+/* Celle de droite est plus haute, comme la maquette. */
+.pourquoi-media--droite img {
+    aspect-ratio: 3 / 5;
+}
+
+.pourquoi-body__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 16px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--escat-brand);
+}
+
+.pourquoi-body__icone {
+    display: grid;
+    place-items: center;
+}
+
+.pourquoi-body__title {
+    margin: 0 0 18px;
+    font-family: var(--at-ff-heading, inherit);
+    font-size: clamp(26px, 2.6vw, 40px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--sd3-ink, #1D1D1D);
+}
+
+.pourquoi-body__lead {
+    margin: 0 0 28px;
+    max-width: 54ch;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--at-neutral-500, #585959);
+}
+
+.pourquoi-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+}
+
+.pourquoi-bouton {
+    display: inline-flex;
+    align-items: center;
+    padding: 14px 26px;
+    border-radius: 8px;
+    background: var(--escat-brand);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.pourquoi-bouton:hover,
+.pourquoi-bouton:focus-visible {
+    background: var(--escat-brand-dark);
+    color: #fff;
+}
+
+.pourquoi-bouton:focus-visible {
+    outline: 2px solid var(--escat-brand);
+    outline-offset: 3px;
+}
+
+.pourquoi-rond {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 8px;
+    background: var(--escat-brand);
+    color: #fff;
+}
+
+/* Les deux cartes, côte à côte sous le bouton. */
+.pourquoi-cartes {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 16px;
+}
+
+@media (min-width: 576px) {
+    .pourquoi-cartes {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.pourquoi-carte {
+    padding: 28px;
+    border: 1px solid var(--sd3-line, #DFDFDF);
+    border-radius: 12px;
+    background: var(--at-neutral-0, #FEFEFE);
+}
+
+.pourquoi-carte__icone {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 16px;
+    color: var(--escat-brand);
+}
+
+.pourquoi-carte__titre {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--sd3-ink, #1D1D1D);
+}
+
+.pourquoi-carte__texte {
+    display: block;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--at-neutral-500, #585959);
+}
+
+/*
+ * Section « à propos » de l'accueil : photo à gauche avec une carte posée
+ * dessus, discours à droite.
+ */
+.apropos-grid {
+    display: grid;
+    gap: 48px;
+    align-items: center;
+}
+
+@media (min-width: 992px) {
+    .apropos-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 64px;
+    }
+}
+
+.apropos-media {
+    position: relative;
+}
+
+.apropos-media img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+/* Carte posée sur la photo, en bas à gauche. */
+.apropos-carte {
+    background: var(--at-neutral-0, #FEFEFE);
+    border-radius: 14px;
+    padding: 28px;
+    margin: -64px 16px 0;
+    position: relative;
+    box-shadow: var(--escat-ombre-flottante);
+}
+
+@media (min-width: 768px) {
+    .apropos-carte {
+        position: absolute;
+        left: 24px;
+        bottom: 24px;
+        width: min(62%, 320px);
+        margin: 0;
+    }
+}
+
+.apropos-carte__guillemet {
+    display: block;
+    font-family: var(--at-ff-heading, inherit);
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 0.6;
+    color: var(--at-neutral-100, #DFDFDF);
+}
+
+.apropos-carte__texte {
+    margin: 12px 0 14px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--sd3-ink, #1D1D1D);
+}
+
+.apropos-carte__lien {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--escat-brand);
+    text-decoration: underline;
+}
+
+/* Pastille du surtitre */
+.apropos-pastille {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 18px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--sd3-line, #DFDFDF);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--escat-brand);
+}
+
+.apropos-body__title {
+    margin: 0 0 18px;
+    font-family: var(--at-ff-heading, inherit);
+    font-size: clamp(26px, 2.6vw, 42px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--sd3-ink, #1D1D1D);
+}
+
+.apropos-body__lead {
+    margin: 0 0 28px;
+    max-width: 54ch;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--at-neutral-500, #585959);
+}
+
+/* Citation, avec son filet bleu */
+.apropos-citation {
+    margin: 0 0 28px;
+    padding: 22px 24px;
+    background: var(--at-neutral-50, #F2F2F2);
+    border-left: 3px solid var(--escat-brand);
+}
+
+.apropos-citation p {
+    margin: 0;
+    font-size: 16px;
+    font-style: italic;
+    line-height: 1.65;
+    color: var(--at-neutral-700, #303030);
+}
+
+/* Argument à pictogramme */
+.apropos-argument {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding-bottom: 28px;
+    margin-bottom: 28px;
+    border-bottom: 1px solid var(--sd3-line, #DFDFDF);
+}
+
+.apropos-argument__icone {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    color: var(--escat-brand);
+}
+
+.apropos-argument__titre {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--sd3-ink, #1D1D1D);
+}
+
+.apropos-argument__texte {
+    display: block;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--at-neutral-500, #585959);
+}
+
+/* Bouton arrondi */
+.apropos-bouton {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 28px;
+    border-radius: 999px;
+    background: var(--escat-brand);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.apropos-bouton:hover,
+.apropos-bouton:focus-visible {
+    background: var(--escat-brand-dark);
+    color: #fff;
+}
+
+.apropos-bouton:focus-visible {
+    outline: 2px solid var(--escat-brand);
+    outline-offset: 3px;
+}
+
+/*
+ * Mot du directeur : photo pleine largeur, carte blanche posée par-dessus.
+ *
+ * La carte reste opaque — pas de translucidité — pour que le texte garde son
+ * contraste quelle que soit la photo téléversée.
+ */
+.directeur-scene {
+    position: relative;
+}
+
+.directeur-scene__fond {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media (min-width: 992px) {
+    .directeur-scene--photo .directeur-scene__fond {
+        position: absolute;
+        inset: 0;
+    }
+
+    /* La carte chevauche la photo, poussée à droite comme la maquette. */
+    .directeur-scene--photo .directeur-scene__contenu {
+        position: relative;
+        padding-top: 80px;
+        padding-bottom: 80px;
+    }
+
+    .directeur-scene--photo .directeur-card {
+        margin-left: auto;
+        margin-right: 0;
+        width: min(52%, 640px);
+    }
+}
+
+/* Sans photo, la carte reste centrée comme avant. */
+.directeur-scene:not(.directeur-scene--photo) .directeur-scene__contenu {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.directeur-card {
+    background: var(--at-neutral-0, #FEFEFE);
+    border-radius: 16px;
+    padding: 36px 32px;
+    box-shadow: var(--escat-ombre-flottante);
+}
+
+@media (min-width: 768px) {
+    .directeur-card {
+        padding: 48px 44px;
+    }
+}
+
+/* Texte : tailles relevées pour rester confortables sur la carte. */
+.directeur-card__title {
+    margin: 0 0 18px;
+    font-family: var(--at-ff-heading, inherit);
+    font-size: clamp(24px, 2.4vw, 36px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--sd3-ink, #1D1D1D);
+}
+
+.directeur-card__lead {
+    margin: 0 0 16px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.65;
+    color: var(--at-neutral-700, #303030);
+}
+
+.directeur-card__text {
+    margin: 0 0 14px;
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--at-neutral-500, #585959);
+}
+
+.directeur-card__text:last-child {
+    margin-bottom: 0;
+}
+
+.directeur-card__toggle {
+    margin-top: 18px;
+    padding: 0;
+    border: 0;
+    background: none;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--escat-brand);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.directeur-card__toggle:focus-visible {
+    outline: 2px solid var(--escat-brand);
+    outline-offset: 3px;
+}
+
+/*
+ * Relief et hauteurs des cartes de la page d'accueil.
+ *
+ * Les cartes du gabarit n'avaient pas de relief, ou un relief différent d'une
+ * section à l'autre. Elles adoptent ici la même ombre et la même transition.
+ */
+.pourquoi-carte,
+.at-faq-item,
+.blog-card {
+    box-shadow: var(--escat-ombre-posee);
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.pourquoi-carte:hover,
+.at-faq-item:hover,
+.blog-card:hover {
+    box-shadow: var(--escat-ombre-survol);
+}
+
+/*
+ * Hauteurs uniformes.
+ *
+ * Dans une grille, les cellules d'une même rangée ont déjà la même hauteur ;
+ * encore faut-il que la carte l'occupe entièrement, d'où `height: 100%`. Le
+ * `flex-direction: column` laisse le texte se placer sans étirer l'icône.
+ */
+.pourquoi-cartes {
+    align-items: stretch;
+}
+
+.pourquoi-carte {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Les cartes d'actualités s'alignent sur la plus haute de leur rangée. */
+.blog-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/*
+ * La carte du gabarit est transparente : image puis texte, sans surface. Une
+ * ombre n'aurait rien à porter et le texte resterait collé au bord. On lui
+ * donne un fond et un rembourrage pour qu'elle respire.
+ */
+.blog-card {
+    background: var(--at-neutral-0, #FEFEFE);
+    border-radius: 14px;
+    overflow: hidden;
+    gap: 0;
+}
+
+/*
+ * Proportion fixe pour les vignettes : la place est réservée avant le
+ * chargement, et toutes les cartes d'une rangée montrent la même hauteur
+ * d'image quelles que soient les proportions du fichier téléversé.
+ */
+.blog-card__thumb {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+}
+
+.blog-card__content {
+    padding: 24px 24px 28px;
+}
+
+@media (min-width: 768px) {
+    .blog-card__content {
+        padding: 28px 28px 32px;
+    }
+}
+
+.blog-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.blog-card__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+/*
+ * Le conteneur des cartes est une rangée flex du gabarit : sans `stretch`,
+ * chaque colonne s'arrête à la hauteur de son propre contenu.
+ */
+.sec-10-home-7__grid,
+.at-blog-area .flex.flex-wrap,
+.mg-portfolio-area .flex.flex-wrap {
+    align-items: stretch;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pourquoi-carte,
+    .at-faq-item,
+    .blog-card {
+        transition: none;
+    }
 }

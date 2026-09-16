@@ -16,6 +16,6 @@ return [
     'facebook' => env('SOCIAL_FACEBOOK', 'https://www.facebook.com/escat18/'),
     'linkedin' => env('SOCIAL_LINKEDIN', ''),
     'instagram' => env('SOCIAL_INSTAGRAM', ''),
-    'twitter' => env('SOCIAL_TWITTER', ''),
+    'tiktok' => env('SOCIAL_TIKTOK', ''),
     'youtube' => env('SOCIAL_YOUTUBE', ''),
 ];

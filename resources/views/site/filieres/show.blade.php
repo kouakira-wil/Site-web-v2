@@ -13,6 +13,7 @@
 @section('content')
     @include('site.filieres.partials.show-hero')
     @include('site.filieres.partials.show-apercu')
+    @include('site.filieres.partials.show-description')
     @include('site.filieres.partials.show-parcours')
     @include('site.filieres.partials.show-programme')
     @include('site.filieres.partials.show-modules')

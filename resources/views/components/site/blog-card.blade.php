@@ -13,7 +13,10 @@
     <div class="blog-card__thumb hover-effect-1">
         <a href="{{ route('posts.show', $post) }}" class="blog-card__img-link">
             <img src="{{ $post->coverUrl() ?? $fallback }}"
-                 class="blog-card__img22"
+                 {{-- `__img22` était une coquille du gabarit : la règle CSS porte sur `__img`,
+                     sans quoi l'image garde sa proportion d'origine et les cartes
+                     d'une même rangée n'ont pas la même hauteur. --}}
+                 class="blog-card__img"
                  alt="{{ $post->title }}"
                  loading="lazy" decoding="async">
         </a>

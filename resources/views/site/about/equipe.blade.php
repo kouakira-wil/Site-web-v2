@@ -48,7 +48,7 @@
                                 </div>
 
                                 <div class="w-full lg:w-5/12 !ml-auto">
-                                    <p class="fz-font-3xl !mb-6">Enseignants, encadrants d’atelier et personnel administratif, disponibles de l’orientation jusqu’à l’insertion.</p>
+                                    <p class="fz-font-xl !mb-6">Enseignants, encadrants d’atelier et personnel administratif, disponibles de l’orientation jusqu’à l’insertion.</p>
                                     <div class="at-btn-group at_fade_anim" data-delay=".4" data-fade-from="bottom" data-ease="bounce">
                                         <a class="at-btn-circle" href="{{ route('contact') }}">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none">

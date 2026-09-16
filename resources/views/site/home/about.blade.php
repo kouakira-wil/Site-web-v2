@@ -1,91 +1,94 @@
 @php
     $s = \App\Models\PageHeader::forKey('home.about');
+
+    $argument = \App\Models\PageHeader::query()
+        ->where('key', 'like', 'home.about.%')
+        ->orderBy('position')
+        ->first();
 @endphp
 
-<!-- at-about-area-start -->
-<div class="at-about-area pt-100">
-    <div class="container">
-        <div class="!items-end flex flex-wrap -mx-3 [&>*]:px-3">
-            <div class="w-full 2xl:w-5/6 col-xxl-10">
-                <div class="at-about-title-wrap mb-30">
-                    <span class="at-btn common-black !bg-transparent mb-10 !rounded-none !p-0">
-                        <span class="!uppercase">
-                            <span class="text-1">{{ $s?->eyebrow }}</span>
-                            <span class="text-2">{{ $s?->eyebrow }}</span>
-                        </span>
-                    </span>
-                    <h3 class="at-section-title !mb-0">
-                        <span> {{ $s?->title }}</span>
-                        <span class="at-about-btn-transform ml-20">
-                            <a class="at-btn" href="{{ route('contact') }}">
-                                <span>
-                                    <span class="text-1">{{ $s?->cta_label }}</span>
-                                    <span class="text-2">{{ $s?->cta_label }}</span>
+@if ($s)
+    {{--
+        Section « à propos » de l'accueil.
+
+        Photo à gauche avec une carte posée dessus, discours à droite :
+        pastille de surtitre, titre, accroche, citation encadrée, argument à
+        pictogramme et bouton. Tout se règle au back-office.
+    --}}
+    <section class="apropos-area pt-120 pb-120" aria-labelledby="titre-apropos">
+        <div class="container">
+            <div class="apropos-grid">
+                @if ($s->imageUrl())
+                    <div class="apropos-media">
+                        <img src="{{ $s->imageUrl() }}" alt="" width="900" height="900"
+                             loading="lazy" decoding="async">
+
+                        @if ($s->tagList() !== [])
+                            <div class="apropos-carte">
+                                <span class="apropos-carte__guillemet" aria-hidden="true">&ldquo;</span>
+                                <p class="apropos-carte__texte">{{ $s->tagList()[0] }}</p>
+
+                                @if (filled($s->cta_label))
+                                    <a class="apropos-carte__lien" href="{{ $s->cta_url ?: route('about') }}">
+                                        {{ $s->cta_label }}
+                                    </a>
+                                @endif
+                            </div>
+                        @endif
+                    </div>
+                @endif
+
+                <div class="apropos-body">
+                    @if (filled($s->eyebrow))
+                        <p class="apropos-pastille">
+                            @if (filled($s->icon))
+                                <span class="apropos-pastille__icone" aria-hidden="true">
+                                    <x-site.icon :name="$s->icon" class="w-4 h-4" />
                                 </span>
-                            </a>
-                        </span>
-                    </h3>
-                </div>
-            </div>
-        </div>
-        <div class="at-about-border mt-20 pt-55">
-            <div class="flex flex-wrap -mx-3 [&>*]:px-3">
-                <div class="w-full 2xl:w-1/6 lg:w-1/4 md:w-7/12 md:!mb-12">
-                    <div class="at-about-subtitle-wrap mb-30">
-                        <span class="at-about-subtitle">
-                            <br class="!block">
-                            Nous formons des profils <span class="fw-700">solides</span>, prêts à prendre leur place <br> dans les entreprises du Congo.
-                        </span>
-                    </div>
-                </div>
-                <div class="lg:w-1/12 md:w-1/4 col-md-3 w-5/12 !self-end !ml-auto">
-                    <div class="at-about-svg-wrap move-up">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="57" height="91" viewBox="0 0 57 91" fill="none">
-                            <path opacity="0.1" d="M0 0L56.4024 33.572V90.336L0 56.46V0Z" fill="#515151" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="57" height="91" viewBox="0 0 57 91" fill="none">
-                            <path opacity="0.2" d="M56.4009 0L8.7738e-05 33.5367V90.2413L56.4009 56.4008V0Z" fill="#515151" />
-                        </svg>
-                    </div>
-                </div>
-                <div class="w-full lg:w-2/3 !ml-auto">
-                    <div class="at-about-thumb-wrap ml-75">
-                        <div class="gx-80 flex flex-wrap -mx-[15px] [&>*]:px-[15px] 2xl:-mx-[40px] 2xl:[&>*]:px-[40px]">
-                            <div class="w-full lg:w-1/2 md:w-1/2">
-                                <div class="at-about-item anim-zoomin-wrap mb-40">
-                                    <div class="mb-35">
-                                        <div class="at-about-thumb fix anim-zoomin">
-                                            <img data-speed=".8" src="{{ asset('assets/imgs/pages/img-3.jpeg') }}" alt="ESCAT">
-                                        </div>
-                                    </div>
-                                    <div class="at-about-content">
-                                        <h3 class="at-about-title mb-10 at-char-animation">Excellence académique</h3>
-                                        <p class="at-about-dec at_fade_anim">Des programmes exigeants, révisés avec les
-                                            entreprises du secteur, pour que chaque diplômé sorte avec des compétences réellement
-                                            attendues sur le marché.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="w-full lg:w-1/2 md:w-1/2">
-                                <div class="at-about-item mb-40 !flex !flex-col !gap-6">
-                                    <div class="at-about-content !order-2 md:!order-1">
-                                        <h3 class="at-about-title mb-10 at-char-animation">Insertion professionnelle</h3>
-                                        <p class="at-about-dec at_fade_anim">Ateliers pratiques, stages encadrés et réseau
-                                            d’anciens : nos diplômés affichent un taux d’emploi supérieur à la moyenne nationale,
-                                            dans la technologie comme dans la gestion.</p>
-                                    </div>
-                                    <div class="anim-zoomin-wrap !order-1 md:!order-2">
-                                        <div class="at-about-thumb fix anim-zoomin">
-                                            <img data-speed=".8" src="{{ asset('assets/imgs/pages/img-4.jpeg') }}" alt="ESCAT">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            @endif
+                            {{ $s->eyebrow }}
+                        </p>
+                    @endif
+
+                    <h2 id="titre-apropos" class="apropos-body__title reveal-text">{{ $s->title }}</h2>
+
+                    @if (filled($s->intro))
+                        <p class="apropos-body__lead">{{ $s->intro }}</p>
+                    @endif
+
+                    @if (filled($s->body))
+                        <blockquote class="apropos-citation">
+                            <p>{{ $s->body }}</p>
+                        </blockquote>
+                    @endif
+
+                    @if ($argument && filled($argument->title))
+                        <div class="apropos-argument">
+                            @if (filled($argument->icon))
+                                <span class="apropos-argument__icone" aria-hidden="true">
+                                    <x-site.icon :name="$argument->icon" class="w-8 h-8" />
+                                </span>
+                            @endif
+
+                            <span class="apropos-argument__corps">
+                                <strong class="apropos-argument__titre">{{ $argument->title }}</strong>
+                                @if (filled($argument->intro))
+                                    <span class="apropos-argument__texte">{{ $argument->intro }}</span>
+                                @endif
+                            </span>
                         </div>
-                    </div>
+                    @endif
+
+                    @if (filled($s->cta_label))
+                        <div class="apropos-actions">
+                            <a class="apropos-bouton" href="{{ $s->cta_url ?: route('about') }}">
+                                {{ $s->cta_label }}
+                                <span class="apropos-bouton__fleche" aria-hidden="true">&rarr;</span>
+                            </a>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<!-- at-about-area-end -->
+    </section>
+@endif

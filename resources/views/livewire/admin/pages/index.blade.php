@@ -24,8 +24,23 @@
                         </span>
 
                         <span class="flex shrink-0 items-center gap-3">
-                            @if (filled($bloc->image))
-                                <span class="rounded bg-tile-blue px-2 py-1 text-[11px] font-semibold text-tile-blue-ink">Visuel</span>
+                            @php
+                                // Nombre d'emplacements photo prévus par le bloc, et
+                                // nombre réellement remplis : un rédacteur voit d'un
+                                // coup d'œil où téléverser.
+                                $champsPhoto = collect(\App\Support\PageHeaderSchema::fieldsFor($bloc))
+                                    ->intersect(['image', 'image_secondary']);
+                                $photosPosees = $champsPhoto->filter(fn (string $c): bool => filled($bloc->{$c}))->count();
+                            @endphp
+
+                            @if ($champsPhoto->isNotEmpty())
+                                <span @class([
+                                    'rounded px-2 py-1 text-[11px] font-semibold',
+                                    'bg-tile-blue text-tile-blue-ink' => $photosPosees > 0,
+                                    'bg-app-bg text-app-muted' => $photosPosees === 0,
+                                ])>
+                                    {{ $photosPosees }}/{{ $champsPhoto->count() }} photo{{ $champsPhoto->count() > 1 ? 's' : '' }}
+                                </span>
                             @endif
 
                             @if (blank($bloc->intro) && blank($bloc->body) && $bloc->tagList() === [])

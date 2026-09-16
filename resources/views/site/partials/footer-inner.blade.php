@@ -51,12 +51,6 @@
                             <p class="footer-2-follow-label !text-white !opacity-50 !uppercase small !mb-4">Nous suivre</p>
                             <div class="at-footer-widget at-footer-link">
                                 <div class="at-hero-social">
-                                    <a href="{{ config('social.twitter') ?: route('contact') }}" target="_blank" rel="noopener noreferrer">
-                                        Twitter
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="9" height="10" viewBox="0 0 9 10" fill="none">
-                                            <path d="M5.62494 9.99994L0.562517 10L0.5625 8.75003L4.49994 8.74996L4.5 2.39273L2.27828 4.86124L1.48278 3.97739L5.0625 0L8.64225 3.97739L7.84676 4.86124L5.625 2.3927L5.62494 9.99994Z" fill="currentColor" />
-                                        </svg>
-                                    </a>
                                     <a href="{{ config('social.facebook') ?: route('contact') }}" target="_blank" rel="noopener noreferrer">
                                         Facebook
                                         <svg xmlns="http://www.w3.org/2000/svg" width="9" height="10" viewBox="0 0 9 10" fill="none">
@@ -69,20 +63,8 @@
                                             <path d="M5.62494 9.99994L0.562517 10L0.5625 8.75003L4.49994 8.74996L4.5 2.39273L2.27828 4.86124L1.48278 3.97739L5.0625 0L8.64225 3.97739L7.84676 4.86124L5.625 2.3927L5.62494 9.99994Z" fill="currentColor" />
                                         </svg>
                                     </a>
-                                    <a href="{{ config('social.linkedin') ?: route('contact') }}" target="_blank" rel="noopener noreferrer">
-                                        Linkedin
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="9" height="10" viewBox="0 0 9 10" fill="none">
-                                            <path d="M5.62494 9.99994L0.562517 10L0.5625 8.75003L4.49994 8.74996L4.5 2.39273L2.27828 4.86124L1.48278 3.97739L5.0625 0L8.64225 3.97739L7.84676 4.86124L5.625 2.3927L5.62494 9.99994Z" fill="currentColor" />
-                                        </svg>
-                                    </a>
-                                    <a href="{{ config('social.facebook') ?: route('contact') }}" target="_blank" rel="noopener noreferrer">
-                                        Behance
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="9" height="10" viewBox="0 0 9 10" fill="none">
-                                            <path d="M5.62494 9.99994L0.562517 10L0.5625 8.75003L4.49994 8.74996L4.5 2.39273L2.27828 4.86124L1.48278 3.97739L5.0625 0L8.64225 3.97739L7.84676 4.86124L5.625 2.3927L5.62494 9.99994Z" fill="currentColor" />
-                                        </svg>
-                                    </a>
-                                    <a href="{{ config('social.facebook') ?: route('contact') }}" target="_blank" rel="noopener noreferrer">
-                                        Dribbble
+                                    <a href="{{ config('social.tiktok') ?: route('contact') }}" target="_blank" rel="noopener noreferrer">
+                                        TikTok
                                         <svg xmlns="http://www.w3.org/2000/svg" width="9" height="10" viewBox="0 0 9 10" fill="none">
                                             <path d="M5.62494 9.99994L0.562517 10L0.5625 8.75003L4.49994 8.74996L4.5 2.39273L2.27828 4.86124L1.48278 3.97739L5.0625 0L8.64225 3.97739L7.84676 4.86124L5.625 2.3927L5.62494 9.99994Z" fill="currentColor" />
                                         </svg>
@@ -105,8 +87,8 @@
                             <div class="w-full lg:w-1/6 md:w-1/3 !text-right">
                                 <div class="!flex !flex-wrap !items-end !gap-6 md:!gap-12 !mb-4">
                                     <div class="footer-2-hours !text-white">
-                                        <span class="!block fz-font-md !opacity-50">Lun - Sam</span>
-                                        <h3 class="h5 fw-400 common-white">8h - 17h</h3>
+                                        <span class="!block fz-font-md !opacity-50">Lundi -Samedi </span>
+                                        <h3 class="h5 fw-400 common-white">8h - 16h</h3>
                                     </div>
                                 </div>
 

@@ -17,11 +17,11 @@
                                             </svg>
                                         </i>
                                     </a>
-                                    <a class="sd3-link" href="mailto:infos@escat.org">infos@escat.org</a>
+                                    <a class="sd3-link" href="mailto:infos@escat.org">infos@escat.org</a>   
                                 </div>
                             </div>
                             <div class="sd3-cta__aside">
-                                <img class="anim-zoomin" src="{{ asset('assets/imgs/pages/img-100.webp') }}" alt="Startup collaboration" width="480" height="560" loading="lazy">
+                                <img class="anim-zoomin" src="{{ asset('assets/imgs/pages/img-4.jpeg') }}" alt="Startup collaboration" width="480" height="560" loading="lazy">
                             </div>
                         </div>
                         <div class="sd3-next">
