@@ -48,9 +48,11 @@ class PageHeaderSchemaTest extends TestCase
         $this->assertContains('icon', PageHeaderSchema::fieldsFor($this->bloc('equipe.approche.1')));
         $this->assertNotContains('icon', PageHeaderSchema::fieldsFor($this->bloc('equipe.approche')));
 
-        // Le visuel de fond n'existe que sur les bandeaux de page.
+        // Un bloc n'expose un champ photo que s'il en affiche une : le bandeau
+        // de chiffres n'en montre aucune, la FAQ en montre une.
         $this->assertContains('image', PageHeaderSchema::fieldsFor($this->bloc('contact')));
-        $this->assertNotContains('image', PageHeaderSchema::fieldsFor($this->bloc('home.faq')));
+        $this->assertContains('image', PageHeaderSchema::fieldsFor($this->bloc('home.faq')));
+        $this->assertNotContains('image', PageHeaderSchema::fieldsFor($this->bloc('home.marquee')));
     }
 
     public function test_the_form_renders_only_those_fields(): void

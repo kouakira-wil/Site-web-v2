@@ -46,7 +46,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="w-full !py-12">
+                            <div class="w-full !py-12 mb-40 lg:!mb-60 lg:w-2/3 !mx-auto">
                                 <img src="{{ $post->coverUrl() ?? asset('assets/imgs/pages/img-212.webp') }}" class="!max-w-full !h-auto" alt="{{ $post->title }}">
                             </div>
                             <div class="w-full lg:w-2/3 !mx-auto">
@@ -60,14 +60,20 @@
                                     </div>
 
                                     <x-site.gallery :images="$post->images" :label="'Galerie de l’actualité : '.$post->title" />
-                                </div>
-                            </div>
-                            <div class="!flex !flex-wrap !items-center !justify-center !gap-2">
-                                @foreach ($categories as $categorie)
-                                    <a href="{{ route('posts.index', ['categorie' => $categorie->slug]) }}" class="at-btn filter-btn btn-sm">{{ $categorie->name }}</a>
-                                @endforeach
-                            </div>
-                                    <div class="flex flex-wrap -mx-3 [&>*]:px-3">
+
+                                    {{--
+                                        Rubriques et navigation restent dans la colonne de
+                                        l'article : hors de celle-ci, ce sont des éléments
+                                        flex sans largeur, qui se collent au bord gauche du
+                                        conteneur au lieu de s'aligner sur le texte.
+                                    --}}
+                                    <div class="!flex !flex-wrap !items-center !justify-center !gap-2 pt-40">
+                                        @foreach ($categories as $categorie)
+                                            <a href="{{ route('posts.index', ['categorie' => $categorie->slug]) }}" class="at-btn filter-btn btn-sm">{{ $categorie->name }}</a>
+                                        @endforeach
+                                    </div>
+
+                                    <div class="flex flex-wrap -mx-3 [&>*]:px-3 pt-40">
                                         <div class="w-full md:w-5/12 !mr-auto !flex !flex-col !gap-2">
                                             @if ($previous)
                                             <a href="{{ route('posts.show', $previous) }}" aria-label="Actualité précédente">
@@ -97,8 +103,9 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
+                    </div>
+                </div>
                 <!-- blog-details section 2 -->
                 <div class="sec-2-blog-details !overflow-hidden pt-100 pb-100 bg-neutral-50">
                     <div class="container">

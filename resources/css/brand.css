@@ -1160,25 +1160,27 @@
     color: var(--at-neutral-700, #303030);
 }
 
-/* Les deux photos : la petite décalée au-dessus de la grande. */
+/*
+ * Les deux photos de la bande : 350 x 450 à gauche, 650 x 450 à droite.
+ *
+ * Les colonnes sont exprimées en parts (350fr / 650fr) et chaque image porte
+ * son propre rapport. La paire atteint ces dimensions exactes dès que la place
+ * le permet et se réduit proportionnellement sinon, les deux hauteurs restant
+ * égales. C'est ici que la taille se décide : les attributs width et height du
+ * gabarit ne sont qu'une réserve de place avant le chargement de la feuille.
+ */
 .reperes-media {
     display: grid;
-    gap: 16px;
+    grid-template-columns: 350fr 650fr;
+    align-items: start;
+    gap: 12px;
+    max-width: 1024px;
+    margin-inline: auto;
 }
 
 @media (min-width: 768px) {
     .reperes-media {
-        grid-template-columns: 4fr 6fr;
-        align-items: start;
         gap: 24px;
-    }
-
-    .reperes-media__petite {
-        margin-top: 0;
-    }
-
-    .reperes-media__grande {
-        margin-top: 40px;
     }
 }
 
@@ -1186,7 +1188,15 @@
     width: 100%;
     display: block;
     object-fit: cover;
-    aspect-ratio: 5 / 4;
+}
+
+.reperes-media__petite {
+    aspect-ratio: 350 / 450;
+}
+
+.reperes-media__grande {
+    margin-top: 20px;
+    aspect-ratio: 650 / 450;
 }
 
 /* Pastille d'action, ronde, filet fin. */
@@ -2234,4 +2244,325 @@
     .blog-card {
         transition: none;
     }
+}
+
+
+/* =========================================================================
+   Filières phares — discours à gauche, photo médaillonnée à droite.
+
+   Le gabarit posait ici deux colonnes de cartes ; la section présente
+   désormais les filières par le texte, le détail vivant sur /filieres.
+   ========================================================================= */
+
+.phare {
+    padding: 110px 0 100px;
+}
+
+.phare__grille {
+    display: grid;
+    gap: 48px;
+    align-items: center;
+}
+
+@media (min-width: 992px) {
+    .phare__grille {
+        /* La photo prend un peu plus que le texte : c'est elle qui porte
+           le médaillon, qui déborde sur sa gauche. */
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+        gap: 72px;
+    }
+}
+
+/* -- Colonne de gauche --------------------------------------------------- */
+
+.phare__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 18px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--escat-brand);
+}
+
+/*
+ * Le composant d'icône applique « w-8 h-8 » par défaut. Deux sélecteurs ici,
+ * pour passer devant cet utilitaire sans dépendre de l'ordre des feuilles.
+ */
+.phare__eyebrow .phare__eyebrow-icone {
+    width: 18px;
+    height: 18px;
+    flex: none;
+}
+
+.phare__titre {
+    margin: 0 0 26px;
+    font-family: var(--at-ff-heading, inherit);
+    font-size: clamp(30px, 3.4vw, 50px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.12;
+    color: #0c0d10;
+}
+
+/* Le mot mis en couleur poursuit la phrase : pas de retour à la ligne forcé,
+   la coupure suit la largeur disponible. */
+.phare__accent {
+    color: var(--escat-brand);
+}
+
+.phare__chapo {
+    margin: 0 0 26px;
+    max-width: 46ch;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.6;
+    color: #0c0d10;
+}
+
+.phare__citation {
+    margin: 0 0 36px;
+    padding: 2px 0 2px 20px;
+    max-width: 54ch;
+    border-left: 2px solid var(--escat-brand);
+    font-size: 16px;
+    line-height: 1.75;
+    color: #5b5f66;
+}
+
+.phare__bouton {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 8px 8px 8px 26px;
+    border-radius: 999px;
+    background: var(--escat-brand);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.phare__bouton:hover,
+.phare__bouton:focus-visible {
+    background: var(--escat-brand-dark);
+    color: #fff;
+    box-shadow: var(--escat-ombre-survol);
+}
+
+.phare__bouton-rond {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--escat-brand);
+    transition: transform 0.25s ease;
+}
+
+.phare__bouton:hover .phare__bouton-rond {
+    transform: rotate(45deg);
+}
+
+/* -- Colonne de droite --------------------------------------------------- */
+
+.phare__media {
+    position: relative;
+    /* Le médaillon déborde en bas à gauche : rien ne doit rogner ici. */
+    isolation: isolate;
+}
+
+.phare__photo {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    /* Trois coins arrondis, le quatrième vif : le repère visuel de la maquette. */
+    border-radius: 36px 36px 0 36px;
+    box-shadow: var(--escat-ombre-posee);
+}
+
+.phare__pastille {
+    position: absolute;
+    left: -28px;
+    bottom: -34px;
+    width: 128px;
+    height: 128px;
+}
+
+@media (min-width: 768px) {
+    .phare__pastille {
+        left: -46px;
+        bottom: -46px;
+        width: 158px;
+        height: 158px;
+    }
+}
+
+.phare__pastille-fond {
+    fill: var(--escat-brand);
+}
+
+.phare__pastille-texte {
+    fill: #fff;
+    /* Chasse serrée : au-delà d'environ 38 signes, le texte deborde de l'arc. */
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transform-box: view-box;
+    transform-origin: 50% 50%;
+    animation: phare-tourne 22s linear infinite;
+}
+
+.phare__pastille-coeur {
+    fill: #fff;
+}
+
+.phare__pastille-fleche {
+    fill: var(--escat-brand);
+}
+
+@keyframes phare-tourne {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .phare__pastille-texte {
+        animation: none;
+    }
+
+    .phare__bouton,
+    .phare__bouton-rond {
+        transition: none;
+    }
+}
+
+
+/*
+ * Animation des titres survolables (« Restons en contact » du pied de page,
+ * intitulés des fiches filières).
+ *
+ * Chaque mot porte une copie de lui-même 1.05em plus bas, posée en
+ * `text-shadow` ; au survol le mot remonte et cette copie prend sa place. Le
+ * gabarit la peint en --at-theme-primary, le seul orange encore visible sur
+ * ces deux titres. Même spécificité que la règle d'origine (0,1,1) : c'est
+ * l'ordre de chargement qui tranche.
+ */
+.at-title-text span {
+    text-shadow: 0 1.05em var(--escat-brand);
+}
+
+
+/* =========================================================================
+   Témoignages de l'accueil.
+   ========================================================================= */
+
+/*
+ * Portrait : seule tache claire de la carte, c'est lui qui l'ancre.
+ * À 64 px dans un coin il se perdait ; on l'agrandit et on le pose au-dessus
+ * du gris du fond par un liséré bleu doublé d'un halo. Une ombre sombre
+ * classique ne se verrait pas sur ce fond noir.
+ */
+.sec-6-home-1 .testimonial-top-left-img {
+    width: 96px;
+    height: 96px;
+    margin-right: 16px;
+    border-radius: 16px;
+    border: 2px solid var(--escat-brand);
+    box-shadow: 0 0 0 5px rgba(38, 70, 208, 0.18);
+}
+
+@media (max-width: 767.98px) {
+    .sec-6-home-1 .testimonial-top-left-img {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+.sec-6-home-1 .testimonial-top-left-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.sec-6-home-1 .testimonial-cart-wrap:hover .testimonial-top-left-img img {
+    transform: scale(1.06);
+}
+
+/* La carte respire au-dessus du portrait agrandi. */
+.sec-6-home-1 .testimonial-top {
+    margin-bottom: 8px;
+}
+
+.sec-6-home-1 .testimonial-content-text {
+    line-height: 1.5;
+}
+
+/*
+ * Repli lorsqu'un témoignage n'a pas de portrait : la lettre n'avait aucune
+ * règle, elle tombait en texte nu au coin d'un cadre vide.
+ */
+.testimonial-initiale {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: var(--escat-brand);
+    color: #fff;
+    font-size: 34px;
+    font-weight: 600;
+    line-height: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sec-6-home-1 .testimonial-top-left-img img {
+        transition: none;
+    }
+
+    .sec-6-home-1 .testimonial-cart-wrap:hover .testimonial-top-left-img img {
+        transform: none;
+    }
+}
+
+
+/* =========================================================================
+   Préchargeur.
+
+   Le gabarit pose déjà `.page-loader`, `.bar` et le logo centré ; ne sont
+   repris ici que les points qu'il laissait de côté.
+   ========================================================================= */
+
+.page-loader {
+    /* Le gabarit ne pose que `top` : sans `left`, le voile se cale sur sa
+       position statique, qui dépend des marges du corps. */
+    left: 0;
+    /* Dix volets de 10vw font exactement 100vw ; avec une barre de défilement,
+       le total déborde et ouvrirait un défilement horizontal. */
+    overflow: hidden;
+    background: #1d1d1d;
+}
+
+.page-loader .page-loader-logo img {
+    display: block;
+    width: clamp(90px, 18vw, 150px);
+    height: auto;
+}
+
+/*
+ * Pendant le voile, la page derrière ne doit pas défiler : la molette
+ * donnerait l'impression que le site répond alors qu'il est encore masqué.
+ */
+body:has(> .page-loader) {
+    overflow: hidden;
 }

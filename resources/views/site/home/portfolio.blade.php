@@ -1,48 +1,89 @@
 @php
     $s = \App\Models\PageHeader::forKey('home.portfolio');
+
+    // Le texte qui tourne autour du médaillon : une seule ligne, saisie au
+    // back-office. Sans elle, le médaillon ne s'affiche pas.
+    $pastille = $s?->tagList()[0] ?? null;
 @endphp
 
-<!-- mg-portfolio-area-start -->
-                <div class="mg-portfolio-area pt-145 pb-65">
-                    <div class="container">
-                        <div class="flex flex-wrap -mx-3 [&>*]:px-3">
-                            <div class="w-full 2xl:w-1/3 lg:w-1/3">
-                                <div class="mg-portfolio-title-wrap mg-portfolio-pin mb-30">
-                                    <h2 class="alt-section-title !leading-none mb-30 reveal-text">{{ $s?->title }}</h2>
-                                    <div class="at_fade_anim" data-delay=".3">
-                                        <p class="mg-portfolio-dec mb-50">Quatre parcours construits avec les entreprises du secteur,
-                                            où la théorie se vérifie en atelier dès la première année.</p>
-                                    </div>
-                                    <div class="at-btn-group at_fade_anim" data-delay=".4" data-fade-from="bottom" data-ease="bounce">
-                                        <a class="at-btn-circle" href="{{ route('projects.index') }}">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none">
-                                                <path d="M0.0001297 8.99993L0 3.00407e-05L2 0L2.0001 6.99993L12.1719 7.00003L8.22224 3.05027L9.63644 1.63606L16.0003 8.00003L9.63644 14.364L8.22224 12.9497L12.1719 9.00003L0.0001297 8.99993Z" fill="currentColor" />
-                                            </svg>
-                                        </a>
-                                        <a class="at-btn z-index-1" href="{{ route('projects.index') }}">{{ $s?->cta_label }}</a>
-                                        <a class="at-btn-circle" href="{{ route('projects.index') }}">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none">
-                                                <path d="M0.0001297 8.99993L0 3.00407e-05L2 0L2.0001 6.99993L12.1719 7.00003L8.22224 3.05027L9.63644 1.63606L16.0003 8.00003L9.63644 14.364L8.22224 12.9497L12.1719 9.00003L0.0001297 8.99993Z" fill="currentColor" />
-                                            </svg>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="w-full lg:w-7/12 !ml-auto">
-                                <div class="mg-portfolio-item-wrap ml-130 mb-40">
-                                    <!-- beautify ignore:start -->
-                    @forelse ($featured as $filiere)
-    <x-site.filiere-item :filiere="$filiere"
-        :fallback="asset('assets/imgs/pages/img-'.(11 + ($loop->index % 4)).'.jpg')" />
-@empty
-    <p>Aucune filière mise en avant pour le moment.</p>
-@endforelse
+@if ($s)
+    {{--
+        Mise en avant des filières : discours à gauche, photo à droite.
 
-                    <!-- beautify ignore:end -->
+        La photo n'est pas décorative au sens strict — elle montre l'école —
+        mais elle n'ajoute rien au texte qui la précède : son `alt` reste vide
+        pour ne pas faire répéter le titre au lecteur d'écran.
+    --}}
+    <section class="phare" aria-labelledby="titre-phare">
+        <div class="container">
+            <div class="phare__grille">
+                <div class="phare__corps">
+                    @if (filled($s->eyebrow))
+                        <p class="phare__eyebrow">
+                            @if (filled($s->icon))
+                                <x-site.icon :name="$s->icon" class="phare__eyebrow-icone" />
+                            @endif
+                            {{ $s->eyebrow }}
+                        </p>
+                    @endif
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <h2 id="titre-phare" class="phare__titre reveal-text">
+                        {{ $s->title }}
+                        @if (filled($s->title_accent))
+                            <span class="phare__accent">{{ $s->title_accent }}</span>
+                        @endif
+                    </h2>
+
+                    @if (filled($s->intro))
+                        <p class="phare__chapo">{{ $s->intro }}</p>
+                    @endif
+
+                    @if (filled($s->body))
+                        <blockquote class="phare__citation">{{ $s->body }}</blockquote>
+                    @endif
+
+                    @if (filled($s->cta_label))
+                        <a class="phare__bouton" href="{{ $s->cta_url ?: route('projects.index') }}">
+                            <span class="phare__bouton-texte">{{ $s->cta_label }}</span>
+                            <span class="phare__bouton-rond" aria-hidden="true">
+                                <svg width="14" height="14" viewBox="0 0 11 11" fill="none">
+                                    <path d="M0.21967 9.40717C-0.0732232 9.70006 -0.0732232 10.1749 0.21967 10.4678C0.512563 10.7607 0.987437 10.7607 1.28033 10.4678L0.21967 9.40717ZM10.6875 0.75C10.6875 0.335786 10.3517 2.97145e-09 9.9375 1.50485e-07L3.1875 -2.70983e-07C2.77329 -2.70983e-07 2.4375 0.335786 2.4375 0.75C2.4375 1.16421 2.77329 1.5 3.1875 1.5H9.1875V7.5C9.1875 7.91421 9.52329 8.25 9.9375 8.25C10.3517 8.25 10.6875 7.91421 10.6875 7.5L10.6875 0.75ZM0.75 9.9375L1.28033 10.4678L10.4678 1.28033L9.9375 0.75L9.40717 0.21967L0.21967 9.40717L0.75 9.9375Z" fill="currentColor" />
+                                </svg>
+                            </span>
+                        </a>
+                    @endif
                 </div>
-                <!-- mg-portfolio-area-end -->
+
+                <div class="phare__media">
+                    <img class="phare__photo"
+                         src="{{ $s->imageUrl() ?? asset('assets/imgs/pages/img-11.jpg') }}"
+                         alt="" width="900" height="900" loading="lazy" decoding="async">
+
+                    @if (filled($pastille))
+                        {{--
+                            Médaillon tournant. Purement décoratif : le texte
+                            qu'il porte est déjà dit par la section, et une
+                            rotation continue n'est pas lisible au clavier.
+                        --}}
+                        <svg class="phare__pastille" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+                            <defs>
+                                <path id="phare-cercle" fill="none"
+                                      d="M60,60 m-45,0 a45,45 0 1,1 90,0 a45,45 0 1,1 -90,0" />
+                            </defs>
+
+                            <circle class="phare__pastille-fond" cx="60" cy="60" r="60" />
+
+                            <g class="phare__pastille-texte">
+                                <text><textPath href="#phare-cercle" startOffset="0">{{ $pastille }}</textPath></text>
+                            </g>
+
+                            <circle class="phare__pastille-coeur" cx="60" cy="60" r="22" />
+                            <path class="phare__pastille-fleche" transform="translate(52 52)"
+                                  d="M0.21967 9.40717C-0.0732232 9.70006 -0.0732232 10.1749 0.21967 10.4678C0.512563 10.7607 0.987437 10.7607 1.28033 10.4678L0.21967 9.40717ZM10.6875 0.75C10.6875 0.335786 10.3517 2.97145e-09 9.9375 1.50485e-07L3.1875 -2.70983e-07C2.77329 -2.70983e-07 2.4375 0.335786 2.4375 0.75C2.4375 1.16421 2.77329 1.5 3.1875 1.5H9.1875V7.5C9.1875 7.91421 9.52329 8.25 9.9375 8.25C10.3517 8.25 10.6875 7.91421 10.6875 7.5L10.6875 0.75ZM0.75 9.9375L1.28033 10.4678L10.4678 1.28033L9.9375 0.75L9.40717 0.21967L0.21967 9.40717L0.75 9.9375Z" />
+                        </svg>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </section>
+@endif

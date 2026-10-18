@@ -193,3 +193,113 @@ function initHeroRotator() {
 }
 
 document.addEventListener('DOMContentLoaded', initHeroRotator);
+
+/**
+ * Accessibilité des filtres par rubrique.
+ *
+ * `initPortfolioFilter()` du gabarit bascule la classe `active` mais laisse
+ * `aria-pressed` figé : un lecteur d'écran annoncerait toujours « Toutes »
+ * comme sélectionné. On reflète l'état réel après chaque clic.
+ */
+function initFiltreAccessible() {
+    const groupes = document.querySelectorAll('.filter-portfolio');
+
+    groupes.forEach((groupe) => {
+        const boutons = Array.from(groupe.querySelectorAll('.filter-btn'));
+
+        if (boutons.length === 0) {
+            return;
+        }
+
+        const refleter = () => {
+            boutons.forEach((bouton) => {
+                bouton.setAttribute('aria-pressed', bouton.classList.contains('active') ? 'true' : 'false');
+            });
+
+            // Aucun bouton actif : le gabarit a rétabli « tout afficher ».
+            if (! boutons.some((b) => b.classList.contains('active'))) {
+                boutons[0].setAttribute('aria-pressed', 'true');
+            }
+        };
+
+        groupe.addEventListener('click', (evenement) => {
+            if (evenement.target.closest('.filter-btn')) {
+                // Après le gestionnaire du gabarit, qui vient de changer les classes.
+                window.setTimeout(refleter, 0);
+            }
+        });
+    });
+}
+
+document.addEventListener('DOMContentLoaded', initFiltreAccessible);
+
+/*
+ * Préchargeur.
+ *
+ * Le gabarit Orisa portait les styles de `.page-loader` et `.bar` mais laissait
+ * l'animation en commentaire dans main.js, sans marquage pour la nourrir. Elle
+ * est reprise ici, au lieu de toucher au fichier du gabarit.
+ *
+ * Les volets se rétractent vers le haut en cascade, puis le voile est retiré du
+ * DOM. Un voile seulement transparent continuerait d'intercepter les clics.
+ */
+function initPrechargeur() {
+    const voile = document.querySelector('[data-prechargeur]');
+
+    if (! voile) {
+        return;
+    }
+
+    // Une fois parti, il ne revient pas : le filet de sécurité en ligne peut
+    // l'avoir devancé, et GSAP peut manquer si le bundle du gabarit a échoué.
+    const effacer = () => voile.remove();
+
+    const sobre = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    if (sobre.matches || typeof window.gsap === 'undefined') {
+        effacer();
+
+        return;
+    }
+
+    let parti = false;
+
+    const partir = () => {
+        // `load` et le délai de secours peuvent se déclencher tous les deux :
+        // la seconde animation jouerait sur un voile déjà retiré.
+        if (parti) {
+            return;
+        }
+
+        parti = true;
+
+        const volets = voile.querySelectorAll('.bar');
+        const logo = voile.querySelector('.page-loader-logo');
+
+        const sortie = window.gsap.timeline({ onComplete: effacer });
+
+        if (logo) {
+            sortie.to(logo, { opacity: 0, scale: 1.2, duration: 0.4, ease: 'power2.in' });
+        }
+
+        sortie.to(volets, {
+            height: 0,
+            duration: 0.9,
+            ease: 'power4.inOut',
+            stagger: { amount: 0.4 },
+        }, logo ? '-=0.2' : 0);
+    };
+
+    /*
+     * `load` attend les images : sur une page lourde, l'attente serait longue.
+     * On part au plus tôt des deux, le filet en ligne couvrant le reste.
+     */
+    if (document.readyState === 'complete') {
+        partir();
+    } else {
+        window.addEventListener('load', partir, { once: true });
+        window.setTimeout(partir, 2500);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', initPrechargeur);

@@ -1,7 +1,24 @@
 @php
     $s = \App\Models\PageHeader::forKey('home.services');
+
+    // Les cartes de cycles, dans l'ordre : home.services.1 à .3.
+    $cycles = \App\Models\PageHeader::query()
+        ->where('key', 'like', 'home.services.%')
+        ->orderBy('position')
+        ->get()
+        ->filter(fn ($cycle): bool => filled($cycle->title))
+        ->values();
+
+    /*
+     * Compteur sous la pile de photos, au format « valeur | libellé ». Il
+     * tient sur une seule ligne ; les suivantes seraient sans emplacement.
+     */
+    $compteur = array_map('trim', explode('|', $s?->tagList()[0] ?? '', 2));
+    $compteurValeur = $compteur[0] ?? '';
+    $compteurLibelle = $compteur[1] ?? '';
 @endphp
 
+@if ($s)
 <!-- at-service-area-start -->
 <div class="at-service-area at-panel-pin-area pt-120 pb-120">
 <div class="container">
@@ -10,8 +27,8 @@
             <div class="at-service-subtitle-wrap at-about-border !flex !justify-between !gap-4 mb-50">
                 <span class="at-btn common-black !uppercase !bg-transparent mb-10 !rounded-none !p-0">
                     <span class="!uppercase">
-                        <span class="text-1">{{ $s?->eyebrow }}</span>
-                        <span class="text-2">{{ $s?->eyebrow }}</span>
+                        <span class="text-1">{{ $s->eyebrow }}</span>
+                        <span class="text-2">{{ $s->eyebrow }}</span>
                     </span>
                     <i>
                         <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -22,97 +39,75 @@
                         </svg>
                     </i>
                 </span>
-                <span class="fs-font-md fw-500 !underline">{{ $s?->intro }}</span>
+
+                @if (filled($s->intro))
+                    <span class="fs-font-md fw-500 !underline">{{ $s->intro }}</span>
+                @endif
             </div>
         </div>
         <div class="w-full 2xl:w-1/3 lg:w-1/3 xl:w-1/3 col-xl-4 mb-40">
             <div class="at-service-content mr-60 mt-20">
                 <div class="at-service-sales-wrap at-panel-pin fix p-relative">
+                    {{--
+                        Le script du gabarit apparie les cartes et les vignettes par
+                        leur rang : survoler la carte n° 2 révèle la deuxième image de
+                        cette pile. Une entrée par carte, dans le même ordre, donc,
+                        et le conteneur reste en place même sans photo — le sauter
+                        décalerait tous les rangs suivants.
+                    --}}
                     <div class="at-service-img-wrapper image-container">
-                        <div class="hover-image">
-                            <img class="thumb" src="{{ asset('assets/imgs/pages/img-5.webp') }}" alt="Étudiants de l’ESCAT en atelier">
-                        </div>
-                        <div class="hover-image">
-                            <img class="thumb" src="{{ asset('assets/imgs/pages/img-6.webp') }}" alt="Étudiants de l’ESCAT en atelier">
-                        </div>
-                        <div class="hover-image">
-                            <img class="thumb" src="{{ asset('assets/imgs/pages/img-7.webp') }}" alt="Étudiants de l’ESCAT en atelier">
-                        </div>
-                        <div class="hover-image">
-                            <img class="thumb" src="{{ asset('assets/imgs/pages/img-8.webp') }}" alt="Étudiants de l’ESCAT en atelier">
-                        </div>
-                        <div class="hover-image">
-                            <img class="thumb" src="{{ asset('assets/imgs/pages/img-9.webp') }}" alt="Étudiants de l’ESCAT en atelier">
-                        </div>
-                        <div class="hover-image">
-                            <img class="thumb" src="{{ asset('assets/imgs/pages/img-10.webp') }}" alt="Étudiants de l’ESCAT en atelier">
-                        </div>
+                        @foreach ($cycles as $cycle)
+                            <div class="hover-image">
+                                @if ($cycle->imageUrl())
+                                    <img class="thumb" src="{{ $cycle->imageUrl() }}" alt="{{ $cycle->title }}">
+                                @endif
+                            </div>
+                        @endforeach
                     </div>
-                    <h4 class="h5 fw-600 !mb-0 mt-10"><span class="odometer" data-count="9"></span>+</h4>
-                    <span class="fz-font-lg neutral-500 fw-500">Filières</span>
+
+                    @if (filled($compteurValeur))
+                        {{-- Le compteur s'anime depuis zéro : la valeur est lue par
+                             `data-count`, le signe reste en dehors du mécanisme. --}}
+                        <h4 class="h5 fw-600 !mb-0 mt-10"><span class="odometer" data-count="{{ (int) $compteurValeur }}"></span>+</h4>
+                        <span class="fz-font-lg neutral-500 fw-500">{{ $compteurLibelle }}</span>
+                    @endif
                 </div>
             </div>
         </div>
         <div class="w-full 2xl:w-7/12 !ml-auto lg:w-2/3 xl:w-2/3 mb-40">
             <div class="at-service-list-wrap">
-                <a href="{{ route('projects.index') }}">
-                    <div class="at-service-item service-item">
-                        <div class="count">
-                            <span class="number">[01]</span>
-                        </div>
+                @foreach ($cycles as $cycle)
+                    <a href="{{ $cycle->cta_url ?: route('projects.index') }}">
+                        <div class="at-service-item service-item">
+                            <div class="count">
+                                {{-- Numérotation calculée : réordonner les blocs
+                                     au back-office suffit à la renuméroter. --}}
+                                <span class="number">[{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}]</span>
+                            </div>
 
-                        <div class="content">
-                            <h4 class="title">CAP</h4>
+                            <div class="content">
+                                <h4 class="title">{{ $cycle->title }}</h4>
 
-                            <p class="text">
-                                Une formation courte et pratique pour <br> accéder rapidement au marché du travail. </p>
-                        </div>
+                                @if (filled($cycle->intro))
+                                    <p class="text">{{ $cycle->intro }}</p>
+                                @endif
+                            </div>
 
-                        <div class="thumb anim-zoomin">
-                            <img src="{{ asset('assets/imgs/pages/img-5-sm.webp') }}" alt="ESCAT">
+                            <div class="thumb anim-zoomin">
+                                @if ($cycle->imageUrl())
+                                    <img src="{{ $cycle->imageUrl() }}" alt="{{ $cycle->title }}">
+                                @endif
+                            </div>
                         </div>
-                    </div>
-                </a>
-                <a href="{{ route('projects.index') }}">
-                    <div class="at-service-item service-item">
-                        <div class="count">
-                            <span class="number">[03]</span>
-                        </div>
-                        <div class="content">
-                            <h4 class="title">Cycle Licence (BAC +3)</h4>
+                    </a>
+                @endforeach
 
-                            <p class="text">
-                                Trois ans pour approfondir un domaine <br> et consolider un projet professionnel. </p>
-                        </div>
-
-                        <div class="thumb anim-zoomin">
-                            <img src="{{ asset('assets/imgs/pages/img-7-sm.webp') }}" alt="ESCAT">
-                        </div>
-                    </div>
-                </a>
-                <a href="{{ route('projects.index') }}">
-                    <div class="at-service-item service-item">
-                        <div class="count">
-                            <span class="number">[03]</span>
-                        </div>
-
-                        <div class="content">
-                            <h4 class="title">Cycle Master (BAC +5)</h4>
-
-                            <p class="text">
-                                Cinq ans pour devenir expert de son <br> domaine et encadrer des équipes. </p>
-                        </div>
-
-                        <div class="thumb anim-zoomin">
-                            <img src="{{ asset('assets/imgs/pages/img-8-sm.webp') }}" alt="ESCAT">
-                        </div>
-                    </div>
-                </a>
+                @if (filled($s->cta_label))
                 <div class="at-service-btn pt-30">
-                    <a class="at-btn" href="{{ route('contact') }}">
+                    <a class="at-btn" href="{{ $s->cta_url ?: route('contact') }}">
                         <span>
-                            <span class="text-1">Prendre une préinscription</span>
-                            <span class="text-2">Prendre une préinscription</span>
+                            <span class="text-1">{{ $s->cta_label }}</span>
+                            <span class="text-2">{{ $s->cta_label }}</span>
                         </span>
                         <i>
                             <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -124,9 +119,11 @@
                         </i>
                     </a>
                 </div>
+                @endif
             </div>
         </div>
     </div>
 </div>
 </div>
 <!-- at-service-area-end -->
+@endif

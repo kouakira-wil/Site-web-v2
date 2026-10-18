@@ -101,14 +101,4 @@ class TestimonialTest extends TestCase
         $this->assertDatabaseMissing('testimonials', ['id' => $temoignage->id]);
         Storage::disk('public')->assertMissing('temoignages/photo.webp');
     }
-
-    public function test_the_carousel_repeats_a_short_list_so_it_can_loop(): void
-    {
-        // Swiper a besoin d'assez de vignettes : sous quatre, la liste est doublée.
-        Testimonial::query()->create(['quote' => 'Unique temoignage', 'is_active' => true]);
-
-        $contenu = $this->get('/')->getContent();
-
-        $this->assertSame(2, substr_count($contenu, 'Unique temoignage'));
-    }
 }

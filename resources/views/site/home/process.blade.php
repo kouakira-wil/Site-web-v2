@@ -38,37 +38,6 @@
                                                 </svg>
                                             </a>
                                         </div>
-                                        <div class="at-about-content pt-120">
-                                            <div class="!flex !gap-6 !justify-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
-                                                    <path d="M20 40V20H0L20 0L40 20V40H20Z" fill="currentColor" />
-                                                    <path d="M0 20L20 40H0V20Z" fill="currentColor" />
-                                                </svg>
-                                                <div>
-                                                    <h3 class="h6 fw-600">Nous trouver</h3>
-                                                    <div class="!flex md:!flex-row !flex-col md:!gap-12 !gap-6">
-                                                        <span class="fz-font-md neutral-500">
-                                                            Brazzaville
-                                                            <br class="!block">
-                                                            Brazzaville, République du Congo
-                                                            <br class="!block">
-                                                            Téléphone : <span class="neutral-900"><a href="tel:+242068848344">+242 06 884 83 44</a></span>
-                                                            <br class="!block">
-                                                            E-mail : <span class="neutral-900"><a href="mailto:infos@escat.org">infos@escat.org</a></span>
-                                                        </span>
-                                                        <span class="fz-font-md neutral-500 md:!pl-12">
-                                                            Service des admissions
-                                                            <br class="!block">
-                                                            Brazzaville, République du Congo
-                                                            <br class="!block">
-                                                            Téléphone : <span class="neutral-900"><a href="tel:+242068848344">+242 06 884 83 44</a></span>
-                                                            <br class="!block">
-                                                            E-mail : <span class="neutral-900"><a href="mailto:infos@escat.org">infos@escat.org</a></span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                              <!-- beautify ignore:end -->

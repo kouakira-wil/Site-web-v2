@@ -17,30 +17,21 @@ class PublicSiteTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_home_page_lists_featured_projects(): void
+    public function test_project_index_hands_every_filiere_to_the_client_filter(): void
     {
-        $featured = Project::factory()->featured()->create(['title' => 'Refonte Aurore']);
-        Project::factory()->create(['title' => 'Projet discret']);
-
-        $response = $this->get(route('home'));
-
-        $response->assertOk();
-        $response->assertSee($featured->title);
-        $response->assertDontSee('Projet discret');
-    }
-
-    public function test_project_index_filters_by_category(): void
-    {
-        $kept = Project::factory()->create(['title' => 'Identité Nord']);
+        $filiere = Project::factory()->create(['title' => 'Identité Nord']);
         Project::factory()->create(['title' => 'Autre projet']);
 
-        $response = $this->get(route('projects.index', [
-            'categorie' => $kept->category->slug,
-        ]));
+        $contenu = $this->get(route('projects.index'))->assertOk()->getContent();
 
-        $response->assertOk();
-        $response->assertSee('Identité Nord');
-        $response->assertDontSee('Autre projet');
+        /*
+         * Le tri par pôle se fait dans le navigateur : les deux fiches sont
+         * dans la page, chacune étiquetée de son pôle. Un filtrage serveur
+         * priverait le bouton « Toutes » de ce qu'il doit révéler.
+         */
+        $this->assertStringContainsString('Identité Nord', $contenu);
+        $this->assertStringContainsString('Autre projet', $contenu);
+        $this->assertStringContainsString('data-filter="'.$filiere->category->slug.'"', $contenu);
     }
 
 

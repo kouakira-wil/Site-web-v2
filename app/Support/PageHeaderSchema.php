@@ -96,9 +96,24 @@ final class PageHeaderSchema
         'home.services' => [
             'eyebrow' => ['Surtitre', 'La mention au-dessus des cycles.'],
             'intro' => ['Mention soulignée', 'Le court texte souligné, à droite du surtitre.'],
+            'tags' => ['Compteur', 'Une seule ligne, au format « valeur | libellé ». Exemple : 9 | Filières. Vide : pas de compteur.'],
+            'cta_label' => ['Libellé du bouton', 'Vide : pas de bouton.'],
+            'cta_url' => ['Lien du bouton', 'Par exemple /contact.'],
             'label',
         ],
-        'home.portfolio' => ['title', 'cta_label', 'label'],
+        'home.portfolio' => [
+            'eyebrow' => ['Surtitre', 'La mention en majuscules au-dessus du titre.'],
+            'icon' => ['Pictogramme du surtitre', 'Petite icône devant la mention.'],
+            'title' => ['Titre — début', 'Reste en noir.'],
+            'title_accent' => ['Titre — suite en couleur', 'La fin du titre, reprise en bleu.'],
+            'intro' => ['Accroche', 'La phrase en gras sous le titre.'],
+            'body' => ['Paragraphe', 'Le texte détaillé, présenté avec un filet à gauche.'],
+            'cta_label' => ['Libellé du bouton', 'Vide : pas de bouton.'],
+            'cta_url' => ['Lien du bouton', 'Par exemple /filieres.'],
+            'image' => ['Photo', 'Le grand visuel à droite, cadré en carré.'],
+            'tags' => ['Médaillon tournant', 'Le texte qui tourne autour de la pastille. Une seule ligne ; vide, la pastille disparaît.'],
+            'label',
+        ],
         'home.marquee' => [
             'tags' => ['Chiffres', 'Un par ligne, au format « valeur | libellé ». Exemple : 4 | Cycles, du CAP au Master.'],
             'label',
@@ -120,7 +135,12 @@ final class PageHeaderSchema
             'label',
         ],
         'home.process' => ['eyebrow', 'title' => ['Texte de présentation', null], 'label'],
-        'home.faq' => ['eyebrow', 'title' => ['Question d’introduction', null], 'label'],
+        'home.faq' => [
+            'eyebrow' => ['Surtitre', 'La mention au-dessus du titre.'],
+            'title' => ['Question d’introduction', null],
+            'image' => ['Photo', 'Le visuel en haut de la colonne de gauche.'],
+            'label',
+        ],
         'home.banner' => ['title', 'title_accent', 'cta_label', 'label'],
         'home.journal' => ['eyebrow', 'title', 'cta_label', 'label'],
         'ecole.directeur' => [
@@ -188,6 +208,37 @@ final class PageHeaderSchema
                 'title' => ['Intitulé', null],
                 'intro' => ['Texte', 'Une phrase.'],
                 'icon',
+                'label',
+            ];
+        }
+
+        // Carte de contact, à gauche des questions fréquentes.
+        if ($header->key === 'home.faq.contact') {
+            return [
+                'title' => ['Titre de la carte', null],
+                'intro' => ['Texte sous le titre', 'Une ligne.'],
+                'cta_label' => ['Libellé du bouton', 'Vide : pas de bouton.'],
+                'cta_url' => ['Lien du bouton', 'Par exemple /contact.'],
+                'label',
+            ];
+        }
+
+        // Questions fréquentes : home.faq.1, .2, ...
+        if (str_starts_with($header->key, 'home.faq.')) {
+            return [
+                'title' => ['Question', 'Le libellé du bouton qui déplie la réponse.'],
+                'body' => ['Réponse', 'Le texte affiché une fois la question dépliée.'],
+                'label',
+            ];
+        }
+
+        // Cartes des cycles, dans la section des formations : home.services.1 à .3
+        if (str_starts_with($header->key, 'home.services.')) {
+            return [
+                'title' => ['Intitulé du cycle', 'Par exemple « Cycle Licence (BAC +3) ».'],
+                'intro' => ['Texte de la carte', 'Une ou deux phrases.'],
+                'cta_url' => ['Lien de la carte', 'Par exemple /filieres.'],
+                'image' => ['Vignette', 'La petite photo qui apparaît au survol.'],
                 'label',
             ];
         }
@@ -260,6 +311,41 @@ final class PageHeaderSchema
                 'cta_url' => ['Lien du bouton', 'Par exemple /filieres.'],
                 'image' => ['Première photo', 'La grande, en haut.'],
                 'image_secondary' => ['Seconde photo', 'La ronde, décalée en dessous.'],
+                'label',
+            ];
+        }
+
+        // Carte illustrée des pôles, dans la section du parcours.
+        if ($header->key === 'ecole.parcours.pole') {
+            return [
+                'eyebrow' => ['Pastille', 'La mention encadrée sur la photo, par exemple « Deux pôles ».'],
+                'title' => ['Titre sur la photo', null],
+                'intro' => ['Texte sur la photo', 'Une phrase ; au-delà, elle est tronquée.'],
+                'cta_url' => ['Lien de la carte', 'Par exemple /filieres.'],
+                'image' => ['Photo', 'Le visuel de la carte, à gauche de la liste.'],
+                'label',
+            ];
+        }
+
+        // Étapes du cursus : ecole.parcours.1 à .4
+        if (str_starts_with($header->key, 'ecole.parcours.')) {
+            return [
+                'eyebrow' => ['Intitulé du cycle', 'La ligne au-dessus du titre, par exemple « BTS — BAC +2 ».'],
+                'title' => ['Titre de l’étape', null],
+                'intro' => ['Texte de l’étape', 'Une ou deux phrases.'],
+                'cta_url' => ['Lien de la flèche', 'Par exemple /filieres.'],
+                'label',
+            ];
+        }
+
+        // En-tête de la section du parcours.
+        if ($header->key === 'ecole.parcours') {
+            return [
+                'eyebrow' => ['Surtitre', 'La mention animée au-dessus du titre.'],
+                'title' => ['Titre', null],
+                'intro' => ['Accroche', 'Le paragraphe sous le titre.'],
+                'cta_label' => ['Libellé du bouton', 'Vide : pas de bouton.'],
+                'cta_url' => ['Lien du bouton', 'Par exemple /contact.'],
                 'label',
             ];
         }

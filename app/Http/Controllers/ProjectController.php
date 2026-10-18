@@ -8,25 +8,21 @@ use App\Models\Category;
 use App\Models\Cycle;
 use App\Models\Project;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
-    public function index(Request $request): View
+    public function index(): View
     {
-        $activeSlug = $request->string('categorie')->toString();
-
+        /*
+         * Toutes les filières publiées : le tri par pôle se fait dans le
+         * navigateur, sur des fiches déjà présentes. Filtrer ou paginer ici
+         * priverait le bouton « Toutes » de ce qu'il doit révéler.
+         */
         $projects = Project::query()
             ->published()
             ->with('category')
-            ->when($activeSlug !== '', fn (Builder $query) => $query->whereHas(
-                'category',
-                fn (Builder $c) => $c->where('slug', $activeSlug)
-            ))
             ->ordered()
-            ->paginate(9)
-            ->withQueryString();
+            ->get();
 
         return view('site.filieres.index', [
             'projects' => $projects,
@@ -36,7 +32,6 @@ class ProjectController extends Controller
                 ->with(['projects' => fn ($query) => $query->published()->with('category')->ordered()])
                 ->get(),
             'categories' => Category::query()->ofType(Category::TYPE_PROJECT)->ordered()->get(),
-            'activeSlug' => $activeSlug,
         ]);
     }
 

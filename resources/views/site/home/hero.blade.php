@@ -12,7 +12,7 @@
                 <span class="at-hero-subtitle !text-white mb-10 !inline-block at_fade_anim">{{ $s?->eyebrow }}</span>
                 @php $variantes = $s?->titleVariants() ?? []; @endphp
 
-                <h3 class="at-hero-title !text-white">
+                <h1 class="at-hero-title !text-white">
                     <span class="at_fade_anim" data-delay="0.5" data-fade-from="top">
                         {{ $s?->title }}
                         @if ($variantes !== [])
@@ -26,7 +26,7 @@
                             </span>
                         @endif
                     </span>
-                </h3>
+                </h1>
                 <div class="at-hero-btn !flex !flex-wrap !gap-2 pt-20 at_fade_anim" data-delay="0.5" data-fade-from="bottom">
                     <a class="at-btn !bg-white !rounded-none text-dark" href="{{ route('projects.index') }}">
                         <span>

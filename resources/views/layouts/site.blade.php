@@ -50,6 +50,9 @@
 </head>
 
 <body class="at-magic-cursor">
+    {{-- En tête de corps : le voile doit couvrir dès le premier rendu. --}}
+    @include('site.partials.preloader')
+
     @include('site.partials.search-form')
 
     {{-- The home page and the inner pages use different header variants. --}}

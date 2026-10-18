@@ -42,9 +42,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="flex flex-wrap -mx-3 [&>*]:px-3">
+                        <div class="flex flex-wrap">
                             <!-- beautify ignore:start -->
-         @forelse ($recentPosts as $post)
+                                @forelse ($recentPosts as $post)
                                     <x-site.blog-card
                                         :post="$post"
                                         :fallback="asset('assets/imgs/pages/img-'.(23 + ($loop->index % 4)).'.webp')"

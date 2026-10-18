@@ -13,13 +13,23 @@
                     <div class="container !relative">
                         <div class="!items-center flex flex-wrap -mx-3 [&>*]:px-3">
                             <div class="w-full lg:w-2/3">
-                                <div class="filter-portfolio !flex !flex-wrap !items-center !gap-2">
-                                    <a href="{{ route('projects.index') }}" class="at-btn filter-btn btn-sm{{ $activeSlug === '' ? ' active' : '' }}">Toutes les filières</a>
+                                {{--
+                                    Filtrage sans rechargement : `initPortfolioFilter()`
+                                    du gabarit masque et révèle les fiches selon
+                                    `data-filter` / `data-category`.
+                                --}}
+                                <div class="filter-portfolio !flex !flex-wrap !items-center !gap-2"
+                                     role="group" aria-label="Filtrer par pôle">
+                                    <button type="button" data-filter="all"
+                                            class="at-btn filter-btn btn-sm active"
+                                            aria-pressed="true">Toutes les filières</button>
+
                                     @foreach ($categories as $categorie)
-                                        <a href="{{ route('projects.index', ['categorie' => $categorie->slug]) }}"
-                                           class="at-btn filter-btn btn-sm{{ $activeSlug === $categorie->slug ? ' active' : '' }}">{{ $categorie->name }}</a>
+                                        <button type="button" data-filter="{{ $categorie->slug }}"
+                                                class="at-btn filter-btn btn-sm"
+                                                aria-pressed="false">{{ $categorie->name }}</button>
                                     @endforeach
-                                    </div>
+                                </div>
                             </div>
                             <div class="w-full lg:w-1/6 !ml-auto !text-right lg:!mt-0 !mt-4">
                                 <div class="!flex !justify-end">
@@ -43,7 +53,6 @@
                 <p class="py-40">Aucune filière ne correspond à ce filtre.</p>
             @endforelse
 
-            <div class="w-full pt-40">{{ $projects->links() }}</div>
 
             <!-- beautify ignore:end -->
                             <div class="w-full !text-center">

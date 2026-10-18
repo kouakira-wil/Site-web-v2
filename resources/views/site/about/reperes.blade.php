@@ -39,12 +39,12 @@
                     <div class="reperes-media">
                         @if ($bloc->secondaryImageUrl())
                             <img class="reperes-media__petite" src="{{ $bloc->secondaryImageUrl() }}"
-                                 alt="" width="600" height="500" loading="lazy" decoding="async">
+                                 alt="" width="350" height="450" loading="lazy" decoding="async">
                         @endif
 
                         @if ($bloc->imageUrl())
                             <img class="reperes-media__grande" src="{{ $bloc->imageUrl() }}"
-                                 alt="" width="900" height="800" loading="lazy" decoding="async">
+                                 alt="" width="650" height="450" loading="lazy" decoding="async">
                         @endif
                     </div>
                 @endif

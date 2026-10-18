@@ -9,6 +9,8 @@
         // La mission a sa propre section, en pleine largeur.
         ->where('key', '!=', 'ecole.mission')
         ->where('key', 'not like', 'ecole.vision%')
+        // Le parcours a sa propre section, en bas de page.
+        ->where('key', 'not like', 'ecole.parcours%')
         ->orderBy('position')
         ->get()
         // Un bloc sans texte ni liste n'a rien à montrer : on ne rend pas un

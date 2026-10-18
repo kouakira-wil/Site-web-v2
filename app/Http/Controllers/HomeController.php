@@ -14,13 +14,6 @@ class HomeController extends Controller
     public function __invoke(): View
     {
         return view('site.home', [
-            'featured' => Project::query()
-                ->published()
-                ->featured()
-                ->with(['category', 'cycles'])
-                ->ordered()
-                ->take(4)
-                ->get(),
             'recentPosts' => Post::query()
                 ->published()
                 ->with('category')

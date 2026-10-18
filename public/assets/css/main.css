@@ -280,7 +280,7 @@ li,
 .bar {
   width: 10vw;
   height: 105vh;
-  background: #1d1d1d;
+  background: #f3f0f0;
 }
 
 .swiper-button-wrapper {
@@ -3115,6 +3115,11 @@ input[type=color] {
   display: flex;
   flex-direction: column;
   gap: 25px;
+  width: 23%;
+}
+.news-card-item{
+  padding: 0rem;
+  margin: 3rem 0.30rem;
 }
 .blog-card__thumb {
   position: relative;
