@@ -120,7 +120,7 @@ class HomeSectionSeeder extends Seeder
                 'title_accent' => null,
                 'intro' => null,
                 'cta_label' => 'Rejoindre l’équipe',
-                'cta_url' => '/equipe',
+                'cta_url' => '/contact',
                 'tags' => [
                     'Brazzaville | République du Congo',
                     'Service des admissions | +242 06 884 83 44',

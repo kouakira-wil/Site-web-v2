@@ -23,7 +23,7 @@ class PageHeaderSchemaTest extends TestCase
         $this->seed(\Database\Seeders\PageHeaderSeeder::class);
         $this->seed(\Database\Seeders\HomeSectionSeeder::class);
         $this->seed(\Database\Seeders\SchoolIdentitySeeder::class);
-        $this->seed(\Database\Seeders\TeamApproachSeeder::class);
+        $this->seed(\Database\Seeders\AdmissionSeeder::class);
         $this->seed(\Database\Seeders\DirectorWordSeeder::class);
 
         $this->actingAs(User::factory()->create(['role' => User::ROLE_ADMIN]));
@@ -44,9 +44,9 @@ class PageHeaderSchemaTest extends TestCase
         $this->assertContains('body', PageHeaderSchema::fieldsFor($this->bloc('ecole.directeur')));
         $this->assertNotContains('body', PageHeaderSchema::fieldsFor($this->bloc('home.banner')));
 
-        // Le pictogramme n'a de sens que sur les cartes de la page Équipe.
-        $this->assertContains('icon', PageHeaderSchema::fieldsFor($this->bloc('equipe.approche.1')));
-        $this->assertNotContains('icon', PageHeaderSchema::fieldsFor($this->bloc('equipe.approche')));
+        // Le pictogramme n'a de sens que sur les cartes qui en affichent un.
+        $this->assertContains('icon', PageHeaderSchema::fieldsFor($this->bloc('admission.processus.1')));
+        $this->assertNotContains('icon', PageHeaderSchema::fieldsFor($this->bloc('admission.processus')));
 
         // Un bloc n'expose un champ photo que s'il en affiche une : le bandeau
         // de chiffres n'en montre aucune, la FAQ en montre une.
@@ -70,8 +70,8 @@ class PageHeaderSchemaTest extends TestCase
         Livewire::test(PageHeaderForm::class, ['header' => $this->bloc('home.hero')])
             ->assertSee('Titre — première ligne');
 
-        Livewire::test(PageHeaderForm::class, ['header' => $this->bloc('equipe.approche.1')])
-            ->assertSee('Intitulé de la carte');
+        Livewire::test(PageHeaderForm::class, ['header' => $this->bloc('admission.criteres.2')])
+            ->assertSee('Intitulé du volet');
 
         // La section « à propos » a désormais un titre et une accroche distincts.
         Livewire::test(PageHeaderForm::class, ['header' => $this->bloc('home.about')])

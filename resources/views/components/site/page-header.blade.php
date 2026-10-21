@@ -1,9 +1,28 @@
-@props(['page'])
+@props([
+    'page',
+    // Surcharges facultatives, pour une page qui partage le bandeau d'une
+    // autre sans en reprendre les textes : une filière par cycle, par exemple.
+    'eyebrow' => null,
+    'title' => null,
+    'titleAccent' => null,
+    'intro' => null,
+    'tags' => null,
+    'crumbLabel' => null,
+    'crumbParent' => null,
+    'crumbParentUrl' => null,
+])
 
 @php
     $header = \App\Models\PageHeader::forKey($page);
+
     $visuel = $header?->imageUrl();
-    $etiquettes = $header?->tagList() ?? [];
+
+    $surtitre = $eyebrow ?? $header?->eyebrow;
+    $titre = $title ?? $header?->title;
+    $accent = $title !== null ? $titleAccent : ($titleAccent ?? $header?->title_accent);
+    $accroche = $intro ?? $header?->intro;
+    $etiquettes = $tags ?? ($header?->tagList() ?? []);
+    $fil = $crumbLabel ?? $header?->label;
 @endphp
 
 @if ($header)
@@ -30,26 +49,32 @@
                     <nav class="sd3-crumb at_fade_anim" data-fade-from="bottom" aria-label="Fil d’Ariane">
                         <a href="{{ route('home') }}">Accueil</a>
                         <span aria-hidden="true">/</span>
-                        <span aria-current="page">{{ $header->label }}</span>
+
+                        @if (filled($crumbParent))
+                            <a href="{{ $crumbParentUrl }}">{{ $crumbParent }}</a>
+                            <span aria-hidden="true">/</span>
+                        @endif
+
+                        <span aria-current="page">{{ $fil }}</span>
                     </nav>
                 </div>
 
                 <div class="sd3-hero__core">
-                    @if (filled($header->eyebrow))
-                        <p class="sd3-hero__kicker at_fade_anim" data-fade-from="bottom" data-delay=".1">{{ $header->eyebrow }}</p>
+                    @if (filled($surtitre))
+                        <p class="sd3-hero__kicker at_fade_anim" data-fade-from="bottom" data-delay=".1">{{ $surtitre }}</p>
                     @endif
 
                     <h1 class="sd3-hero__title">
-                        <span class="sd3-hero__line" data-sd3-title-line>{{ $header->title }}</span>
-                        @if (filled($header->title_accent))
-                            <span class="sd3-hero__line sd3-hero__line--accent" data-sd3-title-line>{{ $header->title_accent }}</span>
+                        <span class="sd3-hero__line" data-sd3-title-line>{{ $titre }}</span>
+                        @if (filled($accent))
+                            <span class="sd3-hero__line sd3-hero__line--accent" data-sd3-title-line>{{ $accent }}</span>
                         @endif
                     </h1>
 
-                    @if (filled($header->intro) || filled($header->cta_label))
+                    @if (filled($accroche) || filled($header->cta_label))
                         <div class="sd3-hero__bar">
-                            @if (filled($header->intro))
-                                <p class="sd3-hero__lead at_fade_anim" data-fade-from="bottom" data-delay=".2">{{ $header->intro }}</p>
+                            @if (filled($accroche))
+                                <p class="sd3-hero__lead at_fade_anim" data-fade-from="bottom" data-delay=".2">{{ $accroche }}</p>
                             @endif
 
                             @if (filled($header->cta_label))

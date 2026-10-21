@@ -42,19 +42,81 @@
                             </div>
                             <div class="w-full pb-30"></div>
                         </div>
-                        <h2 class="!absolute !p-0 !m-0 !overflow-hidden" style="width:1px;height:1px;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Filières ouvertes</h2>
-                        <div class="!justify-center flex flex-wrap -mx-3 [&>*]:px-3 gap-y-6">
-                            <!-- beautify ignore:start -->
-            @forelse ($projects as $filiere)
-                <x-site.filiere-item :filiere="$filiere"
-                    class="w-full 2xl:w-1/2 lg:w-7/12"
-                    :fallback="asset('assets/imgs/pages/img-'.(11 + ($loop->index % 6)).'.webp')" />
-            @empty
-                <p class="py-40">Aucune filière ne correspond à ce filtre.</p>
-            @endforelse
+                        @php
+                            /*
+                             * Les filières, groupe par groupe. Une filière ouverte
+                             * sur deux cycles paraît dans les deux : c'est le même
+                             * parcours, proposé à deux niveaux.
+                             */
+                            $groupes = $cycles
+                                ->filter(fn ($cycle) => $cycle->projects->isNotEmpty())
+                                ->map(fn ($cycle) => [
+                                    'cle' => $cycle->slug,
+                                    'titre' => $cycle->name,
+                                    'niveau' => $cycle->short_label,
+                                    'texte' => $cycle->description,
+                                    'filieres' => $cycle->projects,
+                                ]);
 
+                            /*
+                             * Les filières qu'aucun cycle ne porte : sans ce
+                             * dernier groupe, elles disparaîtraient de la page
+                             * sans que rien ne le signale.
+                             */
+                            $rattachees = $groupes->flatMap(fn (array $g) => $g['filieres']->pluck('id'))->unique();
+                            $orphelines = $projects->whereNotIn('id', $rattachees);
 
-            <!-- beautify ignore:end -->
+                            if ($orphelines->isNotEmpty()) {
+                                $groupes = $groupes->push([
+                                    'cle' => 'sans-cycle',
+                                    'titre' => 'Autres filières',
+                                    'niveau' => null,
+                                    'texte' => null,
+                                    'filieres' => $orphelines,
+                                ]);
+                            }
+                        @endphp
+
+                        @forelse ($groupes as $groupe)
+                            <section class="filieres-groupe" data-groupe-cycle="{{ $groupe['cle'] }}"
+                                     aria-labelledby="cycle-{{ $groupe['cle'] }}">
+                                <header class="filieres-groupe__tete">
+                                    @if (filled($groupe['niveau']))
+                                        <p class="filieres-groupe__niveau">{{ $groupe['niveau'] }}</p>
+                                    @endif
+
+                                    <h2 id="cycle-{{ $groupe['cle'] }}" class="filieres-groupe__titre">
+                                        @if ($groupe['cle'] !== 'sans-cycle')
+                                            {{-- Le titre mène à la page du cycle seul. --}}
+                                            <a class="filieres-groupe__lien" href="{{ route('projects.cycle', $groupe['cle']) }}">{{ $groupe['titre'] }}</a>
+                                        @else
+                                            {{ $groupe['titre'] }}
+                                        @endif
+                                    </h2>
+
+                                    @if (filled($groupe['texte']))
+                                        <p class="filieres-groupe__texte">{{ $groupe['texte'] }}</p>
+                                    @endif
+
+                                    <p class="filieres-groupe__compte" data-groupe-compte>{{ $groupe['filieres']->count() }} filière{{ $groupe['filieres']->count() > 1 ? 's' : '' }}</p>
+                                </header>
+
+                                <div class="!justify-center flex flex-wrap -mx-3 [&>*]:px-3 gap-y-6">
+                                    @foreach ($groupe['filieres'] as $filiere)
+                                        <x-site.filiere-item :filiere="$filiere"
+                                            class="w-full 2xl:w-1/2 lg:w-7/12"
+                                            :fallback="asset('assets/imgs/pages/img-'.(11 + ($loop->index % 4)).'.jpg')" />
+                                    @endforeach
+                                </div>
+                            </section>
+                        @empty
+                            <p class="py-40">Aucune filière publiée pour le moment.</p>
+                        @endforelse
+
+                        {{-- Révélé par le script quand le filtre ne laisse rien. --}}
+                        <p class="filieres-vide" data-filieres-vide hidden>Aucune filière de ce pôle pour le moment.</p>
+
+                        <div class="!justify-center flex flex-wrap -mx-3 [&>*]:px-3">
                             <div class="w-full !text-center">
                                 <a class="at-btn" href="{{ route('projects.index') }}">
                                     <span>
@@ -136,19 +198,6 @@
                                         <div id="collapseThree" class="at-faq-collapse at-collapse" data-at-collapse-parent="#accordionExample">
                                             <div class="at-faq-body">
                                                 <p>Oui, un échelonnement est possible ; les modalités se fixent avec le service comptable à l’inscription.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="at-faq-item bg-neutral-0 border-100 scroll-move-up !rounded-2xl">
-                                        <div class="at-faq-header !flex !gap-2">
-                                            <div class="box-number">
-                                                <span class="at-faq-number">4</span>
-                                            </div>
-                                            <button class="at-faq-button collapsed" type="button" data-at-collapse data-at-collapse-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">Peut-on passer du BTS à la Licence ?</button>
-                                        </div>
-                                        <div id="collapseFour" class="at-faq-collapse at-collapse" data-at-collapse-parent="#accordionExample">
-                                            <div class="at-faq-body">
-                                                <p>Oui : le cursus est conçu comme un continuum, du CAP au Master, dans la même filière.</p>
                                             </div>
                                         </div>
                                     </div>

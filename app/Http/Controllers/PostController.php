@@ -43,12 +43,16 @@ class PostController extends Controller
             'next' => Post::query()->published()
                 ->where('published_at', '>', $post->published_at)
                 ->orderBy('published_at')->first(),
+            /*
+             * Toutes les autres actualités, de la plus récente à la plus
+             * ancienne. La sélection se limitait à deux articles de la même
+             * rubrique : un article seul dans la sienne ne proposait rien.
+             */
             'related' => Post::query()
                 ->published()
-                ->where('category_id', $post->category_id)
+                ->with('category')
                 ->whereKeyNot($post->getKey())
                 ->latestFirst()
-                ->take(2)
                 ->get(),
         ]);
     }

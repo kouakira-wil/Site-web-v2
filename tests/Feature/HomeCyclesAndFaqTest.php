@@ -121,7 +121,7 @@ class HomeCyclesAndFaqTest extends TestCase
     {
         $contenu = $this->accueil();
 
-        $this->assertSame(4, substr_count($contenu, 'at-faq-item'));
+        $this->assertSame(3, substr_count($contenu, 'at-faq-item'));
         $this->assertStringContainsString('Comment soumettre un dossier ?', $contenu);
         $this->assertStringContainsString('Service des admissions', $contenu);
     }
@@ -136,7 +136,7 @@ class HomeCyclesAndFaqTest extends TestCase
          */
         $contenu = $this->accueil();
 
-        foreach (range(1, 4) as $rang) {
+        foreach (range(1, 3) as $rang) {
             $this->assertSame(3, substr_count($contenu, 'faq-reponse-'.$rang.'"'));
         }
     }
@@ -146,14 +146,14 @@ class HomeCyclesAndFaqTest extends TestCase
         $contenu = $this->accueil();
 
         $this->assertSame(1, substr_count($contenu, 'at-collapse is-open'));
-        $this->assertSame(3, substr_count($contenu, 'at-faq-button collapsed'));
+        $this->assertSame(2, substr_count($contenu, 'at-faq-button collapsed'));
     }
 
     public function test_a_question_emptied_of_its_title_disappears(): void
     {
         PageHeader::forKey('home.faq.3')->forceFill(['title' => ''])->save();
 
-        $this->assertSame(3, substr_count($this->accueil(), 'at-faq-item'));
+        $this->assertSame(2, substr_count($this->accueil(), 'at-faq-item'));
     }
 
     public function test_the_new_blocks_do_not_leak_into_other_sections(): void

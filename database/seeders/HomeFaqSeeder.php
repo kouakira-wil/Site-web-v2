@@ -51,13 +51,6 @@ class HomeFaqSeeder extends Seeder
                 'title' => 'Peut-on régler la scolarité en plusieurs fois ?',
                 'body' => 'Oui, un échelonnement est possible. Les modalités se fixent avec le service comptable au moment de l’inscription.',
             ],
-            [
-                'key' => 'home.faq.4',
-                'label' => 'FAQ — quatrième question',
-                'position' => 85,
-                'title' => 'Peut-on passer du BTS à la Licence à l’ESCAT ?',
-                'body' => 'Oui. Le cursus est conçu comme un continuum : un BTS obtenu à l’ESCAT ouvre directement l’accès à la Licence, puis au Master, dans la même filière.',
-            ],
         ];
 
         foreach ($blocs as $bloc) {

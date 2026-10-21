@@ -1,5 +1,10 @@
 @php
     $s = \App\Models\PageHeader::forKey('home.journal');
+
+    // Replis pour les actualités sans couverture. Les visuels du gabarit
+    // (img-23.webp à img-26.webp) ne sont pas dans le dépôt : une actualité
+    // sans image y affichait un cadre cassé.
+    $replis = ['img-11.jpg', 'img-12.jpg', 'img-13.jpg', 'img-14.jpg'];
 @endphp
 
 <!-- at-sec13-area-start -->
@@ -42,14 +47,21 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="flex flex-wrap">
-                            <!-- beautify ignore:start -->
-                                @forelse ($recentPosts as $post)
-                                    <x-site.blog-card
-                                        :post="$post"
-                                        :fallback="asset('assets/imgs/pages/img-'.(23 + ($loop->index % 4)).'.webp')"
-                                    />
-                                @empty
-                                    <p class="w-full">Aucune actualité publiée pour le moment.</p>
-                                @endforelse
+                        {{--
+                            Les quatre dernières actualités, sur une rangée.
+                            `items-stretch` aligne le bas des cartes : sans lui,
+                            chacune s'arrêtait à la hauteur de son propre titre.
+                        --}}
+                        <div class="!items-stretch flex flex-wrap -mx-3 [&>*]:px-3 gap-y-6">
+                            @forelse ($recentPosts as $post)
+                                <x-site.blog-card
+                                    :post="$post"
+                                    :fallback="asset('assets/imgs/pages/'.$replis[$loop->index % count($replis)])"
+                                />
+                            @empty
+                                <p class="w-full">Aucune actualité publiée pour le moment.</p>
+                            @endforelse
+                        </div>
+                    </div>
+                </div>
                 <!-- at-sec13-area-end -->

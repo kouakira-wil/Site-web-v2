@@ -49,11 +49,12 @@ class DatabaseSeeder extends Seeder
         $this->call(VisionStepsSeeder::class);
         $this->call(WhyEscatSeeder::class);
         $this->call(HomeAboutSeeder::class);
-        $this->call(TeamApproachSeeder::class);
         $this->call(DirectorWordSeeder::class);
         $this->call(SchoolJourneySeeder::class);
         $this->call(HomeCyclesSeeder::class);
         $this->call(HomeFaqSeeder::class);
+        $this->call(AdmissionSeeder::class);
+        $this->call(FilieresEscatOrgSeeder::class);
 
         ContactMessage::factory()->count(7)->create();
         ContactMessage::factory()->count(3)->create([
@@ -70,7 +71,6 @@ class DatabaseSeeder extends Seeder
     {
         $cycles = [
             ['CAP', 'CAP', 'Certificat d’Aptitude Professionnelle - une formation courte et pratique pour entrer rapidement dans le métier.'],
-            ['Cycle BTS', 'BAC +2', 'Deux ans pour acquérir les compétences techniques attendues en entreprise.'],
             ['Cycle Licence', 'BAC +3', 'Trois ans pour approfondir un domaine et consolider un projet professionnel.'],
             ['Cycle Master', 'BAC +5', 'Cinq ans pour devenir expert de son domaine et encadrer des équipes.'],
         ];

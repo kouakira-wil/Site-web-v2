@@ -20,7 +20,7 @@ return new class extends Migration
             $table->index('position');
         });
 
-        // A filière runs across several cycles (BTS then Licence then Master),
+        // A filière runs across several cycles (CAP then Licence then Master),
         // and each cycle hosts several filières.
         Schema::create('cycle_project', function (Blueprint $table) {
             $table->foreignId('cycle_id')->constrained()->cascadeOnDelete();

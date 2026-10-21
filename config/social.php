@@ -15,7 +15,7 @@ declare(strict_types=1);
 return [
     'facebook' => env('SOCIAL_FACEBOOK', 'https://www.facebook.com/escat18/'),
     'linkedin' => env('SOCIAL_LINKEDIN', ''),
-    'instagram' => env('SOCIAL_INSTAGRAM', ''),
-    'tiktok' => env('SOCIAL_TIKTOK', ''),
+    'instagram' => env('SOCIAL_INSTAGRAM', 'https://www.instagram.com/universite_escat/'),
+    'tiktok' => env('SOCIAL_TIKTOK', 'https://www.tiktok.com/@.escat'),
     'youtube' => env('SOCIAL_YOUTUBE', ''),
 ];

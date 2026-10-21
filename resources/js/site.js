@@ -303,3 +303,317 @@ function initPrechargeur() {
 }
 
 document.addEventListener('DOMContentLoaded', initPrechargeur);
+
+/*
+ * Tableau des programmes de la page Admission.
+ *
+ * Deux filtres qui se combinent : un cycle (toujours un seul) et un pôle
+ * (« tous » ou un seul). Les lignes sont toutes dans la page ; on ne fait que
+ * les masquer, sans rechargement.
+ */
+function initProgrammesAdmission() {
+    const section = document.querySelector('[data-programmes]');
+
+    if (! section) {
+        return;
+    }
+
+    const ongletsCycle = Array.from(section.querySelectorAll('[data-cycle]'));
+    const ongletsPole = Array.from(section.querySelectorAll('[data-pole]'));
+    const lignes = Array.from(section.querySelectorAll('.adm-ligne'));
+    const vide = section.querySelector('[data-programmes-vide]');
+
+    if (ongletsCycle.length === 0 || lignes.length === 0) {
+        return;
+    }
+
+    const choisi = (boutons) => boutons.find((b) => b.classList.contains('is-active')) || boutons[0];
+
+    const appliquer = () => {
+        const cycle = choisi(ongletsCycle).dataset.cycle;
+        const pole = ongletsPole.length > 0 ? choisi(ongletsPole).dataset.pole : 'all';
+
+        let visibles = 0;
+
+        lignes.forEach((ligne) => {
+            const sesCycles = (ligne.dataset.cycles || '').split(' ').filter(Boolean);
+            const sonPole = ligne.dataset.pole || '';
+
+            const garde = sesCycles.includes(cycle) && (pole === 'all' || sonPole === pole);
+
+            ligne.hidden = ! garde;
+
+            if (garde) {
+                visibles += 1;
+            }
+        });
+
+        if (vide) {
+            vide.hidden = visibles > 0;
+        }
+    };
+
+    const brancher = (boutons) => {
+        boutons.forEach((bouton) => {
+            bouton.addEventListener('click', () => {
+                boutons.forEach((autre) => {
+                    const actif = autre === bouton;
+
+                    autre.classList.toggle('is-active', actif);
+                    // La couleur seule ne dit pas lequel est retenu.
+                    autre.setAttribute('aria-pressed', actif ? 'true' : 'false');
+                });
+
+                appliquer();
+            });
+        });
+    };
+
+    brancher(ongletsCycle);
+    brancher(ongletsPole);
+
+    appliquer();
+}
+
+document.addEventListener('DOMContentLoaded', initProgrammesAdmission);
+
+/*
+ * Vérification du formulaire de contact, avant l'envoi.
+ *
+ * Les règles reprennent mot pour mot celles de StoreContactMessageRequest. Le
+ * serveur reste seul juge : ce script peut ne pas tourner, et un envoi forgé
+ * ne passe pas par lui. Il évite seulement l'aller-retour, et surtout il dit
+ * la contrainte avant la saisie plutôt qu'après.
+ */
+function initValidationContact() {
+    const formulaire = document.querySelector('[data-contact]');
+
+    if (! formulaire) {
+        return;
+    }
+
+    const MINIMUM_MESSAGE = 20;
+
+    const regles = {
+        name: (valeur) => {
+            if (valeur === '') return 'Le nom est obligatoire.';
+            if (valeur.length > 120) return 'Le nom ne peut pas dépasser 120 caractères.';
+
+            return '';
+        },
+        email: (valeur) => {
+            if (valeur === '') return 'L’adresse e-mail est obligatoire.';
+            // Vérification de forme seulement : seul le serveur tranche.
+            if (! /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(valeur)) return 'Cette adresse e-mail n’est pas valide.';
+            if (valeur.length > 180) return 'L’adresse e-mail ne peut pas dépasser 180 caractères.';
+
+            return '';
+        },
+        phone: (valeur) => (valeur.length > 40 ? 'Le téléphone ne peut pas dépasser 40 caractères.' : ''),
+        subject: (valeur) => (valeur.length > 180 ? 'Le sujet ne peut pas dépasser 180 caractères.' : ''),
+        message: (valeur) => {
+            if (valeur === '') return 'Le message est obligatoire.';
+            if (valeur.length < MINIMUM_MESSAGE) return 'Merci de détailler votre demande en 20 caractères minimum.';
+            if (valeur.length > 5000) return 'Le message ne peut pas dépasser 5000 caractères.';
+
+            return '';
+        },
+    };
+
+    const resume = formulaire.querySelector('[data-contact-resume]');
+    const compteur = formulaire.querySelector('[data-contact-compteur]');
+
+    const champDe = (nom) => formulaire.querySelector(`[name="${nom}"]`);
+    const avisDe = (nom) => formulaire.querySelector(`[data-erreur="${nom}"]`);
+
+    const afficher = (nom, faute) => {
+        const champ = champDe(nom);
+        const avis = avisDe(nom);
+
+        if (! champ || ! avis) {
+            return;
+        }
+
+        avis.textContent = faute;
+        avis.hidden = faute === '';
+
+        if (faute === '') {
+            champ.removeAttribute('aria-invalid');
+        } else {
+            champ.setAttribute('aria-invalid', 'true');
+        }
+    };
+
+    const verifier = (nom) => {
+        const champ = champDe(nom);
+
+        if (! champ) {
+            return '';
+        }
+
+        const faute = regles[nom](champ.value.trim());
+
+        afficher(nom, faute);
+
+        return faute;
+    };
+
+    const majCompteur = () => {
+        const champ = champDe('message');
+
+        if (! compteur || ! champ) {
+            return;
+        }
+
+        const reste = MINIMUM_MESSAGE - champ.value.trim().length;
+
+        compteur.textContent = reste > 0
+            ? `Encore ${reste} caractère${reste > 1 ? 's' : ''} pour atteindre le minimum.`
+            : 'Longueur suffisante.';
+    };
+
+    Object.keys(regles).forEach((nom) => {
+        const champ = champDe(nom);
+
+        if (! champ) {
+            return;
+        }
+
+        // Au premier passage on ne juge qu'à la sortie du champ : signaler une
+        // adresse incomplète dès la première lettre serait du harcelement.
+        champ.addEventListener('blur', () => verifier(nom));
+
+        champ.addEventListener('input', () => {
+            if (champ.hasAttribute('aria-invalid')) {
+                verifier(nom);
+            }
+
+            if (nom === 'message') {
+                majCompteur();
+            }
+        });
+    });
+
+    formulaire.addEventListener('submit', (evenement) => {
+        const fautifs = Object.keys(regles).filter((nom) => verifier(nom) !== '');
+
+        if (fautifs.length === 0) {
+            if (resume) {
+                resume.hidden = true;
+            }
+
+            return;
+        }
+
+        evenement.preventDefault();
+
+        if (resume) {
+            resume.textContent = fautifs.length === 1
+                ? 'Un champ demande une correction avant l’envoi.'
+                : `${fautifs.length} champs demandent une correction avant l’envoi.`;
+            resume.hidden = false;
+        }
+
+        // Le premier champ fautif reprend la main, sinon la correction se
+        // cherche à l'aveugle sur un formulaire long.
+        champDe(fautifs[0])?.focus();
+    });
+}
+
+document.addEventListener('DOMContentLoaded', initValidationContact);
+
+/*
+ * Groupes de cycles de la page Filières.
+ *
+ * Le filtre par pôle du gabarit masque les fiches une à une. Sans ce
+ * complément, un cycle dont toutes les fiches sont masquées garderait son
+ * titre et son compte au-dessus du vide.
+ */
+function initGroupesFilieres() {
+    const groupes = Array.from(document.querySelectorAll('[data-groupe-cycle]'));
+
+    if (groupes.length === 0) {
+        return;
+    }
+
+    const vide = document.querySelector('[data-filieres-vide]');
+    const filtres = document.querySelector('.filter-portfolio');
+
+    const recompter = () => {
+        let visiblesEnTout = 0;
+
+        groupes.forEach((groupe) => {
+            const fiches = Array.from(groupe.querySelectorAll('.mg-portfolio-item'));
+
+            // Le script du gabarit joue sur l'affichage, pas sur une classe
+            // qu'on pourrait lire : on mesure donc la boîte elle-même.
+            const visibles = fiches.filter((fiche) => fiche.offsetParent !== null);
+
+            groupe.hidden = visibles.length === 0;
+            visiblesEnTout += visibles.length;
+
+            const compte = groupe.querySelector('[data-groupe-compte]');
+
+            if (compte) {
+                compte.textContent = `${visibles.length} filière${visibles.length > 1 ? 's' : ''}`;
+            }
+        });
+
+        if (vide) {
+            vide.hidden = visiblesEnTout > 0;
+        }
+    };
+
+    if (filtres) {
+        filtres.addEventListener('click', (evenement) => {
+            if (evenement.target.closest('.filter-btn')) {
+                // Après le gestionnaire du gabarit, qui vient de masquer les fiches.
+                window.setTimeout(recompter, 50);
+            }
+        });
+    }
+
+    recompter();
+}
+
+document.addEventListener('DOMContentLoaded', initGroupesFilieres);
+
+/*
+ * Bouton « copier le lien » d'une actualité.
+ *
+ * Instagram et TikTok n'offrent aucune adresse de partage web : copier le
+ * lien est ce qui s'en approche le plus. Le bouton reste utile même si le
+ * presse-papiers est refusé — il le dit alors au lieu de ne rien faire.
+ */
+function initCopierLien() {
+    const boutons = document.querySelectorAll('[data-copier-lien]');
+
+    boutons.forEach((bouton) => {
+        const etat = bouton.querySelector('[data-copier-etat]');
+
+        const annoncer = (message) => {
+            if (etat) {
+                etat.textContent = message;
+                // Vidé à nouveau : sinon un second clic n'annonce plus rien,
+                // le texte n'ayant pas changé.
+                window.setTimeout(() => { etat.textContent = ''; }, 4000);
+            }
+
+            bouton.classList.add('est-copie');
+            window.setTimeout(() => bouton.classList.remove('est-copie'), 2000);
+        };
+
+        bouton.addEventListener('click', async () => {
+            const lien = bouton.dataset.copierLien;
+
+            try {
+                await navigator.clipboard.writeText(lien);
+                annoncer('Lien copié.');
+            } catch (erreur) {
+                annoncer('Copie impossible : ' + lien);
+            }
+        });
+    });
+}
+
+document.addEventListener('DOMContentLoaded', initCopierLien);

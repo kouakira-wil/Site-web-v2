@@ -117,19 +117,19 @@ class ProjectManagementTest extends TestCase
     public function test_a_project_can_be_attached_to_study_cycles(): void
     {
         $this->actingAsStaff();
-        $bts = Cycle::query()->create(['name' => 'Cycle BTS', 'short_label' => 'BAC +2', 'position' => 1]);
+        $cap = Cycle::query()->create(['name' => 'Cycle CAP', 'short_label' => 'CAP', 'position' => 1]);
         $licence = Cycle::query()->create(['name' => 'Cycle Licence', 'short_label' => 'BAC +3', 'position' => 2]);
 
         Livewire::test(ProjectForm::class)
             ->set('title', 'Réseaux et Télécommunications')
-            ->set('selectedCycles', [$bts->id, $licence->id])
+            ->set('selectedCycles', [$cap->id, $licence->id])
             ->call('save')
             ->assertHasNoErrors();
 
         $project = Project::query()->where('title', 'Réseaux et Télécommunications')->firstOrFail();
 
         $this->assertEqualsCanonicalizing(
-            [$bts->id, $licence->id],
+            [$cap->id, $licence->id],
             $project->cycles->pluck('id')->all(),
         );
     }
@@ -137,11 +137,11 @@ class ProjectManagementTest extends TestCase
     public function test_editing_a_project_replaces_its_cycles(): void
     {
         $this->actingAsStaff();
-        $bts = Cycle::query()->create(['name' => 'Cycle BTS', 'short_label' => 'BAC +2', 'position' => 1]);
+        $cap = Cycle::query()->create(['name' => 'Cycle CAP', 'short_label' => 'CAP', 'position' => 1]);
         $master = Cycle::query()->create(['name' => 'Cycle Master', 'short_label' => 'BAC +5', 'position' => 3]);
 
         $project = Project::factory()->create();
-        $project->cycles()->attach($bts);
+        $project->cycles()->attach($cap);
 
         Livewire::test(ProjectForm::class, ['project' => $project])
             ->set('selectedCycles', [$master->id])

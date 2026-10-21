@@ -32,7 +32,10 @@ class PageHeaderForm extends Component
      *
      * @var array<int, string>
      */
-    public const ICONES = ['book', 'briefcase', 'users', 'globe', 'target', 'award', 'sparkle', 'compass'];
+    public const ICONES = [
+        'book', 'briefcase', 'users', 'globe', 'target', 'award', 'sparkle', 'compass',
+        'user-check', 'document', 'send', 'check-circle', 'card', 'help',
+    ];
 
     public PageHeader $header;
 

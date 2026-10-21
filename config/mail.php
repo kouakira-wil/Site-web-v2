@@ -125,6 +125,6 @@ return [
     |
     */
 
-    'contact_recipient' => env('MAIL_CONTACT_RECIPIENT'),
+    'contact_recipient' => env('MAIL_CONTACT_RECIPIENT', env('ECOLE_EMAIL', 'infos@escat.org')),
 
 ];

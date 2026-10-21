@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AdmissionController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsletterController;
@@ -37,12 +38,25 @@ Route::get('/', HomeController::class)->name('home');
 Route::get('/l-ecole', AboutController::class)->name('about');
 
 Route::get('/filieres', [ProjectController::class, 'index'])->name('projects.index');
+/*
+ * Une page par cycle : /filieres/cap, /filieres/cycle-licence...
+ * Le pluriel est déjà pris par la liste complète, le singulier par la fiche.
+ */
+Route::get('/filieres/{cycle:slug}', [ProjectController::class, 'cycle'])->name('projects.cycle');
+
 Route::get('/filiere/{project:slug}', [ProjectController::class, 'show'])->name('projects.show');
 
 Route::get('/journal', [PostController::class, 'index'])->name('posts.index');
 Route::get('/journal/{post:slug}', [PostController::class, 'show'])->name('posts.show');
 
-Route::get('/equipe', [TeamController::class, 'index'])->name('team');
+Route::get('/admission', AdmissionController::class)->name('admission');
+
+/*
+ * La page Équipe a cédé sa place à Admission. La redirection permanente garde
+ * les liens déjà partagés : les fiches des membres, elles, restent en ligne,
+ * la recherche y renvoie encore.
+ */
+Route::permanentRedirect('/equipe', '/admission')->name('team');
 Route::get('/equipe/{member:slug}', [TeamController::class, 'show'])->name('team.show');
 
 Route::get('/contact', [ContactController::class, 'show'])->name('contact');

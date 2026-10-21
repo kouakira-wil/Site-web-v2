@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * A study cycle offered by the school: CAP, BTS, Licence, Master.
+ * A study cycle offered by the school: CAP, Licence, Master.
  */
 class Cycle extends Model
 {

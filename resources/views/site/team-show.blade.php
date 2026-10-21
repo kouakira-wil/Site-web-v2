@@ -13,7 +13,9 @@
     <section class="sd3-tracks pt-150 pb-40">
         <div class="container">
             <nav class="sd3-crumb pb-30" aria-label="Fil d’Ariane">
-                <a href="{{ route('team') }}">Équipe</a>
+                {{-- La page Équipe a cédé sa place à Admission : le fil remonte
+                     à l'accueil, seul parent qui reste à cette fiche. --}}
+                <a href="{{ route('home') }}">Accueil</a>
                 <span>/</span>
                 <span>{{ $member->name }}</span>
             </nav>

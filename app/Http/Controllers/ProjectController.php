@@ -35,6 +35,39 @@ class ProjectController extends Controller
         ]);
     }
 
+    /**
+     * Les filières d'un seul cycle.
+     */
+    public function cycle(Cycle $cycle): View
+    {
+        $filieres = $cycle->projects()
+            ->published()
+            ->with('category')
+            ->ordered()
+            ->get();
+
+        return view('site.filieres.cycle', [
+            'cycle' => $cycle,
+            'filieres' => $filieres,
+            // Les pôles réellement représentés dans ce cycle : un filtre sur un
+            // pôle absent ne révélerait rien.
+            'poles' => Category::query()
+                ->ofType(Category::TYPE_PROJECT)
+                ->ordered()
+                ->get()
+                ->filter(fn (Category $pole): bool => $filieres->contains('category_id', $pole->id))
+                ->values(),
+            // Pour proposer les autres cycles en bas de page.
+            'autresCycles' => Cycle::query()
+                ->ordered()
+                ->whereKeyNot($cycle->getKey())
+                ->withCount(['projects' => fn ($query) => $query->published()])
+                ->get()
+                ->filter(fn (Cycle $autre): bool => $autre->projects_count > 0)
+                ->values(),
+        ]);
+    }
+
     public function show(Project $project): View
     {
         abort_unless($project->isPublished(), 404);

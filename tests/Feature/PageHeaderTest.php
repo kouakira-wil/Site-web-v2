@@ -24,7 +24,7 @@ class PageHeaderTest extends TestCase
     {
         $this->seedHeaders();
 
-        foreach (['about' => '/l-ecole', 'equipe' => '/equipe', 'journal' => '/journal', 'contact' => '/contact', 'filieres' => '/filieres'] as $cle => $url) {
+        foreach (['about' => '/l-ecole', 'admission' => '/admission', 'journal' => '/journal', 'contact' => '/contact', 'filieres' => '/filieres'] as $cle => $url) {
             $header = PageHeader::query()->where('key', $cle)->firstOrFail();
 
             $reponse = $this->get($url);
@@ -38,7 +38,7 @@ class PageHeaderTest extends TestCase
     {
         $this->seedHeaders();
 
-        foreach (['/l-ecole', '/equipe', '/journal', '/contact', '/filieres'] as $url) {
+        foreach (['/l-ecole', '/admission', '/journal', '/contact', '/filieres'] as $url) {
             $contenu = $this->get($url)->getContent();
 
             $this->assertSame(1, substr_count($contenu, '<h1'), "Un seul <h1> attendu sur {$url}");
@@ -91,13 +91,13 @@ class PageHeaderTest extends TestCase
     public function test_a_header_without_button_or_tags_omits_them(): void
     {
         $this->seedHeaders();
-        PageHeader::query()->where('key', 'equipe')->update([
+        PageHeader::query()->where('key', 'admission')->update([
             'cta_label' => null,
             'tags' => [],
             'title_accent' => null,
         ]);
 
-        $contenu = $this->get('/equipe')->assertOk()->getContent();
+        $contenu = $this->get('/admission')->assertOk()->getContent();
 
         $this->assertStringNotContainsString('sd3-hero__actions', $contenu);
         $this->assertStringNotContainsString('data-sd3-tags', $contenu);

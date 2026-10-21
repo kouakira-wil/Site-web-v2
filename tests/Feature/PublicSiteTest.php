@@ -37,18 +37,18 @@ class PublicSiteTest extends TestCase
 
     public function test_the_filieres_page_groups_filieres_by_cycle(): void
     {
-        $bts = Cycle::query()->create(['name' => 'Cycle BTS', 'short_label' => 'BAC +2', 'position' => 1]);
+        $cap = Cycle::query()->create(['name' => 'Cycle CAP', 'short_label' => 'CAP', 'position' => 1]);
         // Nom volontairement absent du menu, sinon l'assertion ci-dessous
         // capterait le méga-menu de l'en-tête plutôt que la liste des cycles.
         $vide = Cycle::query()->create(['name' => 'Cycle Sans Filiere', 'short_label' => 'ZZZ', 'position' => 2]);
 
         $reseaux = Project::factory()->create(['title' => 'Réseaux et Télécommunications']);
-        $reseaux->cycles()->attach($bts);
+        $reseaux->cycles()->attach($cap);
 
         $response = $this->get(route('projects.index'));
 
         $response->assertOk();
-        $response->assertSee('Cycle BTS');
+        $response->assertSee('Cycle CAP');
         $response->assertSee('Réseaux et Télécommunications');
         // Un cycle sans filière rattachée n'apparaît pas.
         $response->assertDontSee($vide->name);
@@ -56,9 +56,9 @@ class PublicSiteTest extends TestCase
 
     public function test_a_draft_filiere_is_not_listed_under_its_cycle(): void
     {
-        $bts = Cycle::query()->create(['name' => 'Cycle BTS', 'short_label' => 'BAC +2', 'position' => 1]);
+        $cap = Cycle::query()->create(['name' => 'Cycle CAP', 'short_label' => 'CAP', 'position' => 1]);
         $brouillon = Project::factory()->draft()->create(['title' => 'Filière confidentielle']);
-        $brouillon->cycles()->attach($bts);
+        $brouillon->cycles()->attach($cap);
 
         $response = $this->get(route('projects.index'));
 
@@ -69,9 +69,9 @@ class PublicSiteTest extends TestCase
 
     public function test_the_header_lists_filieres_by_cycle_in_a_mega_menu(): void
     {
-        $bts = Cycle::query()->create(['name' => 'Cycle BTS', 'short_label' => 'BAC +2', 'position' => 1]);
+        $cap = Cycle::query()->create(['name' => 'Cycle CAP', 'short_label' => 'CAP', 'position' => 1]);
         $filiere = Project::factory()->create(['title' => 'Genie Informatique']);
-        $filiere->cycles()->attach($bts);
+        $filiere->cycles()->attach($cap);
 
         $response = $this->get(route('home'));
 
@@ -92,9 +92,9 @@ class PublicSiteTest extends TestCase
 
     public function test_publishing_a_filiere_refreshes_the_menu(): void
     {
-        $bts = Cycle::query()->create(['name' => 'Cycle BTS', 'short_label' => 'BAC +2', 'position' => 1]);
+        $cap = Cycle::query()->create(['name' => 'Cycle CAP', 'short_label' => 'CAP', 'position' => 1]);
         $filiere = Project::factory()->create(['title' => 'Filiere Initiale']);
-        $filiere->cycles()->attach($bts);
+        $filiere->cycles()->attach($cap);
 
         $this->get(route('home'))->assertSee('Filiere Initiale');
 
@@ -255,15 +255,21 @@ Realiser la maintenance",
         $response->assertDontSee('<script>alert', false);
     }
 
-    public function test_team_page_hides_inactive_members(): void
+    public function test_an_inactive_member_is_reachable_nowhere(): void
     {
-        TeamMember::factory()->create(['name' => 'Awa Traoré', 'is_active' => true]);
-        TeamMember::factory()->create(['name' => 'Membre Retiré', 'is_active' => false]);
+        /*
+         * La page Équipe a cédé sa place à Admission : il ne reste des membres
+         * que leurs fiches, atteignables depuis la recherche.
+         */
+        $actif = TeamMember::factory()->create(['name' => 'Awa Traoré', 'is_active' => true]);
+        $retire = TeamMember::factory()->create(['name' => 'Membre Retiré', 'is_active' => false]);
 
-        $response = $this->get(route('team'));
+        $this->get(route('team.show', $actif))->assertOk()->assertSee('Awa Traoré');
+        $this->get(route('team.show', $retire))->assertNotFound();
 
-        $response->assertOk();
-        $response->assertSee('Awa Traoré');
-        $response->assertDontSee('Membre Retiré');
+        $this->assertStringNotContainsString(
+            'Membre Retiré',
+            $this->get('/recherche?q=Membre')->assertOk()->getContent(),
+        );
     }
 }

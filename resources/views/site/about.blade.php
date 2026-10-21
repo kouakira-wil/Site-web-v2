@@ -26,7 +26,6 @@
         il suffit de le renseigner puis de l'inclure ici.
     --}}
     @include('site.about.equipe')
-    {{-- @include('site.about.contact') --}}
     @include('site.about.partenaires')
     @include('site.about.newsletter')
 @endsection

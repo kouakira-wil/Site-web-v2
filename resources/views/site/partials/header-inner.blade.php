@@ -23,7 +23,7 @@
                                     </li>
                                     <x-site.filieres-menu />
                                     <li>
-                                        <a href="{{ route('team') }}">Équipe</a>
+                                        <a href="{{ route('admission') }}">Admission</a>
                                     </li>
                                     <li>
                                         <a href="{{ route('posts.index') }}">Actualités</a>

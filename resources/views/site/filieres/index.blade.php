@@ -13,12 +13,6 @@
     <x-site.page-header page="filieres" />
 
     @include('site.filieres.partials.index-content')
-
-    <x-site.cycle-tracks
-        :cycles="$cycles"
-        eyebrow="[ Cursus ]"
-        title="Nos filières, cycle par cycle"
-    />
 @endsection
 
 @section('footer')

@@ -30,7 +30,7 @@ class PageHeaderIndex extends Component
         'pages' => 'Bandeaux des pages',
         'accueil' => 'Sections de la page d’accueil',
         'ecole' => 'Page L’école',
-        'equipe' => 'Page Équipe',
+        'admission' => 'Page Admission',
     ];
 
     public function render(): View

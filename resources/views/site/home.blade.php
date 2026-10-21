@@ -1,7 +1,7 @@
 @extends('layouts.site')
 
 @section('title', 'ESCAT - École Supérieure de Commerce, d’Administration et de Technologie')
-@section('meta_description', 'L’ESCAT forme à Brazzaville les techniciens et cadres de demain : CAP, BTS, Licence et Master, en Technologie et en Gestion.')
+@section('meta_description', 'L’ESCAT forme à Brazzaville les techniciens et cadres de demain : CAP, Licence et Master, en Technologie et en Gestion.')
 @section('smooth_class', 'z-index-3')
 
 @section('content')

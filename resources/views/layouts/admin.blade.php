@@ -36,6 +36,15 @@
 
     <title>{{ $title ?? 'Administration' }} — {{ config('app.name') }}</title>
 
+    {{--
+        Icône d'onglet, déclinée depuis favicon-dark.png. L'original fait
+        1500 x 1500 pour 622 Ko : servi tel quel, il serait téléchargé à chaque
+        page pour être affiché en 16 pixels.
+    --}}
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/imgs/template/logo/favicon-32.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('assets/imgs/template/logo/favicon-192.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/imgs/template/logo/favicon-180.png') }}">
+
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600|instrument-serif:400&display=swap" rel="stylesheet">
 

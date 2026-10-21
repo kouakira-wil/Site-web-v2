@@ -16,6 +16,12 @@
         'award' => '<circle cx="12" cy="9" r="5.5"/><path d="m8.5 13.8-1.4 6.9 4.9-2.6 4.9 2.6-1.4-6.9"/>',
         'sparkle' => '<path d="M12 3.5 13.9 9 19.5 11l-5.6 2L12 18.5 10.1 13 4.5 11l5.6-2Z"/><path d="M18.5 4v3M20 5.5h-3"/>',
         'compass' => '<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5.2-5.2 2 2-5.2Z"/>',
+        'user-check' => '<circle cx="9" cy="8" r="3.6"/><path d="M2.5 20v-1.4A4.6 4.6 0 0 1 7.1 14h3.8"/><path d="m14.5 17.5 2 2 4-4.5"/>',
+        'document' => '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/>',
+        'send' => '<path d="M21.5 2.5 2.5 10l7.6 3.3L21.5 2.5Z"/><path d="m21.5 2.5-7.9 19-3.5-8.2"/>',
+        'check-circle' => '<circle cx="12" cy="12" r="9"/><path d="m8 12.2 2.7 2.8L16 9.5"/>',
+        'card' => '<rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19"/><path d="M6.5 14.5h3"/>',
+        'help' => '<circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 1 1 3.3 2.4c-.6.2-.9.8-.9 1.4v.4"/><path d="M12 16.7h.01"/>',
     ];
 
     $trace = $name ? ($traces[$name] ?? null) : null;

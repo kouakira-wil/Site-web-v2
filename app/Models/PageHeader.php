@@ -110,11 +110,11 @@ class PageHeader extends Model
         $chemin = match (true) {
             str_starts_with($this->key, 'home.') => '/',
             str_starts_with($this->key, 'ecole.') => '/l-ecole',
-            str_starts_with($this->key, 'equipe.') => '/equipe',
+            str_starts_with($this->key, 'admission.') => '/admission',
             $this->key === 'about' => '/l-ecole',
             $this->key === 'filieres' => '/filieres',
             $this->key === 'journal' => '/journal',
-            $this->key === 'equipe' => '/equipe',
+            $this->key === 'admission' => '/admission',
             $this->key === 'recherche' => '/recherche',
             default => '/contact',
         };

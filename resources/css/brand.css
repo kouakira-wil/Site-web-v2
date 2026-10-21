@@ -2566,3 +2566,622 @@
 body:has(> .page-loader) {
     overflow: hidden;
 }
+
+
+/* =========================================================================
+   Page Admission.
+
+   Quatre sections sur le même rythme : un titre centré, une accroche, puis le
+   contenu. Les volets réutilisent `at-collapse` du gabarit, qui gère déjà
+   l'ouverture ; seul l'habillage est posé ici.
+   ========================================================================= */
+
+.adm-section {
+    padding: 90px 0;
+}
+
+/* Une section sur deux sur fond gris : la respiration tient lieu de séparation. */
+.adm-section--gris {
+    background: #f7f8fa;
+}
+
+.adm-tete {
+    max-width: 44rem;
+    margin: 0 auto 48px;
+    text-align: center;
+}
+
+.adm-tete__titre {
+    margin: 0 0 12px;
+    font-family: var(--at-ff-heading, inherit);
+    font-size: clamp(26px, 3vw, 40px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--escat-brand);
+}
+
+.adm-tete__intro {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.65;
+    color: #5b5f66;
+}
+
+/* -- Volets (critères, questions) ---------------------------------------- */
+
+.adm-volets {
+    max-width: 60rem;
+    margin: 0 auto;
+}
+
+.adm-volet + .adm-volet {
+    border-top: 1px solid #e4e7ec;
+}
+
+.adm-volet__bouton {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 22px 4px;
+    background: none;
+    border: 0;
+    text-align: left;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: #0c0d10;
+    cursor: pointer;
+}
+
+.adm-volet__bouton:hover,
+.adm-volet__bouton:focus-visible {
+    color: var(--escat-brand);
+}
+
+.adm-volet__marque {
+    display: inline-flex;
+    flex: none;
+    color: var(--escat-brand);
+}
+
+/* Le chevron pivote vers le haut quand le volet est ouvert. */
+.adm-volet__chevron {
+    display: inline-flex;
+    flex: none;
+    margin-left: auto;
+    color: #8a9099;
+    transition: transform 0.3s ease;
+}
+
+.adm-volet__bouton:not(.collapsed) .adm-volet__chevron {
+    transform: rotate(180deg);
+    color: var(--escat-brand);
+}
+
+.adm-volet__corps {
+    padding: 0 4px 24px;
+    max-width: 52rem;
+}
+
+.adm-volet__corps p {
+    margin: 0 0 12px;
+    font-size: 15px;
+    line-height: 1.75;
+    color: #5b5f66;
+}
+
+.adm-volet__corps p:last-child {
+    margin-bottom: 0;
+}
+
+/* Un volet encore sans texte le dit, au lieu de s'ouvrir sur du vide. */
+.adm-volet__vide {
+    font-style: italic;
+}
+
+/* -- Étapes du processus -------------------------------------------------- */
+
+.adm-etapes {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+
+.adm-etape {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 28px 20px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #e4e7ec;
+    border-radius: 14px;
+    box-shadow: var(--escat-ombre-posee);
+}
+
+.adm-etape__icone {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: rgba(38, 70, 208, 0.08);
+    color: var(--escat-brand);
+}
+
+.adm-etape__titre {
+    margin: 4px 0 0;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #0c0d10;
+}
+
+.adm-etape__texte {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #5b5f66;
+}
+
+.adm-etape__rang {
+    margin-top: auto;
+    padding: 5px 14px;
+    border-radius: 999px;
+    background: var(--escat-brand);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* -- Tableau des programmes ---------------------------------------------- */
+
+.adm-onglets {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.adm-onglet {
+    padding: 8px 18px;
+    background: none;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    font-size: 15px;
+    font-weight: 600;
+    color: #5b5f66;
+    cursor: pointer;
+}
+
+.adm-onglet.is-active {
+    border-bottom-color: var(--escat-brand);
+    color: var(--escat-brand);
+}
+
+.adm-poles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 28px;
+}
+
+.adm-pole {
+    padding: 7px 16px;
+    border: 1px solid #e4e7ec;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    color: #5b5f66;
+    cursor: pointer;
+}
+
+.adm-pole.is-active {
+    background: var(--escat-brand);
+    border-color: var(--escat-brand);
+    color: #fff;
+}
+
+.adm-tableau {
+    max-width: 68rem;
+    margin: 0 auto;
+    padding: 8px;
+    background: #fff;
+    border: 1px solid #e4e7ec;
+    border-radius: 14px;
+    box-shadow: var(--escat-ombre-posee);
+    /* Le tableau garde ses colonnes lisibles : sous cette largeur il défile
+       lui-même plutôt que de pousser la page entière. */
+    overflow-x: auto;
+}
+
+.adm-table {
+    width: 100%;
+    min-width: 40rem;
+    border-collapse: collapse;
+}
+
+.adm-table th,
+.adm-table td {
+    padding: 16px 18px;
+    text-align: left;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.adm-table thead th {
+    font-weight: 500;
+    color: #8a9099;
+    border-bottom: 1px solid #e4e7ec;
+}
+
+.adm-ligne + .adm-ligne {
+    border-top: 1px solid #f0f2f5;
+}
+
+.adm-ligne__nom {
+    font-weight: 500;
+    color: #0c0d10;
+}
+
+.adm-ligne__debouches {
+    color: #5b5f66;
+}
+
+.adm-ligne__action {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.adm-lien {
+    display: inline-block;
+    padding: 7px 14px;
+    border: 1px solid #e4e7ec;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #0c0d10;
+    text-decoration: none;
+}
+
+.adm-lien:hover,
+.adm-lien:focus-visible {
+    border-color: var(--escat-brand);
+    color: var(--escat-brand);
+}
+
+.adm-tableau__vide {
+    margin: 0;
+    padding: 28px 18px;
+    text-align: center;
+    font-size: 15px;
+    color: #5b5f66;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .adm-volet__chevron {
+        transition: none;
+    }
+}
+
+
+/* =========================================================================
+   Page Contact.
+   ========================================================================= */
+
+/* Confirmation après envoi du formulaire. */
+.contact-avis {
+    margin-bottom: 28px;
+    padding: 14px 18px;
+    border-left: 3px solid var(--escat-brand);
+    border-radius: 0 10px 10px 0;
+    background: rgba(38, 70, 208, 0.06);
+    font-size: 15px;
+    font-weight: 600;
+    color: #0c0d10;
+}
+
+/* Message d'erreur, sous le champ fautif plutôt qu'en tête de formulaire. */
+.contact-erreur {
+    margin: 6px 0 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #b4231f;
+}
+
+/*
+ * Piège à robots. `display: none` suffit à le cacher, mais certains
+ * remplisseurs automatiques ignorent les champs ainsi masqués : on le sort du
+ * cadre, ce qui le rend invisible sans le déclarer absent.
+ */
+.contact-piege {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+/* Résumé des fautes, en tête du formulaire. */
+.contact-resume {
+    margin: 0 0 18px;
+    padding: 12px 16px;
+    border-left: 3px solid #b4231f;
+    border-radius: 0 10px 10px 0;
+    background: rgba(180, 35, 31, 0.06);
+    font-size: 14px;
+    font-weight: 600;
+    color: #8a1a17;
+}
+
+/* Contrainte annoncée avant la saisie, sous le champ concerné. */
+.contact-aide {
+    margin: 6px 0 0;
+    font-size: 13px;
+    color: #8a9099;
+}
+
+
+/* =========================================================================
+   Liste des filières, groupée par cycle.
+   ========================================================================= */
+
+.filieres-groupe + .filieres-groupe {
+    margin-top: 20px;
+    padding-top: 60px;
+    border-top: 1px solid #e4e7ec;
+}
+
+.filieres-groupe__tete {
+    max-width: 46rem;
+    margin: 0 auto 44px;
+    text-align: center;
+}
+
+.filieres-groupe__niveau {
+    margin: 0 0 8px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--escat-brand);
+}
+
+.filieres-groupe__titre {
+    margin: 0 0 10px;
+    font-family: var(--at-ff-heading, inherit);
+    font-size: clamp(24px, 2.6vw, 36px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: #0c0d10;
+}
+
+.filieres-groupe__texte {
+    margin: 0 0 10px;
+    font-size: 16px;
+    line-height: 1.65;
+    color: #5b5f66;
+}
+
+/* Le compte se met à jour au filtrage : il annonce ce qui reste visible. */
+.filieres-groupe__compte {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #8a9099;
+}
+
+.filieres-vide {
+    margin: 0;
+    padding: 60px 18px;
+    text-align: center;
+    font-size: 16px;
+    color: #5b5f66;
+}
+
+
+/* =========================================================================
+   Sous-menu des filières : une colonne par cycle, sur une seule ligne.
+
+   Le gabarit donnait à chaque colonne la moitié du panneau (`xl:w-1/2`). À
+   trois cycles, les colonnes totalisaient 1026 px dans un panneau de 720 et
+   débordaient par la droite.
+   ========================================================================= */
+
+.at-main-menu nav ul li .at-megamenu.filieres-menu {
+    /* Assez large pour trois colonnes lisibles, sans sortir de l'écran. */
+    --filieres-menu-largeur: min(820px, calc(100vw - 32px));
+
+    width: var(--filieres-menu-largeur);
+
+    /*
+     * Centré sur son entrée de menu. Ancré à gauche, un panneau de cette
+     * largeur passait sous le bord droit dès que la fenêtre se réduisait.
+     * `margin-left` plutôt que `transform` : l'ouverture du gabarit se joue
+     * déjà sur `transform: scale(1, 0)`.
+     */
+    left: 50%;
+    margin-left: calc(var(--filieres-menu-largeur) / -2);
+}
+
+.filieres-menu__grille {
+    display: grid;
+    grid-template-columns: repeat(var(--filieres-menu-colonnes, 3), minmax(0, 1fr));
+    gap: 24px;
+    align-items: start;
+}
+
+/*
+ * Les intitulés de filières sont longs : ils s'enroulent dans leur colonne
+ * au lieu de l'élargir, ce qui ramènerait le débordement.
+ */
+.filieres-menu__colonne li a {
+    white-space: normal;
+    line-height: 1.35;
+}
+
+.filieres-menu__colonne .at-megamenu-title-wrap {
+    margin-bottom: 10px;
+}
+
+/* Dans le menu latéral, le panneau tient toute la largeur : une seule colonne. */
+.at-offcanvas-menu .filieres-menu__grille {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+}
+
+/*
+ * Rangée d'actualités de l'accueil : les cartes montent toutes à la même
+ * hauteur, et leur pied reste aligné quelle que soit la longueur du titre.
+ */
+.at-sec13-thumb .blog-card {
+    display: flex;
+    flex-direction: column;
+
+    /*
+     * `height: 100%` est posé plus haut sur toutes les cartes. Une hauteur
+     * définie empêche l'étirement : la carte reste à la taille de son propre
+     * contenu et la rangée se désaligne. On la rend indefinie pour que
+     * `align-items: stretch` reprenne la main.
+     */
+    height: auto;
+
+    /* L'écart vertical vient désormais du `gap-y` de la rangée. */
+    margin-bottom: 0;
+}
+
+.at-sec13-thumb .blog-card__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+.at-sec13-thumb .blog-card__meta {
+    margin-top: auto;
+}
+
+
+/* =========================================================================
+   Page d'un cycle : les filières d'un seul niveau.
+   ========================================================================= */
+
+/* Le titre de groupe mène à la page du cycle : il se signale au survol. */
+.filieres-groupe__lien {
+    color: inherit;
+    text-decoration: none;
+}
+
+.filieres-groupe__lien:hover,
+.filieres-groupe__lien:focus-visible {
+    color: var(--escat-brand);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+/* Le nom du cycle dans le méga-menu mène à sa page. */
+a.at-megamenu-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+}
+
+a.at-megamenu-title-wrap:hover .at-megamenu-title,
+a.at-megamenu-title-wrap:focus-visible .at-megamenu-title {
+    color: var(--escat-brand);
+}
+
+/* -- Passerelle vers les autres cycles, en bas de page ------------------- */
+
+.cycles-voisins {
+    padding: 70px 0 90px;
+    background: #f7f8fa;
+}
+
+.cycles-voisins__titre {
+    margin: 0 0 28px;
+    text-align: center;
+    font-family: var(--at-ff-heading, inherit);
+    font-size: clamp(22px, 2.2vw, 30px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #0c0d10;
+}
+
+.cycles-voisins__liste {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.cycles-voisins__lien {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    height: 100%;
+    padding: 22px 24px;
+    background: #fff;
+    border: 1px solid #e4e7ec;
+    border-radius: 14px;
+    text-decoration: none;
+    box-shadow: var(--escat-ombre-posee);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cycles-voisins__lien:hover,
+.cycles-voisins__lien:focus-visible {
+    border-color: var(--escat-brand);
+    box-shadow: var(--escat-ombre-survol);
+}
+
+.cycles-voisins__nom {
+    font-size: 17px;
+    font-weight: 700;
+    color: #0c0d10;
+}
+
+.cycles-voisins__niveau {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--escat-brand);
+}
+
+.cycles-voisins__compte {
+    font-size: 14px;
+    color: #5b5f66;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cycles-voisins__lien {
+        transition: none;
+    }
+}
+
+/* Retour visuel du bouton « copier le lien », le temps du message. */
+.at-social__link.est-copie {
+    color: var(--escat-brand);
+}
+
+.at-social__link[data-copier-lien] {
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    color: inherit;
+}

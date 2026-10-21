@@ -150,11 +150,6 @@ final class PageHeaderSchema
             'image' => ['Photo de fond', 'La carte du texte se pose par-dessus. Facultative.'],
             'label',
         ],
-        'equipe.approche' => [
-            'title' => ['Titre de la section', null],
-            'intro' => ['Accroche', null],
-            'label',
-        ],
     ];
 
     /**
@@ -208,6 +203,43 @@ final class PageHeaderSchema
                 'title' => ['Intitulé', null],
                 'intro' => ['Texte', 'Une phrase.'],
                 'icon',
+                'label',
+            ];
+        }
+
+        // Page Admission : en-têtes de section, volets de critères, étapes du
+        // processus et questions. L'ordre d'écriture compte, les clés filles
+        // partagent le préfixe de leur parent.
+        if (str_starts_with($header->key, 'admission.criteres.')) {
+            return [
+                'title' => ['Intitulé du volet', 'Par exemple « Licence (BAC +3) ».'],
+                'body' => ['Critères', 'Le texte affiché une fois le volet ouvert. Laissez une ligne vide entre deux paragraphes.'],
+                'label',
+            ];
+        }
+
+        if (str_starts_with($header->key, 'admission.processus.')) {
+            return [
+                'icon' => ['Pictogramme', 'Affiché en haut de la carte.'],
+                'title' => ['Intitulé de l’étape', null],
+                'intro' => ['Texte de l’étape', 'Une phrase.'],
+                'label',
+            ];
+        }
+
+        if (str_starts_with($header->key, 'admission.faq.')) {
+            return [
+                'title' => ['Question', 'Le libellé du bouton qui déplie la réponse.'],
+                'body' => ['Réponse', 'Le texte affiché une fois la question dépliée.'],
+                'label',
+            ];
+        }
+
+        // En-têtes des quatre sections de la page.
+        if (str_starts_with($header->key, 'admission.')) {
+            return [
+                'title' => ['Titre de la section', null],
+                'intro' => ['Accroche', 'La phrase sous le titre.'],
                 'label',
             ];
         }
@@ -278,16 +310,6 @@ final class PageHeaderSchema
             ];
         }
 
-        // Cartes de la page Équipe : equipe.approche.1, .2, …
-        if (str_starts_with($header->key, 'equipe.approche.')) {
-            return [
-                'title' => ['Intitulé de la carte', null],
-                'intro' => ['Texte de la carte', null],
-                'icon',
-                'label',
-            ];
-        }
-
         // Étapes de la vision : ecole.vision.1, .2, .3
         if (str_starts_with($header->key, 'ecole.vision.')) {
             return [
@@ -330,7 +352,7 @@ final class PageHeaderSchema
         // Étapes du cursus : ecole.parcours.1 à .4
         if (str_starts_with($header->key, 'ecole.parcours.')) {
             return [
-                'eyebrow' => ['Intitulé du cycle', 'La ligne au-dessus du titre, par exemple « BTS — BAC +2 ».'],
+                'eyebrow' => ['Intitulé du cycle', 'La ligne au-dessus du titre, par exemple « Licence — BAC +3 ».'],
                 'title' => ['Titre de l’étape', null],
                 'intro' => ['Texte de l’étape', 'Une ou deux phrases.'],
                 'cta_url' => ['Lien de la flèche', 'Par exemple /filieres.'],

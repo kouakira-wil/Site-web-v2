@@ -7,6 +7,11 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
+        {{-- Même icône d'onglet que le reste du site. --}}
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/imgs/template/logo/favicon-32.png') }}">
+        <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('assets/imgs/template/logo/favicon-192.png') }}">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/imgs/template/logo/favicon-180.png') }}">
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />

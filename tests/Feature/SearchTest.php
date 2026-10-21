@@ -51,7 +51,7 @@ class SearchTest extends TestCase
 
     public function test_a_filiere_is_found_through_its_cycle(): void
     {
-        $cycle = Cycle::query()->create(['name' => 'Cycle BTS', 'slug' => 'cycle-bts', 'position' => 1]);
+        $cycle = Cycle::query()->create(['name' => 'Cycle CAP', 'slug' => 'cycle-cap', 'position' => 1]);
         $filiere = Project::factory()->create([
             'title' => 'Comptabilite appliquee',
             'status' => 'published',
@@ -59,8 +59,8 @@ class SearchTest extends TestCase
         ]);
         $filiere->cycles()->sync([$cycle->id]);
 
-        // « BTS » ne figure dans aucun champ de la filière : seul le cycle le porte.
-        $this->get('/recherche?q=BTS')
+        // « CAP » ne figure dans aucun champ de la filière : seul le cycle le porte.
+        $this->get('/recherche?q=CAP')
             ->assertOk()
             ->assertSee('Comptabilite appliquee');
     }

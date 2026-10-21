@@ -79,7 +79,7 @@ class SearchController extends Controller
                     $requete->orWhere($colonne, 'like', $motif);
                 }
 
-                // « BTS », « Licence », « Master » nomment des cycles, pas des
+                // « CAP », « Licence », « Master » nomment des cycles, pas des
                 // filières : sans ceci, les recherches les plus évidentes du
                 // menu de suggestions ne renverraient rien.
                 $requete->orWhereHas('cycles', function (Builder $cycle) use ($motif): void {

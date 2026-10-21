@@ -7,7 +7,7 @@
                     <div class="at-search-top !flex !justify-between !items-center">
                         <div class="at-header-logo at-search-logo">
                             <a href="{{ route('home') }}">
-                                <img data-width="30" src="{{ asset('assets/imgs/template/logo/favicon.svg') }}" alt="ESCAT">
+                                <img data-width="30" src="{{ asset('assets/imgs/template/logo/favicon.png') }}" alt="ESCAT">
                                 <p class="h6 fw-700 fz-24 !mb-0">ESCAT</p>
                             </a>
                         </div>
@@ -46,7 +46,6 @@
                     <div class="at-categories">
                         <h3 class="at-categories-title">Recherches fréquentes</h3>
                         <ul class="at-categories-list">
-                            <li><a href="{{ route('search', ['q' => 'BTS']) }}" class="at-categories-item">BTS</a></li>
                             <li><a href="{{ route('search', ['q' => 'Licence']) }}" class="at-categories-item">Licence</a></li>
                             <li><a href="{{ route('search', ['q' => 'Master']) }}" class="at-categories-item">Master</a></li>
                             <li><a href="{{ route('search', ['q' => 'Réseaux']) }}" class="at-categories-item">Réseaux</a></li>

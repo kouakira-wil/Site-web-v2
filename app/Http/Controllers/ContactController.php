@@ -42,6 +42,16 @@ class ContactController extends Controller
         $recipient = config('mail.contact_recipient');
 
         if (blank($recipient)) {
+            /*
+             * Sans destinataire, la notification se taisait sans rien laisser :
+             * le message arrivait en base, personne n'était prévenu, et rien
+             * ne permettait de s'en apercevoir.
+             */
+            Log::warning('Aucun destinataire de contact configuré', [
+                'contact_message_id' => $message->id,
+                'réglage' => 'MAIL_CONTACT_RECIPIENT',
+            ]);
+
             return;
         }
 

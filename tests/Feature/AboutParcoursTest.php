@@ -36,9 +36,9 @@ class AboutParcoursTest extends TestCase
 
         $this->assertStringContainsString('Votre parcours', $contenu);
         $this->assertStringContainsString('Technologie et Gestion', $contenu);
-        $this->assertSame(4, substr_count($contenu, 'journey-list__item'));
+        $this->assertSame(3, substr_count($contenu, 'journey-list__item'));
 
-        foreach (['CAP', 'BTS', 'Licence', 'Master'] as $cycle) {
+        foreach (['CAP', 'Licence', 'Master'] as $cycle) {
             $this->assertStringContainsString($cycle, $contenu);
         }
     }
@@ -46,14 +46,14 @@ class AboutParcoursTest extends TestCase
     public function test_the_texts_come_from_the_back_office(): void
     {
         PageHeader::forKey('ecole.parcours.2')->forceFill([
-            'eyebrow' => 'BTS remanié',
+            'eyebrow' => 'Licence remaniée',
             'title' => 'Un titre saisi en base',
         ])->save();
 
         $contenu = $this->page();
 
         $this->assertStringContainsString('Un titre saisi en base', $contenu);
-        $this->assertStringNotContainsString('Acquérir les gestes', $contenu);
+        $this->assertStringNotContainsString('Approfondir et se spécialiser', $contenu);
     }
 
     public function test_a_step_emptied_of_its_title_disappears(): void
@@ -61,7 +61,7 @@ class AboutParcoursTest extends TestCase
         PageHeader::forKey('ecole.parcours.3')->forceFill(['title' => ''])->save();
 
         // Un titre vide laisserait une puce et une flèche sans rien à lire.
-        $this->assertSame(3, substr_count($this->page(), 'journey-list__item'));
+        $this->assertSame(2, substr_count($this->page(), 'journey-list__item'));
     }
 
     public function test_the_card_disappears_without_a_title(): void
@@ -83,17 +83,17 @@ class AboutParcoursTest extends TestCase
         /*
          * « Ce qui nous guide » balaie tout le groupe `ecole` en excluant les
          * clés des sections qui ont leur propre gabarit. Sans exclusion, les
-         * six blocs du parcours s'y afficheraient une seconde fois.
+         * cinq blocs du parcours s'y afficheraient une seconde fois.
          */
         // La grille de l'identité ne retient que les blocs du groupe `ecole`
-        // qui ont un texte. Les six blocs du parcours en ont un : sans
+        // qui ont un texte. Les cinq blocs du parcours en ont un : sans
         // l'exclusion, ils viendraient grossir cette grille.
         PageHeader::forKey('ecole.objectif')->forceFill(['intro' => 'Un objectif.'])->save();
 
         $contenu = $this->page();
 
         $this->assertSame(1, substr_count($contenu, 'programme-col__title'));
-        $this->assertSame(4, substr_count($contenu, 'journey-list__title'));
+        $this->assertSame(3, substr_count($contenu, 'journey-list__title'));
     }
 
     public function test_the_step_links_announce_where_they_go(): void

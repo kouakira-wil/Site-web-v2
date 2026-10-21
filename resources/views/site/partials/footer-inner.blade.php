@@ -39,10 +39,9 @@
                                 </div>
                                 <div class="alt-footer-link-item w-1/2">
                                     <ul>
-                                        <li class="mb-15"><a href="{{ route('projects.index') }}">Cycle CAP</a></li>
-                                        <li class="mb-15"><a href="{{ route('projects.index') }}">Cycle BTS (BAC +2)</a></li>
-                                        <li class="mb-15"><a href="{{ route('projects.index') }}">Cycle Licence (BAC +3)</a></li>
-                                        <li class="mb-15"><a href="{{ route('projects.index') }}">Cycle Master (BAC +5)</a></li>
+                                        <li class="mb-15"><a href="{{ route('projects.cycle', 'cap') }}">Cycle CAP</a></li>
+                                        <li class="mb-15"><a href="{{ route('projects.cycle', 'cycle-licence') }}">Cycle Licence (BAC +3)</a></li>
+                                        <li class="mb-15"><a href="{{ route('projects.cycle', 'cycle-master') }}">Cycle Master (BAC +5)</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -51,24 +50,7 @@
                             <p class="footer-2-follow-label !text-white !opacity-50 !uppercase small !mb-4">Nous suivre</p>
                             <div class="at-footer-widget at-footer-link">
                                 <div class="at-hero-social">
-                                    <a href="{{ config('social.facebook') ?: route('contact') }}" target="_blank" rel="noopener noreferrer">
-                                        Facebook
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="9" height="10" viewBox="0 0 9 10" fill="none">
-                                            <path d="M5.62494 9.99994L0.562517 10L0.5625 8.75003L4.49994 8.74996L4.5 2.39273L2.27828 4.86124L1.48278 3.97739L5.0625 0L8.64225 3.97739L7.84676 4.86124L5.625 2.3927L5.62494 9.99994Z" fill="currentColor" />
-                                        </svg>
-                                    </a>
-                                    <a href="{{ config('social.instagram') ?: route('contact') }}" target="_blank" rel="noopener noreferrer">
-                                        Instagram
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="9" height="10" viewBox="0 0 9 10" fill="none">
-                                            <path d="M5.62494 9.99994L0.562517 10L0.5625 8.75003L4.49994 8.74996L4.5 2.39273L2.27828 4.86124L1.48278 3.97739L5.0625 0L8.64225 3.97739L7.84676 4.86124L5.625 2.3927L5.62494 9.99994Z" fill="currentColor" />
-                                        </svg>
-                                    </a>
-                                    <a href="{{ config('social.tiktok') ?: route('contact') }}" target="_blank" rel="noopener noreferrer">
-                                        TikTok
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="9" height="10" viewBox="0 0 9 10" fill="none">
-                                            <path d="M5.62494 9.99994L0.562517 10L0.5625 8.75003L4.49994 8.74996L4.5 2.39273L2.27828 4.86124L1.48278 3.97739L5.0625 0L8.64225 3.97739L7.84676 4.86124L5.625 2.3927L5.62494 9.99994Z" fill="currentColor" />
-                                        </svg>
-                                    </a>
+                                    <x-site.reseaux />
                                 </div>
                             </div>
                         </div>
@@ -79,7 +61,7 @@
                         <!-- Bottom section: Copyright | Restons en contact + Hours | Service tags -->
                         <div class="!items-end flex flex-wrap -mx-3 [&>*]:px-3 gap-y-6">
                             <div class="w-full lg:w-5/6 md:w-2/3">
-                                <span class="at-footer-copyright">ESCAT © 2026</span>
+                                <x-site.copyright />
                                 <div class="at-title-anim !overflow-hidden">
                                     <h2 class="footer-2-connect-title !text-white !mb-0 at-title-text text-scale-anim">Restons en contact</h2>
                                 </div>
