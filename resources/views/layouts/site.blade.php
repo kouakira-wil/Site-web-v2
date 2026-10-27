@@ -1,9 +1,31 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-bs-theme="light">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    {{--
+        Thème clair/sombre, appliqué avant le premier rendu.
+
+        Le gabarit écrivait data-bs-theme="light" en dur sur <html>, et
+        color-modes.js fait primer cet attribut sur le choix enregistré : le
+        mode sombre était donc perdu dès le changement de page. Le lire ici
+        évite au passage le flash clair avant que le script du bas ne tourne.
+    --}}
+    <script>
+        (function () {
+            var choix = null;
+
+            try { choix = localStorage.getItem('theme'); } catch (e) { }
+
+            if (choix !== 'dark' && choix !== 'light') {
+                choix = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+
+            document.documentElement.setAttribute('data-bs-theme', choix);
+        })();
+    </script>
 
     <title>@yield('title', config('app.name'))</title>
     <meta name="description" content="@yield('meta_description', 'Studio de création : identité visuelle, sites web et direction artistique.')">

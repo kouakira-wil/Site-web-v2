@@ -17,6 +17,57 @@
     --escat-brand-dark: #1c35a0;
 
     /*
+     * Palette sémantique.
+     *
+     * Ce fichier peignait chaque bloc avec sa propre valeur littérale, et
+     * s'appuyait ailleurs sur `--sd3-ink` / `--sd3-line`, que le gabarit ne
+     * définit que dans `.sd3-page` : hors de cette page, c'était la valeur
+     * de repli qui s'appliquait, dans les deux thèmes. Le mode sombre
+     * n'atteignait donc presque rien de ce qui a été ajouté ici.
+     *
+     * Un seul jeu de noms, deux jeux de valeurs : les règles ci-dessous ne
+     * parlent plus que de rôles (titre, texte, bordure, surface), et le bloc
+     * [data-bs-theme=dark] plus bas en donne la version sombre.
+     *
+     * Les teintes claires sont reprises telles quelles : le rendu en mode
+     * clair est inchangé, au pixel près.
+     */
+
+    /* Surfaces */
+    --escat-carte: #FEFEFE;            /* carte posée sur le fond de page */
+    --escat-surface: #ffffff;          /* panneau, champ au foyer */
+    --escat-surface-douce: #f7f8fa;    /* section alternée */
+    --escat-surface-creuse: #f2f2f2;   /* champ au repos, étiquette */
+    --escat-panneau: #0F0F0F;          /* panneau sombre au fil du contenu */
+    --escat-scene: #1D1D1D;            /* bandeau de tête de page */
+
+    /* Traits */
+    --escat-bordure: #e4e7ec;
+    --escat-bordure-tenue: #f0f2f5;   /* filet entre deux lignes d'un tableau */
+    --escat-bordure-forte: #DFDFDF;
+
+    /* Textes */
+    --escat-titre: #1D1D1D;
+    --escat-titre-fort: #0c0d10;
+    --escat-texte: #303030;
+    --escat-texte-doux: #585959;
+    --escat-texte-discret: #5b5f66;
+    --escat-texte-tenu: #8a9099;
+
+    /*
+     * Bleu de marque en texte. Sur un fond presque noir, #2646D0 ne monte
+     * qu'à 2,67:1 ; il reste parfait en aplat, d'où deux noms distincts.
+     */
+    --escat-accent-texte: var(--escat-brand);
+
+    /* États */
+    --escat-erreur: #b4231f;
+    --escat-erreur-forte: #C0330A;
+    --escat-erreur-texte: #8a1a17;
+    --escat-succes: #0A6C5E;
+    --escat-succes-fond: #DAF4F0;
+
+    /*
      * Échelle d'ombres unique. Trois valeurs proches se côtoyaient dans ce
      * fichier ; les cartes n'avaient donc pas tout à fait le même relief.
      *
@@ -28,6 +79,77 @@
     --escat-ombre-survol: 0 4px 8px rgba(12, 13, 16, 0.06), 0 16px 40px rgba(12, 13, 16, 0.10);
     --escat-ombre-flottante: 0 20px 48px rgba(12, 13, 16, 0.14);
 }
+
+/*
+ * Mode sombre.
+ *
+ * L'interrupteur du gabarit pose data-bs-theme="dark" sur <html>. Il ne
+ * rebranchait que les jetons --at-* de main.css ; tout ce que ce fichier
+ * ajoute restait en clair. Les mêmes noms, d'autres valeurs.
+ *
+ * Les surfaces s'éclaircissent au lieu de s'assombrir : sur un fond de page
+ * à #0C0C0C, une carte plus sombre que la page disparaît.
+ */
+[data-bs-theme=dark] {
+    /*
+     * Champs de saisie, barres de défilement et menus natifs suivent le
+     * thème au lieu de rester blancs.
+     */
+    color-scheme: dark;
+
+    --escat-carte: #15171c;
+    --escat-surface: #15171c;
+    --escat-surface-douce: #101217;
+    --escat-surface-creuse: #1c1f26;
+    --escat-panneau: #1c1f26;
+    --escat-scene: #0f1115;
+
+    --escat-bordure: #2b303a;
+    --escat-bordure-tenue: #23272f;
+    --escat-bordure-forte: #353b46;
+
+    --escat-titre: #eef0f3;
+    --escat-titre-fort: #f7f8fa;
+    --escat-texte: #d6dae1;
+    --escat-texte-doux: #b8bec8;
+    --escat-texte-discret: #a3aab5;
+    --escat-texte-tenu: #878f9c;
+
+    --escat-accent-texte: #8ea4ff;
+
+    /*
+     * Deux tons du gabarit n'ont pas suivi l'inversion.
+     *
+     * L'échelle claire va du plus pàle au plus foncé : 300 #B7B7B7,
+     * 500 #585959, 700 #303030. En sombre elle doit s'inverser, et c'est le
+     * cas pour 500 (#B3B3B3) et 800/900/950. Mais 300 (#404040) et 700
+     * (#535353) sont restés sombres : or main.css s'en sert surtout comme
+     * couleurs de texte, 39 règles pour 700 et 31 pour 300. D'où des
+     * paragraphes à 2,4:1 sur le fond de page, dans les questions
+     * fréquentes comme dans les fiches filière.
+     *
+     * On remet les deux dans l'ordre de l'échelle : 700 plus clair que 500,
+     * 300 plus terne. Les rares emplois en fond ou en filet suivent, et s'en
+     * trouvent plus lisibles eux aussi.
+     */
+    --at-neutral-700: #d4d4d4;
+    --at-neutral-300: #8a8a8a;
+
+    --escat-erreur: #f08d84;
+    --escat-erreur-forte: #f08d84;
+    --escat-erreur-texte: #f5b3ac;
+    --escat-succes: #74d6c3;
+    --escat-succes-fond: rgba(10, 108, 94, 0.22);
+
+    /*
+     * Les ombres portent sur un fond clair : sur fond sombre elles ne se
+     * voient pas. Le relief passe par un liseré clair.
+     */
+    --escat-ombre-posee: 0 0 0 1px rgba(255, 255, 255, 0.06);
+    --escat-ombre-survol: 0 0 0 1px rgba(255, 255, 255, 0.12);
+    --escat-ombre-flottante: 0 20px 48px rgba(0, 0, 0, 0.55);
+}
+
 
 /* Bouton plein */
 .at-btn {
@@ -79,7 +201,7 @@
     position: relative;
     overflow: hidden;
     aspect-ratio: 4 / 3;
-    background: var(--at-neutral-50, #f2f2f2);
+    background: var(--escat-surface-creuse);
     cursor: zoom-in;
 }
 
@@ -111,7 +233,7 @@
     margin-top: 8px;
     font-size: 14px;
     line-height: 1.4;
-    color: var(--at-neutral-500, #585959);
+    color: var(--escat-texte-doux);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -149,7 +271,7 @@
 
 .programme-col {
     padding: 32px 0;
-    border-top: 1px solid var(--sd3-line, #DFDFDF);
+    border-top: 1px solid var(--escat-bordure-forte);
 }
 
 .programme-col__index {
@@ -158,7 +280,7 @@
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.1em;
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
     font-variant-numeric: tabular-nums;
 }
 
@@ -170,7 +292,7 @@
     font-weight: 600;
     letter-spacing: -0.02em;
     line-height: 1.25;
-    color: var(--sd3-ink, #1D1D1D);
+    color: var(--escat-titre);
 }
 
 .programme-col__list {
@@ -189,7 +311,7 @@
     font-size: 17px;
     font-weight: 500;
     line-height: 1.6;
-    color: var(--at-neutral-700, #303030);
+    color: var(--escat-texte);
     max-width: 46ch;
 }
 
@@ -255,7 +377,7 @@
 .search-page__form {
     margin-bottom: 40px;
     padding-bottom: 32px;
-    border-bottom: 1px solid var(--sd3-line, #DFDFDF);
+    border-bottom: 1px solid var(--escat-bordure-forte);
 }
 
 .search-page__label {
@@ -265,7 +387,7 @@
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--at-neutral-500, #585959);
+    color: var(--escat-texte-doux);
 }
 
 .search-page__row {
@@ -280,26 +402,26 @@
     min-width: 0;
     padding: 14px 18px;
     font-size: 17px;
-    color: var(--at-neutral-900, #1D1D1D);
-    background: var(--at-neutral-50, #F2F2F2);
+    color: var(--escat-titre);
+    background: var(--escat-surface-creuse);
     border: 1px solid transparent;
 }
 
 .search-page__input:focus {
     outline: none;
     border-color: var(--escat-brand);
-    background: #fff;
+    background: var(--escat-surface);
 }
 
 .search-page__note {
     margin: 0 0 40px;
     font-size: 17px;
     line-height: 1.6;
-    color: var(--at-neutral-500, #585959);
+    color: var(--escat-texte-doux);
 }
 
 .search-page__note a {
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
 }
 
 .search-page__group {
@@ -314,13 +436,13 @@
     font-size: clamp(20px, 1.7vw, 26px);
     font-weight: 600;
     letter-spacing: -0.02em;
-    color: var(--sd3-ink, #1D1D1D);
+    color: var(--escat-titre);
 }
 
 .search-page__group-title span {
     font-size: 14px;
     font-weight: 600;
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
     font-variant-numeric: tabular-nums;
 }
 
@@ -331,7 +453,7 @@
 }
 
 .search-page__item {
-    border-top: 1px solid var(--sd3-line, #DFDFDF);
+    border-top: 1px solid var(--escat-bordure-forte);
 }
 
 .search-page__link {
@@ -356,18 +478,18 @@
     margin-bottom: 4px;
     font-size: 18px;
     font-weight: 600;
-    color: var(--at-neutral-900, #1D1D1D);
+    color: var(--escat-titre);
 }
 
 .search-page__link:hover .search-page__item-title {
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
 }
 
 .search-page__item-text {
     display: block;
     font-size: 15px;
     line-height: 1.55;
-    color: var(--at-neutral-500, #585959);
+    color: var(--escat-texte-doux);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -428,7 +550,7 @@
     z-index: 9;
     width: 100%;
     background: var(--at-neutral-0, #FEFEFE);
-    border-bottom: 1px solid var(--at-neutral-100, #DFDFDF);
+    border-bottom: 1px solid var(--escat-bordure-forte);
 }
 
 /* Sur fond clair, l'encre remplace le blanc. */
@@ -436,12 +558,12 @@
 .header-solid .at-header-search-btn,
 .header-solid .at-menu-bar,
 .header-solid .dark-light-mode {
-    color: var(--at-neutral-900, #1D1D1D);
+    color: var(--escat-titre);
 }
 
 .header-solid .at-main-menu nav ul li > a:hover,
 .header-solid .at-main-menu nav ul li:hover > a {
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
 }
 
 /* Accroche des blocs vision / mission / objectif / valeurs. */
@@ -450,7 +572,7 @@
     max-width: 52ch;
     font-size: 17px;
     line-height: 1.65;
-    color: var(--at-neutral-700, #303030);
+    color: var(--escat-texte);
 }
 
 /*
@@ -462,8 +584,8 @@
     display: grid;
     gap: 32px;
     padding: 48px 0;
-    border-top: 1px solid var(--sd3-line, #DFDFDF);
-    border-bottom: 1px solid var(--sd3-line, #DFDFDF);
+    border-top: 1px solid var(--escat-bordure-forte);
+    border-bottom: 1px solid var(--escat-bordure-forte);
 }
 
 @media (min-width: 992px) {
@@ -481,7 +603,7 @@
     font-weight: 600;
     letter-spacing: -0.02em;
     line-height: 1.15;
-    color: var(--sd3-ink, #1D1D1D);
+    color: var(--escat-titre);
 }
 
 .newsletter-box__lead {
@@ -489,7 +611,7 @@
     max-width: 46ch;
     font-size: 17px;
     line-height: 1.6;
-    color: var(--at-neutral-500, #585959);
+    color: var(--escat-texte-doux);
 }
 
 .newsletter-box__label {
@@ -499,7 +621,7 @@
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--at-neutral-500, #585959);
+    color: var(--escat-texte-doux);
 }
 
 .newsletter-box__row {
@@ -514,20 +636,20 @@
     min-width: 0;
     padding: 15px 18px;
     font-size: 16px;
-    color: var(--at-neutral-900, #1D1D1D);
-    background: var(--at-neutral-50, #F2F2F2);
+    color: var(--escat-titre);
+    background: var(--escat-surface-creuse);
     border: 1px solid transparent;
 }
 
 .newsletter-box__input:focus {
     outline: none;
-    background: #fff;
+    background: var(--escat-surface);
     border-color: var(--escat-brand);
 }
 
 .newsletter-box__input.is-invalid {
-    border-color: #C0330A;
-    background: #fff;
+    border-color: var(--escat-erreur-forte);
+    background: var(--escat-surface);
 }
 
 .newsletter-box__status {
@@ -535,22 +657,22 @@
     padding: 12px 16px;
     font-size: 15px;
     font-weight: 500;
-    color: #0A6C5E;
-    background: #DAF4F0;
+    color: var(--escat-succes);
+    background: var(--escat-succes-fond);
 }
 
 .newsletter-box__error {
     margin: 12px 0 0;
     font-size: 14px;
     font-weight: 500;
-    color: #C0330A;
+    color: var(--escat-erreur-forte);
 }
 
 .newsletter-box__hint {
     margin: 12px 0 0;
     font-size: 14px;
     line-height: 1.5;
-    color: var(--at-neutral-500, #585959);
+    color: var(--escat-texte-doux);
 }
 
 /*
@@ -666,7 +788,7 @@
  */
 .directeur-area {
     padding: 80px 0;
-    background: #F7F8FC;
+    background: var(--escat-surface-douce);
 }
 
 .directeur-card {
@@ -674,8 +796,8 @@
     margin: 0 auto;
     padding: 48px clamp(24px, 4vw, 64px) 44px;
     text-align: center;
-    background: #fff;
-    border: 1px solid var(--sd3-line, #DFDFDF);
+    background: var(--escat-surface);
+    border: 1px solid var(--escat-bordure-forte);
     border-radius: 8px;
 }
 
@@ -685,7 +807,7 @@
     font-size: clamp(26px, 2.6vw, 34px);
     font-weight: 700;
     letter-spacing: -0.02em;
-    color: var(--sd3-ink, #1D1D1D);
+    color: var(--escat-titre);
 }
 
 .directeur-card__lead {
@@ -693,7 +815,7 @@
     max-width: 68ch;
     font-size: 17px;
     line-height: 1.75;
-    color: var(--at-neutral-700, #303030);
+    color: var(--escat-texte);
 }
 
 .directeur-card__text {
@@ -701,7 +823,7 @@
     max-width: 72ch;
     font-size: 16px;
     line-height: 1.75;
-    color: var(--at-neutral-500, #585959);
+    color: var(--escat-texte-doux);
 }
 
 .directeur-card__text:last-child {
@@ -772,7 +894,7 @@
  * chiffres des indicateurs) restent orange : seule la ligne de titre est visée.
  */
 .sd3-hero__line--accent {
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
 }
 
 /*
@@ -852,7 +974,7 @@
  * suivent, sans avoir à les reprendre une par une.
  */
 .sd3-page {
-    --sd3-accent: var(--escat-brand);
+    --sd3-accent: var(--escat-accent-texte);
 }
 
 /*
@@ -877,7 +999,7 @@
     font-weight: 600;
     letter-spacing: -0.02em;
     line-height: 1.15;
-    color: var(--sd3-ink, #1D1D1D);
+    color: var(--escat-titre);
 }
 
 /*
@@ -889,7 +1011,7 @@
 .filiere-presentation__body li {
     font-size: 18px;
     line-height: 1.7;
-    color: var(--at-neutral-500, #585959);
+    color: var(--escat-texte-doux);
     text-align: justify;
     /*
      * La césure accompagne la justification : sans elle, le navigateur étire
@@ -932,7 +1054,7 @@
 }
 
 .filiere-presentation__body a {
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
     text-decoration: underline;
 }
 
@@ -1018,7 +1140,7 @@
     font-weight: 600;
     letter-spacing: -0.02em;
     line-height: 1.12;
-    color: var(--sd3-ink, #1D1D1D);
+    color: var(--escat-titre);
 }
 
 .presentation-body__lead {
@@ -1026,7 +1148,7 @@
     max-width: 62ch;
     font-size: 18px;
     line-height: 1.7;
-    color: var(--at-neutral-500, #585959);
+    color: var(--escat-texte-doux);
 }
 
 /* Les deux arguments, sur fond clair avec un filet bleu à gauche. */
@@ -1036,7 +1158,7 @@
     padding: 24px;
     display: grid;
     gap: 24px;
-    background: var(--at-neutral-50, #F2F2F2);
+    background: var(--escat-surface-creuse);
     border-left: 3px solid var(--escat-brand);
 }
 
@@ -1068,14 +1190,14 @@
     margin-bottom: 4px;
     font-size: 17px;
     font-weight: 600;
-    color: var(--sd3-ink, #1D1D1D);
+    color: var(--escat-titre);
 }
 
 .presentation-args__lead {
     display: block;
     font-size: 15px;
     line-height: 1.55;
-    color: var(--at-neutral-500, #585959);
+    color: var(--escat-texte-doux);
 }
 
 /* Points clés, avec une puce carrée bleue. */
@@ -1093,7 +1215,7 @@
     padding-left: 24px;
     font-size: 16px;
     line-height: 1.6;
-    color: var(--at-neutral-700, #303030);
+    color: var(--escat-texte);
 }
 
 .presentation-points__item::before {
@@ -1108,7 +1230,7 @@
 
 .presentation-body__actions {
     padding-top: 8px;
-    border-top: 1px solid var(--sd3-line, #DFDFDF);
+    border-top: 1px solid var(--escat-bordure-forte);
     margin-top: 32px;
     padding-top: 32px;
 }
@@ -1122,7 +1244,7 @@
     gap: 40px;
     align-items: center;
     padding-top: 40px;
-    border-top: 1px solid var(--sd3-line, #DFDFDF);
+    border-top: 1px solid var(--escat-bordure-forte);
 }
 
 @media (min-width: 992px) {
@@ -1147,7 +1269,7 @@
     font-weight: 600;
     letter-spacing: -0.04em;
     line-height: 1;
-    color: var(--sd3-ink, #1D1D1D);
+    color: var(--escat-titre);
 }
 
 .reperes-chiffre__libelle {
@@ -1157,7 +1279,7 @@
     font-size: 15px;
     font-weight: 600;
     line-height: 1.35;
-    color: var(--at-neutral-700, #303030);
+    color: var(--escat-texte);
 }
 
 /*
@@ -1208,10 +1330,10 @@
     width: 148px;
     height: 148px;
     border-radius: 50%;
-    border: 1px solid var(--sd3-line, #DFDFDF);
+    border: 1px solid var(--escat-bordure-forte);
     text-align: center;
     text-decoration: none;
-    color: var(--sd3-ink, #1D1D1D);
+    color: var(--escat-titre);
     transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
 }
 
@@ -1280,7 +1402,7 @@
 }
 
 .mission-split__panel {
-    background: var(--at-neutral-950, #0F0F0F);
+    background: var(--escat-panneau);
     display: flex;
     align-items: center;
     padding: 64px 24px;
@@ -1432,7 +1554,7 @@
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
 }
 
 .vision-body__puce {
@@ -1449,7 +1571,7 @@
     font-weight: 600;
     letter-spacing: -0.02em;
     line-height: 1.15;
-    color: var(--sd3-ink, #1D1D1D);
+    color: var(--escat-titre);
 }
 
 /* Carte à pictogramme : le carré plein, puis le texte. */
@@ -1475,7 +1597,7 @@
     max-width: 52ch;
     font-size: 17px;
     line-height: 1.7;
-    color: var(--at-neutral-500, #585959);
+    color: var(--escat-texte-doux);
 }
 
 /*
@@ -1486,7 +1608,7 @@
     list-style: none;
     margin: 0 0 28px;
     padding: 0;
-    border: 1px solid var(--sd3-line, #DFDFDF);
+    border: 1px solid var(--escat-bordure-forte);
 }
 
 .vision-etape {
@@ -1497,7 +1619,7 @@
 }
 
 .vision-etape:not(:last-child) {
-    border-bottom: 1px solid var(--sd3-line, #DFDFDF);
+    border-bottom: 1px solid var(--escat-bordure-forte);
 }
 
 .vision-etape__rang {
@@ -1507,7 +1629,7 @@
     font-weight: 600;
     line-height: 1.1;
     letter-spacing: -0.03em;
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
     font-variant-numeric: tabular-nums;
 }
 
@@ -1521,11 +1643,11 @@
     display: inline-block;
     margin-bottom: 8px;
     padding: 4px 10px;
-    background: var(--at-neutral-50, #F2F2F2);
+    background: var(--escat-surface-creuse);
     font-size: 12px;
     font-weight: 600;
     line-height: 1.3;
-    color: var(--at-neutral-700, #303030);
+    color: var(--escat-texte);
 }
 
 .vision-etape__titre {
@@ -1534,7 +1656,7 @@
     font-size: 19px;
     font-weight: 600;
     letter-spacing: -0.01em;
-    color: var(--sd3-ink, #1D1D1D);
+    color: var(--escat-titre);
 }
 
 .vision-etape__texte {
@@ -1542,7 +1664,7 @@
     max-width: 48ch;
     font-size: 16px;
     line-height: 1.6;
-    color: var(--at-neutral-500, #585959);
+    color: var(--escat-texte-doux);
 }
 
 .vision-etape__icone {
@@ -1552,8 +1674,8 @@
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    border: 1px solid var(--sd3-line, #DFDFDF);
-    color: var(--escat-brand);
+    border: 1px solid var(--escat-bordure-forte);
+    color: var(--escat-accent-texte);
 }
 
 @media (min-width: 768px) {
@@ -1577,7 +1699,7 @@
     padding-left: 24px;
     font-size: 16px;
     line-height: 1.6;
-    color: var(--at-neutral-700, #303030);
+    color: var(--escat-texte);
 }
 
 .vision-points__item::before {
@@ -1629,8 +1751,8 @@
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    border: 1px solid var(--sd3-line, #DFDFDF);
-    color: var(--sd3-ink, #1D1D1D);
+    border: 1px solid var(--escat-bordure-forte);
+    color: var(--escat-titre);
 }
 
 /* Filet reliant une étape à la suivante. */
@@ -1641,7 +1763,7 @@
     top: 68px;
     bottom: -4px;
     width: 1px;
-    background: var(--sd3-line, #DFDFDF);
+    background: var(--escat-bordure-forte);
 }
 
 .vision-etape__icone {
@@ -1653,9 +1775,9 @@
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    border: 1px solid var(--sd3-line, #DFDFDF);
-    background: var(--at-neutral-0, #FEFEFE);
-    color: var(--escat-brand);
+    border: 1px solid var(--escat-bordure-forte);
+    background: var(--escat-carte);
+    color: var(--escat-accent-texte);
 }
 
 .vision-etape__corps {
@@ -1667,11 +1789,11 @@
     display: inline-block;
     margin-bottom: 8px;
     padding: 4px 10px;
-    background: var(--at-neutral-50, #F2F2F2);
+    background: var(--escat-surface-creuse);
     font-size: 12px;
     font-weight: 600;
     line-height: 1.3;
-    color: var(--at-neutral-700, #303030);
+    color: var(--escat-texte);
 }
 
 .vision-etape__titre {
@@ -1680,7 +1802,7 @@
     font-size: 19px;
     font-weight: 600;
     letter-spacing: -0.01em;
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
 }
 
 .vision-etape__texte {
@@ -1688,7 +1810,7 @@
     max-width: 48ch;
     font-size: 16px;
     line-height: 1.6;
-    color: var(--at-neutral-500, #585959);
+    color: var(--escat-texte-doux);
 }
 
 /* Sans collage, la colonne de texte occupe toute la largeur. */
@@ -1740,7 +1862,7 @@
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
 }
 
 .pourquoi-body__icone {
@@ -1755,7 +1877,7 @@
     font-weight: 600;
     letter-spacing: -0.02em;
     line-height: 1.15;
-    color: var(--sd3-ink, #1D1D1D);
+    color: var(--escat-titre);
 }
 
 .pourquoi-body__lead {
@@ -1763,7 +1885,7 @@
     max-width: 54ch;
     font-size: 17px;
     line-height: 1.7;
-    color: var(--at-neutral-500, #585959);
+    color: var(--escat-texte-doux);
 }
 
 .pourquoi-actions {
@@ -1827,9 +1949,9 @@
 
 .pourquoi-carte {
     padding: 28px;
-    border: 1px solid var(--sd3-line, #DFDFDF);
+    border: 1px solid var(--escat-bordure-forte);
     border-radius: 12px;
-    background: var(--at-neutral-0, #FEFEFE);
+    background: var(--escat-carte);
 }
 
 .pourquoi-carte__icone {
@@ -1838,7 +1960,7 @@
     width: 44px;
     height: 44px;
     margin-bottom: 16px;
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
 }
 
 .pourquoi-carte__titre {
@@ -1846,14 +1968,14 @@
     margin-bottom: 8px;
     font-size: 17px;
     font-weight: 600;
-    color: var(--sd3-ink, #1D1D1D);
+    color: var(--escat-titre);
 }
 
 .pourquoi-carte__texte {
     display: block;
     font-size: 15px;
     line-height: 1.6;
-    color: var(--at-neutral-500, #585959);
+    color: var(--escat-texte-doux);
 }
 
 /*
@@ -1887,7 +2009,7 @@
 
 /* Carte posée sur la photo, en bas à gauche. */
 .apropos-carte {
-    background: var(--at-neutral-0, #FEFEFE);
+    background: var(--escat-carte);
     border-radius: 14px;
     padding: 28px;
     margin: -64px 16px 0;
@@ -1911,7 +2033,7 @@
     font-size: 64px;
     font-weight: 700;
     line-height: 0.6;
-    color: var(--at-neutral-100, #DFDFDF);
+    color: var(--escat-bordure-forte);
 }
 
 .apropos-carte__texte {
@@ -1919,13 +2041,13 @@
     font-size: 16px;
     font-weight: 600;
     line-height: 1.5;
-    color: var(--sd3-ink, #1D1D1D);
+    color: var(--escat-titre);
 }
 
 .apropos-carte__lien {
     font-size: 14px;
     font-weight: 600;
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
     text-decoration: underline;
 }
 
@@ -1937,10 +2059,10 @@
     margin: 0 0 18px;
     padding: 8px 16px;
     border-radius: 999px;
-    border: 1px solid var(--sd3-line, #DFDFDF);
+    border: 1px solid var(--escat-bordure-forte);
     font-size: 13px;
     font-weight: 600;
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
 }
 
 .apropos-body__title {
@@ -1950,7 +2072,7 @@
     font-weight: 600;
     letter-spacing: -0.02em;
     line-height: 1.15;
-    color: var(--sd3-ink, #1D1D1D);
+    color: var(--escat-titre);
 }
 
 .apropos-body__lead {
@@ -1958,14 +2080,14 @@
     max-width: 54ch;
     font-size: 17px;
     line-height: 1.7;
-    color: var(--at-neutral-500, #585959);
+    color: var(--escat-texte-doux);
 }
 
 /* Citation, avec son filet bleu */
 .apropos-citation {
     margin: 0 0 28px;
     padding: 22px 24px;
-    background: var(--at-neutral-50, #F2F2F2);
+    background: var(--escat-surface-creuse);
     border-left: 3px solid var(--escat-brand);
 }
 
@@ -1974,7 +2096,7 @@
     font-size: 16px;
     font-style: italic;
     line-height: 1.65;
-    color: var(--at-neutral-700, #303030);
+    color: var(--escat-texte);
 }
 
 /* Argument à pictogramme */
@@ -1984,7 +2106,7 @@
     align-items: flex-start;
     padding-bottom: 28px;
     margin-bottom: 28px;
-    border-bottom: 1px solid var(--sd3-line, #DFDFDF);
+    border-bottom: 1px solid var(--escat-bordure-forte);
 }
 
 .apropos-argument__icone {
@@ -1993,7 +2115,7 @@
     place-items: center;
     width: 48px;
     height: 48px;
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
 }
 
 .apropos-argument__titre {
@@ -2001,14 +2123,14 @@
     margin-bottom: 4px;
     font-size: 17px;
     font-weight: 600;
-    color: var(--sd3-ink, #1D1D1D);
+    color: var(--escat-titre);
 }
 
 .apropos-argument__texte {
     display: block;
     font-size: 15px;
     line-height: 1.6;
-    color: var(--at-neutral-500, #585959);
+    color: var(--escat-texte-doux);
 }
 
 /* Bouton arrondi */
@@ -2081,7 +2203,7 @@
 }
 
 .directeur-card {
-    background: var(--at-neutral-0, #FEFEFE);
+    background: var(--escat-carte);
     border-radius: 16px;
     padding: 36px 32px;
     box-shadow: var(--escat-ombre-flottante);
@@ -2101,7 +2223,7 @@
     font-weight: 600;
     letter-spacing: -0.02em;
     line-height: 1.15;
-    color: var(--sd3-ink, #1D1D1D);
+    color: var(--escat-titre);
 }
 
 .directeur-card__lead {
@@ -2109,14 +2231,14 @@
     font-size: 18px;
     font-weight: 500;
     line-height: 1.65;
-    color: var(--at-neutral-700, #303030);
+    color: var(--escat-texte);
 }
 
 .directeur-card__text {
     margin: 0 0 14px;
     font-size: 17px;
     line-height: 1.75;
-    color: var(--at-neutral-500, #585959);
+    color: var(--escat-texte-doux);
 }
 
 .directeur-card__text:last-child {
@@ -2130,7 +2252,7 @@
     background: none;
     font-size: 15px;
     font-weight: 600;
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
     text-decoration: underline;
     cursor: pointer;
 }
@@ -2189,7 +2311,7 @@
  * donne un fond et un rembourrage pour qu'elle respire.
  */
 .blog-card {
-    background: var(--at-neutral-0, #FEFEFE);
+    background: var(--escat-carte);
     border-radius: 14px;
     overflow: hidden;
     gap: 0;
@@ -2284,7 +2406,7 @@
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
 }
 
 /*
@@ -2304,13 +2426,13 @@
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.12;
-    color: #0c0d10;
+    color: var(--escat-titre-fort);
 }
 
 /* Le mot mis en couleur poursuit la phrase : pas de retour à la ligne forcé,
    la coupure suit la largeur disponible. */
 .phare__accent {
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
 }
 
 .phare__chapo {
@@ -2319,7 +2441,7 @@
     font-size: 17px;
     font-weight: 600;
     line-height: 1.6;
-    color: #0c0d10;
+    color: var(--escat-titre-fort);
 }
 
 .phare__citation {
@@ -2329,7 +2451,7 @@
     border-left: 2px solid var(--escat-brand);
     font-size: 16px;
     line-height: 1.75;
-    color: #5b5f66;
+    color: var(--escat-texte-discret);
 }
 
 .phare__bouton {
@@ -2458,7 +2580,7 @@
  * l'ordre de chargement qui tranche.
  */
 .at-title-text span {
-    text-shadow: 0 1.05em var(--escat-brand);
+    text-shadow: 0 1.05em var(--escat-accent-texte);
 }
 
 
@@ -2582,7 +2704,7 @@ body:has(> .page-loader) {
 
 /* Une section sur deux sur fond gris : la respiration tient lieu de séparation. */
 .adm-section--gris {
-    background: #f7f8fa;
+    background: var(--escat-surface-douce);
 }
 
 .adm-tete {
@@ -2598,14 +2720,14 @@ body:has(> .page-loader) {
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.2;
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
 }
 
 .adm-tete__intro {
     margin: 0;
     font-size: 16px;
     line-height: 1.65;
-    color: #5b5f66;
+    color: var(--escat-texte-discret);
 }
 
 /* -- Volets (critères, questions) ---------------------------------------- */
@@ -2616,7 +2738,7 @@ body:has(> .page-loader) {
 }
 
 .adm-volet + .adm-volet {
-    border-top: 1px solid #e4e7ec;
+    border-top: 1px solid var(--escat-bordure);
 }
 
 .adm-volet__bouton {
@@ -2631,19 +2753,19 @@ body:has(> .page-loader) {
     font-size: 16px;
     font-weight: 700;
     line-height: 1.4;
-    color: #0c0d10;
+    color: var(--escat-titre-fort);
     cursor: pointer;
 }
 
 .adm-volet__bouton:hover,
 .adm-volet__bouton:focus-visible {
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
 }
 
 .adm-volet__marque {
     display: inline-flex;
     flex: none;
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
 }
 
 /* Le chevron pivote vers le haut quand le volet est ouvert. */
@@ -2651,13 +2773,13 @@ body:has(> .page-loader) {
     display: inline-flex;
     flex: none;
     margin-left: auto;
-    color: #8a9099;
+    color: var(--escat-texte-tenu);
     transition: transform 0.3s ease;
 }
 
 .adm-volet__bouton:not(.collapsed) .adm-volet__chevron {
     transform: rotate(180deg);
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
 }
 
 .adm-volet__corps {
@@ -2669,7 +2791,7 @@ body:has(> .page-loader) {
     margin: 0 0 12px;
     font-size: 15px;
     line-height: 1.75;
-    color: #5b5f66;
+    color: var(--escat-texte-discret);
 }
 
 .adm-volet__corps p:last-child {
@@ -2699,8 +2821,8 @@ body:has(> .page-loader) {
     gap: 10px;
     padding: 28px 20px;
     text-align: center;
-    background: #fff;
-    border: 1px solid #e4e7ec;
+    background: var(--escat-surface);
+    border: 1px solid var(--escat-bordure);
     border-radius: 14px;
     box-shadow: var(--escat-ombre-posee);
 }
@@ -2713,7 +2835,7 @@ body:has(> .page-loader) {
     height: 54px;
     border-radius: 50%;
     background: rgba(38, 70, 208, 0.08);
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
 }
 
 .adm-etape__titre {
@@ -2721,14 +2843,14 @@ body:has(> .page-loader) {
     font-size: 17px;
     font-weight: 700;
     line-height: 1.3;
-    color: #0c0d10;
+    color: var(--escat-titre-fort);
 }
 
 .adm-etape__texte {
     margin: 0;
     font-size: 14px;
     line-height: 1.6;
-    color: #5b5f66;
+    color: var(--escat-texte-discret);
 }
 
 .adm-etape__rang {
@@ -2758,13 +2880,13 @@ body:has(> .page-loader) {
     border-bottom: 2px solid transparent;
     font-size: 15px;
     font-weight: 600;
-    color: #5b5f66;
+    color: var(--escat-texte-discret);
     cursor: pointer;
 }
 
 .adm-onglet.is-active {
     border-bottom-color: var(--escat-brand);
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
 }
 
 .adm-poles {
@@ -2777,12 +2899,12 @@ body:has(> .page-loader) {
 
 .adm-pole {
     padding: 7px 16px;
-    border: 1px solid #e4e7ec;
+    border: 1px solid var(--escat-bordure);
     border-radius: 8px;
-    background: #fff;
+    background: var(--escat-surface);
     font-size: 14px;
     font-weight: 600;
-    color: #5b5f66;
+    color: var(--escat-texte-discret);
     cursor: pointer;
 }
 
@@ -2796,8 +2918,8 @@ body:has(> .page-loader) {
     max-width: 68rem;
     margin: 0 auto;
     padding: 8px;
-    background: #fff;
-    border: 1px solid #e4e7ec;
+    background: var(--escat-surface);
+    border: 1px solid var(--escat-bordure);
     border-radius: 14px;
     box-shadow: var(--escat-ombre-posee);
     /* Le tableau garde ses colonnes lisibles : sous cette largeur il défile
@@ -2821,21 +2943,21 @@ body:has(> .page-loader) {
 
 .adm-table thead th {
     font-weight: 500;
-    color: #8a9099;
-    border-bottom: 1px solid #e4e7ec;
+    color: var(--escat-texte-tenu);
+    border-bottom: 1px solid var(--escat-bordure);
 }
 
 .adm-ligne + .adm-ligne {
-    border-top: 1px solid #f0f2f5;
+    border-top: 1px solid var(--escat-bordure-tenue);
 }
 
 .adm-ligne__nom {
     font-weight: 500;
-    color: #0c0d10;
+    color: var(--escat-titre-fort);
 }
 
 .adm-ligne__debouches {
-    color: #5b5f66;
+    color: var(--escat-texte-discret);
 }
 
 .adm-ligne__action {
@@ -2846,18 +2968,18 @@ body:has(> .page-loader) {
 .adm-lien {
     display: inline-block;
     padding: 7px 14px;
-    border: 1px solid #e4e7ec;
+    border: 1px solid var(--escat-bordure);
     border-radius: 8px;
     font-size: 13px;
     font-weight: 600;
-    color: #0c0d10;
+    color: var(--escat-titre-fort);
     text-decoration: none;
 }
 
 .adm-lien:hover,
 .adm-lien:focus-visible {
     border-color: var(--escat-brand);
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
 }
 
 .adm-tableau__vide {
@@ -2865,7 +2987,7 @@ body:has(> .page-loader) {
     padding: 28px 18px;
     text-align: center;
     font-size: 15px;
-    color: #5b5f66;
+    color: var(--escat-texte-discret);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2888,15 +3010,40 @@ body:has(> .page-loader) {
     background: rgba(38, 70, 208, 0.06);
     font-size: 15px;
     font-weight: 600;
-    color: #0c0d10;
+    color: var(--escat-titre-fort);
 }
 
-/* Message d'erreur, sous le champ fautif plutôt qu'en tête de formulaire. */
+/*
+ * Message d'erreur, sous le champ fautif plutôt qu'en tête de formulaire.
+ *
+ * Sa place est réservée en permanence, par le `padding-bottom` du champ : en
+ * flux, son apparition poussait le bouton d'envoi 22 px plus bas. Comme elle
+ * se déclenche à la sortie du champ, c'est-à-dire au `mousedown` sur le
+ * bouton, celui-ci se dérobait entre l'appui et le relâchement : le clic
+ * n'aboutissait pas et il fallait recommencer.
+ */
+.sec-4-about-form__field {
+    position: relative;
+    padding-bottom: 22px;
+}
+
 .contact-erreur {
-    margin: 6px 0 0;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    margin: 0;
     font-size: 13px;
     font-weight: 600;
-    color: #b4231f;
+    line-height: 1.4;
+    color: var(--escat-erreur);
+}
+
+/*
+ * Le compteur du message change de longueur à chaque frappe. Une hauteur
+ * minimale l'empêche de passer de deux lignes à une et de décaler la suite.
+ */
+.contact-aide {
+    min-height: 18px;
 }
 
 /*
@@ -2916,19 +3063,19 @@ body:has(> .page-loader) {
 .contact-resume {
     margin: 0 0 18px;
     padding: 12px 16px;
-    border-left: 3px solid #b4231f;
+    border-left: 3px solid var(--escat-erreur);
     border-radius: 0 10px 10px 0;
     background: rgba(180, 35, 31, 0.06);
     font-size: 14px;
     font-weight: 600;
-    color: #8a1a17;
+    color: var(--escat-erreur-texte);
 }
 
 /* Contrainte annoncée avant la saisie, sous le champ concerné. */
 .contact-aide {
     margin: 6px 0 0;
     font-size: 13px;
-    color: #8a9099;
+    color: var(--escat-texte-tenu);
 }
 
 
@@ -2939,7 +3086,7 @@ body:has(> .page-loader) {
 .filieres-groupe + .filieres-groupe {
     margin-top: 20px;
     padding-top: 60px;
-    border-top: 1px solid #e4e7ec;
+    border-top: 1px solid var(--escat-bordure);
 }
 
 .filieres-groupe__tete {
@@ -2954,7 +3101,7 @@ body:has(> .page-loader) {
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
 }
 
 .filieres-groupe__titre {
@@ -2964,14 +3111,14 @@ body:has(> .page-loader) {
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.2;
-    color: #0c0d10;
+    color: var(--escat-titre-fort);
 }
 
 .filieres-groupe__texte {
     margin: 0 0 10px;
     font-size: 16px;
     line-height: 1.65;
-    color: #5b5f66;
+    color: var(--escat-texte-discret);
 }
 
 /* Le compte se met à jour au filtrage : il annonce ce qui reste visible. */
@@ -2979,7 +3126,7 @@ body:has(> .page-loader) {
     margin: 0;
     font-size: 13px;
     font-weight: 600;
-    color: #8a9099;
+    color: var(--escat-texte-tenu);
 }
 
 .filieres-vide {
@@ -2987,7 +3134,7 @@ body:has(> .page-loader) {
     padding: 60px 18px;
     text-align: center;
     font-size: 16px;
-    color: #5b5f66;
+    color: var(--escat-texte-discret);
 }
 
 
@@ -3084,7 +3231,7 @@ body:has(> .page-loader) {
 
 .filieres-groupe__lien:hover,
 .filieres-groupe__lien:focus-visible {
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
     text-decoration: underline;
     text-underline-offset: 4px;
 }
@@ -3099,14 +3246,14 @@ a.at-megamenu-title-wrap {
 
 a.at-megamenu-title-wrap:hover .at-megamenu-title,
 a.at-megamenu-title-wrap:focus-visible .at-megamenu-title {
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
 }
 
 /* -- Passerelle vers les autres cycles, en bas de page ------------------- */
 
 .cycles-voisins {
     padding: 70px 0 90px;
-    background: #f7f8fa;
+    background: var(--escat-surface-douce);
 }
 
 .cycles-voisins__titre {
@@ -3116,7 +3263,7 @@ a.at-megamenu-title-wrap:focus-visible .at-megamenu-title {
     font-size: clamp(22px, 2.2vw, 30px);
     font-weight: 700;
     letter-spacing: -0.02em;
-    color: #0c0d10;
+    color: var(--escat-titre-fort);
 }
 
 .cycles-voisins__liste {
@@ -3134,8 +3281,8 @@ a.at-megamenu-title-wrap:focus-visible .at-megamenu-title {
     gap: 4px;
     height: 100%;
     padding: 22px 24px;
-    background: #fff;
-    border: 1px solid #e4e7ec;
+    background: var(--escat-surface);
+    border: 1px solid var(--escat-bordure);
     border-radius: 14px;
     text-decoration: none;
     box-shadow: var(--escat-ombre-posee);
@@ -3151,7 +3298,7 @@ a.at-megamenu-title-wrap:focus-visible .at-megamenu-title {
 .cycles-voisins__nom {
     font-size: 17px;
     font-weight: 700;
-    color: #0c0d10;
+    color: var(--escat-titre-fort);
 }
 
 .cycles-voisins__niveau {
@@ -3159,12 +3306,12 @@ a.at-megamenu-title-wrap:focus-visible .at-megamenu-title {
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
 }
 
 .cycles-voisins__compte {
     font-size: 14px;
-    color: #5b5f66;
+    color: var(--escat-texte-discret);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -3175,7 +3322,7 @@ a.at-megamenu-title-wrap:focus-visible .at-megamenu-title {
 
 /* Retour visuel du bouton « copier le lien », le temps du message. */
 .at-social__link.est-copie {
-    color: var(--escat-brand);
+    color: var(--escat-accent-texte);
 }
 
 .at-social__link[data-copier-lien] {
@@ -3184,4 +3331,102 @@ a.at-megamenu-title-wrap:focus-visible .at-megamenu-title {
     padding: 0;
     cursor: pointer;
     color: inherit;
+}
+
+
+/* =========================================================================
+   Mode sombre : les règles que les jetons ne couvrent pas.
+   ========================================================================= */
+
+/*
+ * Bandeau de tête des pages intérieures.
+ *
+ * Le gabarit le peint avec `--sd3-ink`, qui sert aussi d'encre aux titres.
+ * En mode sombre cette encre passe au blanc cassé : le bandeau devenait
+ * blanc, et son titre, blanc lui aussi, disparaissait. La scène a désormais
+ * son propre jeton, sombre dans les deux thèmes.
+ */
+.sd3-hero__stage {
+    background: var(--escat-scene);
+}
+
+/*
+ * Logo de l'en-tête.
+ *
+ * main.css retourne l'image en mode sombre (`filter: invert(1)`), ce qui
+ * convient à un logotype noir d'une seule teinte. Celui de l'école est en
+ * quatre couleurs : l'inversion rendait le bleu orange, le vert magenta et
+ * le rouge cyan. On garde les couleurs justes et on pose le logo sur une
+ * plaque claire, sans quoi le « ES », noir, se perdrait sur le fond.
+ */
+[data-bs-theme=dark] .at-header-logo img,
+[data-bs-theme=dark] .at-offcanvas-logo img,
+[data-bs-theme=dark] .page-loader-logo img {
+    filter: none;
+    background: #ffffff;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+/*
+ * Logos des partenaires (bandeau de l'accueil et de la page « L'école »).
+ *
+ * Le gabarit les retourne lui aussi, par `.dark-mode-invert`. Ce sont des
+ * images en couleurs sur fond blanc opaque : l'inversion rendait l'orange
+ * bleu, le rose vert, et cernait chaque logo d'un cadre noir. On garde les
+ * couleurs des marques et on pose chacune sur une plaque blanche, qui
+ * prolonge le fond déjà contenu dans l'image au lieu de le trancher.
+ */
+/* Sur l'accueil, le gabarit porte le filtre sur le conteneur : le lever sur
+   l'image seule ne servirait à rien, un filtre de parent teinte tout. */
+[data-bs-theme=dark] .brand-item.dark-mode-invert {
+    filter: none;
+}
+
+[data-bs-theme=dark] .at-brand-scroll .brand-logo-slide img,
+[data-bs-theme=dark] .brand-item.dark-mode-invert img {
+    filter: none;
+    background: #ffffff;
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+
+/*
+ * Pilules de filtre actives (« Toutes les filières », rubriques du journal).
+ * Le gabarit y pose `--at-neutral-0` en couleur de texte : en mode sombre,
+ * ce jeton devient le fond de page, soit du presque noir sur l'aplat bleu.
+ */
+[data-bs-theme=dark] .at-btn.active,
+[data-bs-theme=dark] .at-btn.filter-btn.active {
+    color: #ffffff;
+}
+
+/*
+ * Champs de saisie : le remplissage automatique de Chrome impose son propre
+ * fond clair par `-webkit-autofill`, que seule une ombre interne recouvre.
+ */
+[data-bs-theme=dark] input:-webkit-autofill,
+[data-bs-theme=dark] textarea:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px var(--escat-surface-creuse) inset;
+    -webkit-text-fill-color: var(--escat-titre);
+}
+
+/*
+ * Date et rubrique des cartes d'actualité. main.css les fixe à #585959,
+ * une valeur littérale que le thème ne rebranche pas : sur la carte sombre
+ * elles tombaient à 2,5:1.
+ */
+[data-bs-theme=dark] .blog-card__meta-text {
+    color: var(--escat-texte-doux);
+}
+
+/*
+ * Préchargeur : dix volets qui se rétractent.
+ *
+ * main.css les peint en #f3f0f0, une valeur littérale. En mode sombre, la
+ * page s'ouvrait donc sur un écran presque blanc avant de basculer au noir
+ * — le contraire de ce qu'un préchargeur doit faire.
+ */
+[data-bs-theme=dark] .bar {
+    background: var(--escat-surface-creuse);
 }
