@@ -43,8 +43,10 @@
 
                     {{-- Pot de miel : masqué aux personnes, rempli par les robots. --}}
                     <div class="newsletter-box__trap" aria-hidden="true">
-                        <label for="newsletter-website">Ne pas remplir</label>
-                        <input id="newsletter-website" type="text" name="website" tabindex="-1" autocomplete="off">
+                        <label for="newsletter-reference">Ne pas remplir</label>
+                        <input id="newsletter-reference" type="text" name="reference_interne"
+                               tabindex="-1" autocomplete="off"
+                               data-lpignore="true" data-1p-ignore data-form-type="other">
                     </div>
 
                     @error('email')

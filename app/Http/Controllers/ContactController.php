@@ -22,7 +22,7 @@ class ContactController extends Controller
     public function store(StoreContactMessageRequest $request): RedirectResponse
     {
         $message = ContactMessage::query()->create([
-            ...$request->safe()->except('website'),
+            ...$request->safe()->except('reference_interne'),
             'ip_address' => $request->ip(),
         ]);
 

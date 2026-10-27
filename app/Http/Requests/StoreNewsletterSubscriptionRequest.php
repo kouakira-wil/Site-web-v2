@@ -21,7 +21,7 @@ class StoreNewsletterSubscriptionRequest extends FormRequest
         return [
             'email' => ['required', 'string', 'email:rfc,dns', 'max:180'],
             // Pot de miel : champ masqué que seuls les robots remplissent.
-            'website' => ['prohibited'],
+            'reference_interne' => ['prohibited'],
         ];
     }
 
@@ -41,7 +41,7 @@ class StoreNewsletterSubscriptionRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'website.prohibited' => 'Votre inscription n’a pas pu être enregistrée.',
+            'reference_interne.prohibited' => 'Votre inscription n’a pas pu être enregistrée.',
         ];
     }
 }

@@ -33,7 +33,7 @@ class ContactMailTest extends TestCase
             'email' => 'awa@example.test',
             'subject' => 'Demande de préinscription',
             'message' => 'Je souhaite connaître les conditions d’accès au cycle Licence.',
-            'website' => '',
+            'reference_interne' => '',
         ];
     }
 
@@ -76,7 +76,7 @@ class ContactMailTest extends TestCase
          * ferait lever le gabarit, et l'exception serait avalée par le `try`
          * du contrôleur — message en base, personne averti.
          */
-        $message = ContactMessage::query()->create($this->demande(['website' => null]) + ['website' => null]);
+        $message = ContactMessage::query()->create($this->demande(['reference_interne' => null]) + ['reference_interne' => null]);
 
         $html = (new ContactMessageReceived($message))->render();
 

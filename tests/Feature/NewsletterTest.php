@@ -75,9 +75,9 @@ class NewsletterTest extends TestCase
         $this->from('/l-ecole')
             ->post(route('newsletter.store'), [
                 'email' => 'robot@exemple.com',
-                'website' => 'http://spam.example',
+                'reference_interne' => 'http://spam.example',
             ])
-            ->assertSessionHasErrors('website');
+            ->assertSessionHasErrors('reference_interne');
 
         $this->assertSame(0, NewsletterSubscriber::query()->count());
     }

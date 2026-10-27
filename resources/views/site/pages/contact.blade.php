@@ -156,11 +156,22 @@
                                            @unless ($errors->has('message')) hidden @endunless>{{ $errors->first('message') }}</p>
                                     </div>
 
-                                    {{-- Piège à robots : un navigateur laisse ce champ vide.
-                                         Masqué à l'œil comme au lecteur d'écran. --}}
+                                    {{--
+                                        Piège à robots : un navigateur laisse ce champ vide.
+                                        Masqué à l'œil comme au lecteur d'écran.
+
+                                        Il s'appelait « website » : les extensions de
+                                        remplissage automatique le reconnaissaient et le
+                                        remplissaient, ce qui faisait rejeter la demande. Le
+                                        nom ne dit plus rien, et les marqueurs ci-dessous
+                                        demandent aux gestionnaires de mots de passe de
+                                        passer leur chemin.
+                                    --}}
                                     <div class="contact-piege" aria-hidden="true">
-                                        <label for="contact-website">Ne rien saisir</label>
-                                        <input type="text" id="contact-website" name="website" tabindex="-1" autocomplete="off">
+                                        <label for="contact-reference">Ne rien saisir</label>
+                                        <input type="text" id="contact-reference" name="reference_interne"
+                                               tabindex="-1" autocomplete="off"
+                                               data-lpignore="true" data-1p-ignore data-form-type="other">
                                     </div>
 
                                     <div class="sec-4-about-form__actions">

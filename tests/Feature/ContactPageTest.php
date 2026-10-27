@@ -47,7 +47,7 @@ class ContactPageTest extends TestCase
             'email' => 'awa@example.test',
             'subject' => 'Demande de préinscription',
             'message' => 'Je souhaite connaître les conditions d’accès au cycle Licence.',
-            'website' => '',
+            'reference_interne' => '',
         ])->assertRedirect('/contact')->assertSessionHas('status');
 
         $this->assertDatabaseHas('contact_messages', ['email' => 'awa@example.test']);
@@ -61,7 +61,7 @@ class ContactPageTest extends TestCase
             'name' => 'Awa Traoré',
             'email' => 'awa@example.test',
             'message' => 'Je souhaite connaître les conditions d’accès au cycle Licence.',
-            'website' => '',
+            'reference_interne' => '',
         ]);
 
         $this->assertStringContainsString('votre message est bien arrivé', $this->page());
@@ -73,7 +73,7 @@ class ContactPageTest extends TestCase
             'name' => 'Awa Traoré',
             'email' => 'pas-une-adresse',
             'message' => 'Trop court.',
-            'website' => '',
+            'reference_interne' => '',
         ])->assertRedirect('/contact');
 
         $contenu = $this->page();

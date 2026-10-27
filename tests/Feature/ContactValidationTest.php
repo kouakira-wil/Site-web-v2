@@ -136,7 +136,7 @@ class ContactValidationTest extends TestCase
             'name' => '',
             'email' => 'pas-une-adresse',
             'message' => 'Trop court.',
-            'website' => '',
+            'reference_interne' => '',
         ])->assertRedirect('/contact')->assertSessionHasErrors(['name', 'email', 'message']);
 
         $this->assertDatabaseCount('contact_messages', 0);

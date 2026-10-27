@@ -49,10 +49,10 @@ class ContactFormTest extends TestCase
     public function test_the_honeypot_field_blocks_the_submission(): void
     {
         $response = $this->post(route('contact.store'), $this->validPayload([
-            'website' => 'https://spam.example',
+            'reference_interne' => 'https://spam.example',
         ]));
 
-        $response->assertSessionHasErrors('website');
+        $response->assertSessionHasErrors('reference_interne');
         $this->assertDatabaseCount('contact_messages', 0);
     }
 
